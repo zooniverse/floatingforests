@@ -1,7 +1,12 @@
+Footer = require 'zooniverse/controllers/footer'
 # add open sans font
 $('head').append("<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>")
 
 $ ->
+  footer = new Footer
+  $("<div id='footer-container'></div>").insertAfter(".stack-of-pages")
+  footer.el.appendTo document.getElementById("footer-container")
+
   $("<h1 id='classify-header'>Mark all the Kelp you see</h1>").insertBefore(".readymade-classification-interface")
 
   $(".stack-of-pages div:nth-child(4)").addClass("readymade-about-page")
