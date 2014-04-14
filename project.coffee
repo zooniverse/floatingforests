@@ -1,4 +1,3 @@
-#> zooniverse-readymade serve --css project.styl --js overrides.coffee
 FreeDrawTool = require "./free-draw-tool"
 
 module.exports =
