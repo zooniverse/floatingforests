@@ -1,6 +1,7 @@
 LIME_GREEN = #b9d663
 TURQ = #4ed1ff
 AQUA = #34a6a8
+MARINE = #00485b
 
 #readymade
   font-family 'Open Sans' sans-serif
@@ -225,9 +226,12 @@ AQUA = #34a6a8
 
   .zooniverse-footer
     FOOTER_WIDTH = 80%
-    background-color #000
+    background-color rgba(0,0,0,0.7)
     a
       color #9d9d9d
+      transition color 0.2s ease
+      &:hover
+        color LIME_GREEN
     span
       color #565857
     .zooniverse-logo-container
@@ -277,3 +281,10 @@ AQUA = #34a6a8
     .zooniverse-info.piece
       span
         display none
+
+  ::selection
+    color #fff
+    background AQUA
+  ::-moz-selection
+    color #fff
+    background AQUA

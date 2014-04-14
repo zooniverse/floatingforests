@@ -3,7 +3,6 @@ Footer = require 'zooniverse/controllers/footer'
 $('head').append("<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700,800' rel='stylesheet' type='text/css'>")
 
 $ ->
-
   # additional sections
   footer = new Footer
   $("<div id='footer-container'></div>").insertAfter(".stack-of-pages")
