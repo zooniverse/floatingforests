@@ -1,6 +1,6 @@
 Footer = require 'zooniverse/controllers/footer'
 # add open sans font
-$('head').append("<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>")
+$('head').append("<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700,800' rel='stylesheet' type='text/css'>")
 
 $ ->
   footer = new Footer
@@ -19,6 +19,8 @@ $ ->
       <div class="third"><button id='undo'>Undo</button></div>
     </div>
   """)
+
+  $(".readymade-call-to-action").html "Get Started"
 
   $("button[name='decision-tree-confirm-task']").html("Next Subject")
 

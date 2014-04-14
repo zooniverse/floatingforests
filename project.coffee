@@ -5,8 +5,8 @@ module.exports =
   id: 'project_id'
   background: 'kelp-forest-large.jpg'
   title: 'Kelp Hunters'
-  summary: 'We need your help to find Kelp'
-  description: 'Click the classify button to get started'
+  summary: 'Help find kelp forests'
+  description: 'Join the search of satellite imagery to locate and track the worlds kelp forests!'
 
   pages: [{
     'About': '''

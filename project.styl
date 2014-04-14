@@ -12,6 +12,9 @@ TURQ = #4ed1ff
     .readymade-main-stack
       margin-top 200px
 
+    .readymade-site-background
+      opacity 1
+
   &[data-location-hash="#/classify"]
     .readymade-main-stack
       margin none
@@ -19,12 +22,19 @@ TURQ = #4ed1ff
 
   .readymade-main-stack
     overflow auto
+    min-height 500px
 
   .readymade-discuss-page
     width auto
 
   .readymade-site-background-effect
     display none
+
+  .readymade-site-header
+    transition background-color 0.5s ease
+
+  .readymade-site-background
+    opacity 0.5
 
   .readymade-project-producer
     display none
@@ -33,6 +43,19 @@ TURQ = #4ed1ff
     font-size 14px
     font-weight 700
     letter-spacing 2px
+
+  .readymade-project-description
+    font-weight 300
+    font-size 14px
+    display inline-block
+    margin-bottom 20px
+
+  .readymade-project-summary
+    font-size 50px
+    font-weight  800
+    text-transform uppercase
+    letter-spacing 5px
+    margin-bottom 80px
 
   .readymade-site-link
     text-transform none
@@ -107,12 +130,19 @@ TURQ = #4ed1ff
 
   .readymade-home-page
     text-shadow none
+    .readymade-footer
+      display inline
     .readymade-call-to-action
-      margin-bottom 200px
-      float left
       background-color LIME_GREEN
       color #fff
       box-shadow none
+      border-radius 5px
+      text-transform uppercase
+      height 40px
+      line-height 40px
+      letter-spacing 2px
+      font-size 10px
+      padding 0 20px
       &:hover
         background-color darken(LIME_GREEN, 5)
 
@@ -213,3 +243,13 @@ TURQ = #4ed1ff
         a
           text-decoration none
 
+  // nav responsiveness
+  @media screen and (max-width: 900px)
+    .readymade-site-header
+      background-color rgba(185, 214, 99, 0.67)
+    .readymade-site-links
+      margin 20px 0 0 0
+      padding-bottom 20px
+    .zooniverse-info-piece
+      .zooniverse-logo
+        display none
