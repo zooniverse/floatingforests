@@ -1,0 +1,16 @@
+{
+  "name": "kelp-readymade",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "zooniverse-readymade serve --css project.styl --js overrides.coffee"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "marking-surface": "^0.5.3",
+    "zooniverse-readymade": "0.0.11",
+    "zooniverse": "^0.6.1"
+  }
+}

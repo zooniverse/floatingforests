@@ -1,0 +1,160 @@
+LIME_GREEN = #b9d663
+TURQ = #4ed1ff
+
+#readymade
+  font-family 'Open Sans' sans-serif
+  button
+    outline none
+    &:hover
+      cursor pointer
+
+  .readymade-main-stack
+    margin none
+    width auto
+
+  .readymade-home-page, .readymade-about-page, .readymade-team-page, .readymade-discuss-page, .zooniverse-profile
+    margin: 20px auto
+    width: 90vw
+
+  .readymade-site-background-effect
+    display none
+
+  .readymade-project-producer
+    display none
+
+  .readymade-project-title
+    font-size 14px
+    font-weight 700
+    letter-spacing 2px
+
+  .readymade-site-link
+    text-transform none
+    font-weight 400
+    font-size 14px
+    opacity 0.5
+    &:hover
+      background transparent
+    &.active
+      opacity 1
+    &:nth-child(1)
+      display none
+
+  .readymade-classifier
+    overflow hidden
+    #classify-header
+      font-size 36px
+      margin: 20px auto
+      width: 90vw
+    .readymade-decision-tree-container
+      display block
+      width 520px
+      margin 0 auto
+      .decision-tree
+        padding none
+        button[name="decision-tree-go-back"]
+          display none
+        button[name="decision-tree-confirm-task"]
+          display block
+          height 60px
+          font-weight 800
+          font-size 18px
+          width 100%
+          margin-top 40px
+          border none
+          background-color LIME_GREEN
+          &:hover
+            background-color darken(LIME_GREEN, 5)
+        .decision-tree-question
+          display none
+        .decision-tree-choice
+          display none
+        .decision-tree-confirmation
+          width 520px
+        .decision-tree-task
+          display block !important // prevent decision tree from blinking in between subjects
+    .readymade-subject-viewer-container
+      width 100%
+      min-height 395px
+      position relative
+      display block
+      background none
+      .readymade-subject-viewer
+        width 520px
+        margin 0 auto
+      .left-image, .right-image
+        position absolute
+        top 14px
+        transition all 1s ease
+      .left-image
+        left -280px
+        @media screen and (max-width: 1150px)
+          opacity 0.5
+          left -600px
+      .right-image
+        right -280px
+        @media screen and (max-width: 1150px)
+          opacity 0.5
+          right -600px
+
+  .readymade-home-page
+    text-shadow none
+    .readymade-call-to-action
+      float left
+      background-color LIME_GREEN
+      color #fff
+      box-shadow none
+      &:hover
+        background-color darken(LIME_GREEN, 5)
+
+  #custom-buttons
+    margin-bottom 10px
+    .third
+      width 33%
+      display inline-block
+      overflow auto
+      float left
+      text-align center
+      button
+        width 100px
+        font-weight 800
+        font-size 14px
+        border 2px solid transparent
+        border-radius 5px
+        display inline-block
+        text-transform uppercase
+        height 50px
+        &:hover
+          opacity 0.8
+      #clouds-present
+        background-color TURQ
+        color #fff
+        width 40px
+        height 40px
+        border-radius 50%
+        transition 0.5s all ease
+        &.present
+          background-color #fff
+          color TURQ
+      #undo, #map
+        margin-top 10px
+        border 2px solid #fff
+        background-color transparent
+        display inline-block
+        color #fff
+        &:active
+          color TURQ
+          border-color TURQ
+
+  .zooniverse-profile
+    .sign-in-form
+      .action
+        button
+          background-color LIME_GREEN
+          color #fff
+          box-shadow none
+    .no-account
+      button[name="sign-up"]
+        background none
+        border none
+        color #fff
+        font-size 13px
