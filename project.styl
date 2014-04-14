@@ -1,5 +1,6 @@
 LIME_GREEN = #b9d663
 TURQ = #4ed1ff
+AQUA = #34a6a8
 
 #readymade
   font-family 'Open Sans' sans-serif
@@ -8,12 +9,34 @@ TURQ = #4ed1ff
     &:hover
       cursor pointer
 
+  .home-content
+    display none
+
   &[data-location-hash="#/"]
     .readymade-main-stack
       margin-top 200px
 
     .readymade-site-background
       opacity 1
+
+    .home-content
+      height 850px
+      padding-top 185px
+      display block !important
+      background-color #fff
+      color AQUA
+      overflow auto
+      h2, p
+        width 60%
+        @media screen and (max-width: 900px)
+          width 100%
+      p
+        line-height 2em
+      h2
+        text-transform uppercase
+        font-size 18px
+        font-weight 700
+        letter-spacing 2px
 
   &[data-location-hash="#/classify"]
     .readymade-main-stack
@@ -250,6 +273,6 @@ TURQ = #4ed1ff
     .readymade-site-links
       margin 20px 0 0 0
       padding-bottom 20px
-    .zooniverse-info-piece
-      .zooniverse-logo
+    .zooniverse-info.piece
+      span
         display none
