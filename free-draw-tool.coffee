@@ -1,4 +1,3 @@
-
 {Tool} = require "marking-surface"
 
 class FreeDrawTool extends Tool

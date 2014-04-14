@@ -8,14 +8,17 @@ TURQ = #4ed1ff
     &:hover
       cursor pointer
 
-  .readymade-main-stack
-    margin none
-    width auto
-    overflow auto
+  &[data-location-hash="#/"]
+    .readymade-main-stack
+      margin-top 200px
 
-  .readymade-home-page, .readymade-about-page, .readymade-team-page, .readymade-discuss-page, .zooniverse-profile
-    margin: 20px auto
-    width: 90vw
+  &[data-location-hash="#/classify"]
+    .readymade-main-stack
+      margin none
+      width auto
+
+  .readymade-main-stack
+    overflow auto
 
   .readymade-discuss-page
     width auto
@@ -209,3 +212,4 @@ TURQ = #4ed1ff
         font-size 12px
         a
           text-decoration none
+
