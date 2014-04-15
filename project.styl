@@ -44,6 +44,9 @@ MARINE = #00485b
       margin none
       width auto
 
+  .readymade-frame-controls
+    display none
+
   .readymade-main-stack
     overflow auto
     min-height 500px
@@ -100,6 +103,19 @@ MARINE = #00485b
       margin: 20px auto
       width: 90vw
       font-weight 300
+    #location-data
+      font-size 14px
+      text-align center
+      margin 0 auto
+      h2
+        font-size 14px
+        text-transform uppercase
+        letter-spacing 0.1em
+        font-weight 600
+        margin-bottom 5px
+      p
+        font-weight 400
+        margin 0 0 10px 0
     .readymade-decision-tree-container
       display block
       width 520px
@@ -125,6 +141,8 @@ MARINE = #00485b
           display none
         .decision-tree-confirmation
           width 520px
+          overflow auto
+          margin-top 20px
         .decision-tree-task
           display block !important // prevent decision tree from blinking in between subjects
     .readymade-subject-viewer-container
@@ -135,6 +153,37 @@ MARINE = #00485b
       position relative
       display block
       background none
+      .summary-overlay
+        height 390px
+        width 520px
+        background-color rgba(0, 72, 91, 0.7)
+        position absolute
+        top 0px
+        left -340px
+        transition left 0.5s
+        text-align left
+        h1
+          font-size 28px
+        p.bold-data
+          font-size 20px
+          font-weight 800
+        a
+          border 2px solid #fff
+          color #fff
+          border-radius 5px
+          padding 10px
+          &:hover
+            cursor pointer
+        .content
+          width 35%
+          float right
+          margin-right -5px
+        &.centered
+          left 50%
+          margin-left -260px
+          .content
+            width 100%
+            text-align center
       .readymade-subject-viewer
         width 520px
         margin 0 auto
