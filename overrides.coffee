@@ -97,11 +97,12 @@ $ ->
 
     setTimeout =>
       $(".summary-overlay").removeClass("centered")
-    , 5000
+      $(".summary-overlay").addClass("mobile-done") if window.innerWidth < 900
+    , 4000
     console.log "SEND_CLASSIFICATION"
 
   window.onresize = =>
     if window.innerWidth < 900
       $(".summary-overlay").css("display", "none")
     else
-      $(".summary-overlay").css("display", "inline-block")
+      $(".summary-overlay").css("display", "inline-block").removeClass("mobile-done")
