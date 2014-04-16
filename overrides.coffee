@@ -56,19 +56,21 @@ $ ->
   $(".readymade-subject-viewer-container").append("<img class='left-image' src='http://placehold.it/520X390'>")
   $(".readymade-subject-viewer-container").append("<img class='right-image' src='http://placehold.it/520X390'>")
 
-  $(".readymade-subject-viewer-container").append("""
-    <div class='summary-overlay #{'centered' if window.innerWidth < 900}'>
-      <div class='content'>
-        <h1>Nice Work!</h1>
-        <p>You Marked</p>
-        <p class='bold-data' id='kelp-num'>_ kelp beds</p>
-        <p>Located near</p>
-        <p class='bold-data'>34'00'02.3 N</p>
-        <p class='bold-data'>120'14'55.0 W</p>
-        <a>Discuss on Talk</a>
-      </div>
-     </div>
-   """)
+  # utilities
+  addSummary = (kelpNum) ->
+    $("""
+      <div class='summary-overlay centered'>
+        <div class='content'>
+          <h1>Nice Work!</h1>
+          <p>You Marked</p>
+          <p class='bold-data' id='kelp-num'>#{kelpNum} kelp bed#{if kelpNum is 1 then '' else 's'}</p>
+          <p>Located near</p>
+          <p class='bold-data'>34'00'02.3 N</p>
+          <p class='bold-data'>120'14'55.0 W</p>
+          <a>Discuss on Talk</a>
+        </div>
+       </div>
+     """).fadeIn(100).appendTo(".readymade-subject-viewer-container")
 
   # events
   $(".readymade-site-link").on "click", (e) ->
@@ -89,11 +91,17 @@ $ ->
     console.log "CREATE_CLASSIFICATION", subject
 
   classifyPage.on classifyPage.SEND_CLASSIFICATION, ->
-    $("#kelp-num").html "#{tools.length} kelp beds"
+    $(".summary-overlay").remove()
+
+    addSummary(tools.length)
+
+    setTimeout =>
+      $(".summary-overlay").removeClass("centered")
+    , 5000
     console.log "SEND_CLASSIFICATION"
 
   window.onresize = =>
     if window.innerWidth < 900
-      $(".summary-overlay").addClass("centered")
+      $(".summary-overlay").css("display", "none")
     else
-      $(".summary-overlay").removeClass("centered")
+      $(".summary-overlay").css("display", "inline-block")
