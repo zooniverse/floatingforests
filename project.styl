@@ -3,6 +3,11 @@ TURQ = #4ed1ff
 AQUA = #34a6a8
 MARINE = #00485b
 
+SUBJECT_HEIGHT = 390px
+SUBJECT_WIDTH = 429px
+LEFT_OFFSET = -250px
+
+
 #readymade
   font-family 'Open Sans' sans-serif
   button
@@ -118,7 +123,7 @@ MARINE = #00485b
         margin 0 0 10px 0
     .readymade-decision-tree-container
       display block
-      width 520px
+      width SUBJECT_WIDTH
       margin 0 auto
       .decision-tree
         padding 0 !important
@@ -140,7 +145,7 @@ MARINE = #00485b
         .decision-tree-choice
           display none
         .decision-tree-confirmation
-          width 520px
+          width SUBJECT_WIDTH
           overflow auto
           margin-top 20px
         .decision-tree-task
@@ -153,16 +158,20 @@ MARINE = #00485b
       position relative
       display block
       background none
+      .marking-surface
+        height 390px
+        width 429px
       .summary-overlay
         height 390px
-        width 520px
+        width SUBJECT_WIDTH
         background-color rgba(0, 72, 91, 0.7)
         position absolute
         top 0px
-        left -340px
+        left -250px
         transition-property margin-left, text-align, left
         transition-duration 1.0s
         text-align left
+        z-index 1
         h1
           font-size 28px
         p.bold-data
@@ -175,32 +184,50 @@ MARINE = #00485b
           padding 10px
           &:hover
             cursor pointer
+        .prev-image
+          position absolute
+          top 0px
+          right 0px
+          height SUBJECT_HEIGHT
+          z-index -1
         .content
           width 35%
           float right
           margin-right -5px
         &.centered
           left 50%
-          margin-left -260px
+          margin-left -215px
           .content
             width 100%
             text-align center
         &.mobile-done
           left -530px
+        &:after
+          content: ""
+          background-color: MARINE
+          opacity: 0.7
+          position
+          top: 0
+          left: 0
+          right: 0
+          height SUBJECT_HEIGHT
+          width SUBJECT_WIDTH
+          position: absolute
+          z-index: -1
       .readymade-subject-viewer
-        width 520px
+        width SUBJECT_WIDTH
         margin 0 auto
       .left-image, .right-image
         position absolute
         top 0px
         transition all 1s ease
       .left-image
-        left -340px
+        left -250px
         @media screen and (max-width: 900px)
           opacity 0.5
           left -600px
       .right-image
-        right -340px
+        right -250px
         @media screen and (max-width: 900px)
           opacity 0.5
           right -600px

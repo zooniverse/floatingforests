@@ -1,6 +1,22 @@
 [{
   "id": "PLACEHOLDER_SUBJECT_ID",
   "zooniverse_id": "PLACEHOLDER_SUBJECT_ZOONIVERSE_ID",
-  "location": {"standard": "//lorempixel.com/640/480/animals/Placeholder subject image/"}
+  "location": {"standard": "./subejct_3_6.png"}
+},{
+  "id": "PLACEHOLDER_SUBJECT_ID",
+  "zooniverse_id": "PLACEHOLDER_SUBJECT_ZOONIVERSE_ID",
+  "location": {"standard": "./subejct_4_3.png"}
+},{
+  "id": "PLACEHOLDER_SUBJECT_ID",
+  "zooniverse_id": "PLACEHOLDER_SUBJECT_ZOONIVERSE_ID",
+  "location": {"standard": "./subejct_7_2.png"}
+},{
+  "id": "PLACEHOLDER_SUBJECT_ID",
+  "zooniverse_id": "PLACEHOLDER_SUBJECT_ZOONIVERSE_ID",
+  "location": {"standard": "./subejct_9_5.png"}
+},{
+  "id": "PLACEHOLDER_SUBJECT_ID",
+  "zooniverse_id": "PLACEHOLDER_SUBJECT_ZOONIVERSE_ID",
+  "location": {"standard": "./subejct_7_5.png"}
 }]
 

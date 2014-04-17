@@ -8,11 +8,11 @@ classifyPage = project.classifyPages[0]
 subjectViewer = classifyPage.subjectViewer
 tools = subjectViewer.markingSurface.tools
 classification = classifyPage.classification
+markingsurface = subjectViewer.markingSurface
 
 window.subjectViewer = subjectViewer
 window.project = project
 window.tools = tools
-window.classification = classification
 window.classifyPage = classifyPage
 
 $ ->
@@ -53,15 +53,16 @@ $ ->
 
   $("button[name='decision-tree-confirm-task']").html("Next Subject")
 
-  $(".readymade-subject-viewer-container").append("<img class='left-image' src='http://placehold.it/520X390'>")
-  $(".readymade-subject-viewer-container").append("<img class='right-image' src='http://placehold.it/520X390'>")
+#   $(".readymade-subject-viewer-container").append("<img class='left-image' src='http://placehold.it/520X390'>")
+  $(".readymade-subject-viewer-container").append("<img class='right-image' src='http://placehold.it/429X390'>")
 
   # utilities
-  addSummary = (kelpNum) ->
+  addSummary = (kelpNum, image) ->
     $("""
       <div class='summary-overlay centered'>
         <div class='content'>
           <h1>Nice Work!</h1>
+          <img class='prev-image' src='#{image}'>
           <p>You Marked</p>
           <p class='bold-data' id='kelp-num'>#{kelpNum} kelp bed#{if kelpNum is 1 then '' else 's'}</p>
           <p>Located near</p>
@@ -70,7 +71,7 @@ $ ->
           <a>Discuss on Talk</a>
         </div>
        </div>
-     """).fadeIn(100).appendTo(".readymade-subject-viewer-container")
+     """).fadeIn(300).appendTo(".readymade-subject-viewer-container")
 
   # events
   $(".readymade-site-link").on "click", (e) ->
@@ -93,7 +94,7 @@ $ ->
   classifyPage.on classifyPage.SEND_CLASSIFICATION, ->
     $(".summary-overlay").remove()
 
-    addSummary(tools.length)
+    addSummary(tools.length, subjectViewer.subject.location.standard)
 
     setTimeout =>
       $(".summary-overlay").removeClass("centered")
@@ -103,6 +104,6 @@ $ ->
 
   window.onresize = =>
     if window.innerWidth < 900
-      $(".summary-overlay").css("display", "none")
+      $(".summary-overlay").hide()
     else
-      $(".summary-overlay").css("display", "inline-block").removeClass("mobile-done")
+      $(".summary-overlay").show().removeClass("mobile-done")
