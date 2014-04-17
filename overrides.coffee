@@ -53,7 +53,7 @@ $ ->
 
   $("button[name='decision-tree-confirm-task']").html("Next Subject")
 
-#   $(".readymade-subject-viewer-container").append("<img class='left-image' src='http://placehold.it/520X390'>")
+  # make this a utility function to append with next subject location
   $(".readymade-subject-viewer-container").append("<img class='right-image' src='http://placehold.it/429X390'>")
 
   # utilities
@@ -104,7 +104,4 @@ $ ->
     console.log "SEND_CLASSIFICATION"
 
   window.onresize = =>
-    if window.innerWidth < 900
-      $(".summary-overlay").hide()
-    else
-      $(".summary-overlay").show().removeClass("mobile-done")
+    $(".summary-overlay").removeClass("mobile-done") if window.innerWidth > 900

@@ -172,6 +172,8 @@ LEFT_OFFSET = -250px
         transition-duration 1.0s
         text-align left
         z-index 1
+        @media screen and (max-width: 900px)
+          left -600px
         h1
           font-size 28px
         p.bold-data
@@ -221,15 +223,9 @@ LEFT_OFFSET = -250px
         position absolute
         top 0px
         transition all 1s ease
-      .left-image
-        left -250px
-        @media screen and (max-width: 900px)
-          opacity 0.5
-          left -600px
       .right-image
         right -250px
         @media screen and (max-width: 900px)
-          opacity 0.5
           right -600px
 
   .readymade-home-page
