@@ -92,7 +92,8 @@ $ ->
     console.log "CREATE_CLASSIFICATION", subject
 
   classifyPage.on classifyPage.SEND_CLASSIFICATION, ->
-    $(".summary-overlay").remove()
+    oldSummary = $(".summary-overlay").animate({left: "-=300px"}, 500)
+    setTimeout (=> oldSummary.remove()), 1000
 
     addSummary(tools.length, subjectViewer.subject.location.standard)
 
