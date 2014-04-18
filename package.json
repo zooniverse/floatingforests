@@ -4,13 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "zooniverse-readymade serve --css project.styl --js overrides.coffee"
+    "dev": "zooniverse-readymade serve --css project.styl --js overrides.coffee",
+    "deploy-to-demo": "npm run build && publisssh ./build demo.zooniverse.org/kelp && rm -rf ./build",
+    "build": "zooniverse-readymade build --force --output ./build --js overrides.coffee --css ./project.styl"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "marking-surface": "^0.5.3",
     "zooniverse-readymade": "0.0.12",
-    "zooniverse": "^0.6.1"
+    "zooniverse": "^0.6.1",
+    "publisssh": "^0.2.4"
   }
 }
