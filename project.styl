@@ -171,10 +171,10 @@ LEFT_OFFSET = -250px
       display block
       background none
       .marking-surface
-        height 390px
-        width 429px
+        height SUBJECT_HEIGHT
+        width SUBJECT_WIDTH
       .summary-overlay
-        height 390px
+        height SUBJECT_HEIGHT
         width SUBJECT_WIDTH
         background-color rgba(0, 72, 91, 0.7)
         position absolute
@@ -217,17 +217,13 @@ LEFT_OFFSET = -250px
         &.mobile-done
           left -530px
         &:after
-          content: ""
-          background-color: MARINE
-          opacity: 0.7
-          position
-          top: 0
-          left: 0
-          right: 0
-          height SUBJECT_HEIGHT
-          width SUBJECT_WIDTH
-          position: absolute
-          z-index: -1
+          content ""
+          background-color MARINE
+          opacity 0.7
+          height 100%
+          width 100%
+          position absolute
+          z-index -1
       .readymade-subject-viewer
         width SUBJECT_WIDTH
         margin 0 auto
