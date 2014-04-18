@@ -1,4 +1,5 @@
 Footer = require 'zooniverse/controllers/footer'
+SubNav = require './sub-nav'
 
 # add open sans font
 $('head').append("<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700,800' rel='stylesheet' type='text/css'>")
@@ -14,6 +15,8 @@ window.subjectViewer = subjectViewer
 window.project = project
 window.tools = tools
 window.classifyPage = classifyPage
+
+aboutNav = new SubNav "about"
 
 $ ->
   # additional sections
@@ -98,8 +101,8 @@ $ ->
     addSummary(tools.length, subjectViewer.subject.location.standard)
 
     setTimeout =>
-      $(".summary-overlay").removeClass("centered")
-      $(".summary-overlay").addClass("mobile-done") if window.innerWidth < 900
+      newSummary = $(".summary-overlay").removeClass("centered")
+      newSummary.addClass("mobile-done") if window.innerWidth < 900
     , 4000
     console.log "SEND_CLASSIFICATION"
 

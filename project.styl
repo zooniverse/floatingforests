@@ -7,11 +7,13 @@ SUBJECT_HEIGHT = 390px
 SUBJECT_WIDTH = 429px
 LEFT_OFFSET = -250px
 
+@import 'secondary-pages'
 
 #readymade
   font-family 'Open Sans' sans-serif
   button
     outline none
+    border 0
     &:hover
       cursor pointer
 
@@ -45,8 +47,9 @@ LEFT_OFFSET = -250px
         letter-spacing 2px
 
   &[data-location-hash="#/classify"]
+  &[data-location-hash="#/about"]
     .readymade-main-stack
-      margin none
+      margin 0
       width auto
 
   .readymade-frame-controls
