@@ -26,6 +26,8 @@ LEFT_OFFSET = -250px
 
     .readymade-site-background
       opacity 1
+      &:after
+        display none
 
     .home-content
       height 850px
@@ -69,7 +71,14 @@ LEFT_OFFSET = -250px
     transition background-color 0.5s ease
 
   .readymade-site-background
-    opacity 0.5
+    opacity 0.8
+    &:after
+      content ""
+      background-color AQUA
+      opacity 0.5
+      height 100%
+      width 100%
+      position absolute
 
   .readymade-project-producer
     display none
@@ -108,8 +117,8 @@ LEFT_OFFSET = -250px
     overflow hidden
     #classify-header
       font-size 36px
-      margin: 20px auto
-      width: 90vw
+      margin 20px auto
+      width 90vw
       font-weight 300
     #location-data
       font-size 14px
@@ -359,6 +368,12 @@ LEFT_OFFSET = -250px
     .zooniverse-info.piece
       span
         display none
+  @media screen and (max-width: 630px)
+    .readymade-site-links
+      display block
+      .readymade-site-link
+         padding 0
+         margin-right 10px
 
   ::selection
     color #fff
