@@ -56,26 +56,6 @@ $ ->
 
   $("button[name='decision-tree-confirm-task']").html("Next Subject")
 
-  # make this a utility function to append with next subject location
-  $(".readymade-subject-viewer-container").append("<img class='right-image' src='http://placehold.it/429X390'>")
-
-  # utilities
-  addSummary = (kelpNum, image) ->
-    $("""
-      <div class='summary-overlay centered'>
-        <div class='content'>
-          <h1>Nice Work!</h1>
-          <img class='prev-image' src='#{image}'>
-          <p>You Marked</p>
-          <p class='bold-data' id='kelp-num'>#{kelpNum} kelp bed#{if kelpNum is 1 then '' else 's'}</p>
-          <p>Located near</p>
-          <p class='bold-data'>34'00'02.3 N</p>
-          <p class='bold-data'>120'14'55.0 W</p>
-          <a>Discuss on Talk</a>
-        </div>
-       </div>
-     """).fadeIn(300).appendTo(".readymade-subject-viewer-container")
-
   # events
   $(".readymade-site-link").on "click", (e) ->
     $(@).addClass("active").siblings().removeClass("active")
@@ -85,26 +65,61 @@ $ ->
 
   $("button#undo").on "click", (e) -> tools[tools.length-1].destroy() if tools.length
 
-  classifyPage.on classifyPage.LOAD_SUBJECT, (e, subject) ->
-    console.log "LOAD_SUBJECT", subject
-
-  classifyPage.on classifyPage.FINISH_SUBJECT, ->
-    console.log "FINISH_SUBECT"
-
-  classifyPage.on classifyPage.CREATE_CLASSIFICATION, (subject) ->
-    console.log "CREATE_CLASSIFICATION", subject
-
-  classifyPage.on classifyPage.SEND_CLASSIFICATION, ->
-    oldSummary = $(".summary-overlay").animate({left: "-=300px"}, 500)
-    setTimeout (=> oldSummary.remove()), 1000
-
-    addSummary(tools.length, subjectViewer.subject.location.standard)
-
-    setTimeout =>
-      newSummary = $(".summary-overlay").removeClass("centered")
-      newSummary.addClass("mobile-done") if window.innerWidth < 900
-    , 4000
-    console.log "SEND_CLASSIFICATION"
-
   window.onresize = =>
     $(".summary-overlay").removeClass("mobile-done") if window.innerWidth > 900
+
+  class ClassifyController
+    @firstSubject = true
+
+    classifyPage.on classifyPage.LOAD_SUBJECT, (e, subject) =>
+      console.log "FFF", @firstSubject
+      if @firstSubject
+        nextImage = $("<img class='right-image right' src='#{classifier.Subject.instances[1].location.standard}'>")
+        $(".readymade-subject-viewer-container").append(nextImage)
+      @firstSubject = false
+
+    classifyPage.on classifyPage.SEND_CLASSIFICATION, ->
+      nextSubject = $(".right-image")
+      oldSummary = $(".summary-overlay")
+
+      addSummary(tools.length, subjectViewer.subject.location.standard)
+
+      nextImage = $("<img class='right-image right offscreen-right' src='#{classifier.Subject.instances[2].location.standard}'>")
+      $(".readymade-subject-viewer-container").append(nextImage)
+
+      setTimeout =>
+        oldSummary.addClass("offscreen-left")
+        newSummary = $(".summary-overlay").removeClass("centered")
+        $(".readymade-subject-viewer").hide()
+
+        newSummary.addClass("mobile-done") if window.innerWidth < 900
+        nextSubject.removeClass("right")
+
+        nextImage.removeClass("offscreen-right")
+
+        setTimeout (=>
+          #code to execute at end of css transition - this timing should match the css transition
+          nextSubject.remove()
+          oldSummary.remove()
+          $(".readymade-subject-viewer").show()
+        ), 1000
+      , 1000 #time that 'Nice Work' screen is displayed
+
+    addSummary = (kelpNum, image) ->
+      $("""
+        <div class='summary-overlay centered'>
+          <div class='content'>
+            <h1>Nice Work!</h1>
+            <img class='prev-image' src='#{image}'>
+            <p>You Marked</p>
+            <p class='bold-data' id='kelp-num'>#{kelpNum} kelp bed#{if kelpNum is 1 then '' else 's'}</p>
+            <p>Located near</p>
+            <p class='bold-data'>34'00'02.3 N</p>
+            <p class='bold-data'>120'14'55.0 W</p>
+            <a>Discuss on Talk</a>
+          </div>
+         </div>
+       """).fadeIn(300).appendTo(".readymade-subject-viewer-container")
+
+
+#TODO: disable buttons and reset in between classifications
