@@ -74,7 +74,7 @@ $ ->
     classifyPage.on classifyPage.LOAD_SUBJECT, (e, subject) =>
       console.log "FFF", @firstSubject
       if @firstSubject
-        nextImage = $("<img class='right-image right' src='#{classifier.Subject.instances[1].location.standard}'>")
+        nextImage = $("<img class='right-image right' src='#{classifyPage.Subject.instances[1].location.standard}'>")
         $(".readymade-subject-viewer-container").append(nextImage)
       @firstSubject = false
 
@@ -84,7 +84,7 @@ $ ->
 
       addSummary(tools.length, subjectViewer.subject.location.standard)
 
-      nextImage = $("<img class='right-image right offscreen-right' src='#{classifier.Subject.instances[2].location.standard}'>")
+      nextImage = $("<img class='right-image right offscreen-right' src='#{classifyPage.Subject.instances[2].location.standard}'>")
       $(".readymade-subject-viewer-container").append(nextImage)
 
       setTimeout =>
@@ -122,4 +122,5 @@ $ ->
        """).fadeIn(300).appendTo(".readymade-subject-viewer-container")
 
 
-#TODO: disable buttons and reset in between classifications
+#TODO: 1.disable buttons and reset in between classifications,
+#      2.make the ClassifyController a real class
