@@ -1,5 +1,6 @@
 Footer = require 'zooniverse/controllers/footer'
 SubNav = require './sub-nav'
+Tutorial = require "./tutorial"
 
 # add open sans font
 $('head').append("<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700,800' rel='stylesheet' type='text/css'>")
@@ -52,6 +53,18 @@ $ ->
     </div>
   """)
 
+  $(".readymade-classify-page").append("""
+    <div id='guide-container'>
+      <div class='content-header'>
+        <span id='tutorial'>View Tutorial</span> <span class='or'> or </span> <span id='guide'>Spotters Guide</span>
+      </div>
+
+      <div id='guide-content'>
+        <h2>This will be the guide Content</h2>
+      </div>
+    </div>
+  """)
+
   $(".readymade-call-to-action").html "Get Started"
 
   $("button[name='decision-tree-confirm-task']").html("Next Subject")
@@ -67,6 +80,14 @@ $ ->
 
   window.onresize = =>
     $(".summary-overlay").removeClass("mobile-done") if window.innerWidth > 900
+
+  # tutorial / guide
+  Tutorial.create()
+  tut = new Tutorial
+
+  $("#tutorial").on 'click', => tut.start()
+
+  $("#guide").on 'click', => $("#guide-content").slideToggle()
 
 
 class ClassifyPageEvents

@@ -1,0 +1,67 @@
+GREY = #8f8f8f
+.tutorial
+  position fixed
+  top 0px
+  left 0px
+  right 0px
+  bottom 0px
+  background-color rgba(0, 72, 91, 0.7)
+  user-select none
+  .tutorial-slide
+    position relative
+    margin 50px auto 0 auto
+    vertical-align middle
+    background-color #fff
+    width 400px
+    height 540px
+    box-shadow 10px 10px rgba(34, 34, 34, 0.540)
+    .bottom-half
+      padding 10px
+      h1, p
+        color GREY
+      h1
+        font-weight 300
+        font-size 24px
+      p
+        font-size 16px
+        font-weight 400
+    button#next
+      height 50px
+      width 150px
+      background-color LIME_GREEN
+      color #fff
+      font-size 16px
+      font-weight 700
+      border-radius 5px
+      margin 0 auto
+      position absolute
+      bottom 45px
+      left 50%
+      margin-left -75px
+    #close
+      position absolute
+      right 10px
+      top 10px
+      background-color transparent
+      color #fff
+      font-weight 700
+      font-size 12px
+      #skip
+        opacity 0.7
+        letter-spacing 2px
+    .dots
+      position absolute
+      bottom 5px
+      left 0px
+      width 100%
+      text-align center
+      .dot
+        display inline-block
+        height 10px
+        width 10px
+        border-radius 50%
+        background-color GREY
+        cursor pointer
+        margin 3px
+        &.active
+          background-color LIME_GREEN

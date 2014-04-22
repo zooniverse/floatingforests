@@ -8,6 +8,7 @@ SUBJECT_WIDTH = 429px
 LEFT_OFFSET = -250px
 
 @import 'secondary-pages'
+@import 'tutorial'
 
 #readymade
   font-family 'Open Sans' sans-serif
@@ -53,6 +54,11 @@ LEFT_OFFSET = -250px
     .readymade-main-stack
       margin 0
       width auto
+
+  #tutorial, #guide
+    cursor pointer
+    &:hover
+      color LIME_GREEN
 
   .readymade-frame-controls
     display none
@@ -115,6 +121,24 @@ LEFT_OFFSET = -250px
 
   .readymade-classifier
     overflow hidden
+    #guide-container
+      min-height 20px
+      width 100%
+      background-color rgba(10, 10, 10, 0.25)
+      overflow auto
+      .content-header
+        text-align center
+        font-weight 300
+        font-size 12px
+        padding 10px 0
+        color #C1BDBD
+        .or
+          color LIME_GREEN
+          font-weight 600
+      #guide-content
+        display none
+        h2
+          text-align center
     #classify-header
       font-size 36px
       margin 20px auto
