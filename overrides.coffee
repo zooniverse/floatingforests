@@ -35,7 +35,6 @@ $ ->
     """).insertAfter(".stack-of-pages")
 
   $("""
-      <h1 id='classify-header'>Mark all the Kelp you see</h1>
       <div id='location-data'>
         <h2>Location</h2>
         <p>34'00'02.3 N, 120'14'55.0 W</p>
