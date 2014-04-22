@@ -1,21 +1,21 @@
 slides = [
   {
-    image: "/tutorial-kelp.jpg"
+    image: "./tutorial-kelp.jpg"
     title: "Welcome to Kelp Hunters"
     content: "This will be a tutorial slide"
   }, 
   {
-    image: '/tutorial-kelp-highlight.jpg'
+    image: './tutorial-kelp-highlight.jpg'
     title: "This is how you mark Kelp"
     content: "This will be a second tutorial slide"
   }, 
   {
-    image: "/tutorial-kelp.jpg"
+    image: "./tutorial-kelp.jpg"
     title: "This is how you do something else"
     content: "This will be the third tutorial slide"
   },
   {
-    image: '/tutorial-kelp-highlight.jpg'
+    image: './tutorial-kelp-highlight.jpg'
     title: "The Last Slide"
     content: "This will be the last tutorial slide"
   }, 
