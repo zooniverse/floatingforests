@@ -171,6 +171,8 @@ LEFT_OFFSET = -250px
           background-color LIME_GREEN
           &:hover
             background-color darken(LIME_GREEN, 5)
+          &:disabled
+            opacity 1
         .decision-tree-question
           display none
         .decision-tree-choice
@@ -329,6 +331,9 @@ LEFT_OFFSET = -250px
 
   .zooniverse-profile
     .sign-in-form
+      header
+        font-size 36px
+        font-weight 300
       .action
         button
           background-color LIME_GREEN

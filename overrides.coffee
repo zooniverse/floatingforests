@@ -88,7 +88,6 @@ $ ->
 
   $("#guide").on 'click', => $("#guide-content").slideToggle()
 
-
 class ClassifyPageEvents
   @firstSubject = true
 
@@ -101,6 +100,7 @@ class ClassifyPageEvents
   classifyPage.on classifyPage.SEND_CLASSIFICATION, =>
     nextSubject = $(".right-image")
     oldSummary = $(".summary-overlay")
+    nextSubjectButton = $("button[name='decision-tree-confirm-task']").prop 'disabled', true
 
     # show the summary screen
     @addSummary(tools.length, subjectViewer.subject.location.standard)
@@ -131,6 +131,7 @@ class ClassifyPageEvents
         nextSubject.remove()
         oldSummary.remove()
         readymadeSubjectViewer.show()
+        nextSubjectButton.prop 'disabled', false
       ), 1000
     , 1000 # time that 'Nice Work' screen is displayed
 
