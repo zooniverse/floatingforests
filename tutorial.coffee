@@ -2,23 +2,28 @@ slides = [
   {
     image: "./tutorial-kelp.jpg"
     title: "Welcome to Kelp Hunters"
-    content: "This will be a tutorial slide"
+    content: "This is a brief tutorial to guide you through the steps to classify on Kelp Hunters"
   }, 
   {
     image: './tutorial-kelp-highlight.jpg'
-    title: "This is how you mark Kelp"
-    content: "This will be a second tutorial slide"
+    title: "Basics of Marking"
+    content: "To mark an area of Kelp, simply click and drag your mouse on the image. When you release, the remaining line will be filled in to make a complete shape."
   }, 
   {
     image: "./tutorial-kelp.jpg"
-    title: "This is how you do something else"
-    content: "This will be the third tutorial slide"
+    title: "Removing Bad Marks"
+    content: "You can remove a bad or accidental mark by clicking the mark, then pressing “Delete”. You may also click “Undo” below to remove the last mark you did."
   },
   {
     image: './tutorial-kelp-highlight.jpg'
-    title: "The Last Slide"
-    content: "This will be the last tutorial slide"
-  }, 
+    title: "Identifying Clouds"
+    content: "You may occasionally spot clouds obscuring the view of the coastline. When you see this, click the “Clouds Present” button below. Do mark any kelp you can see!"
+  },
+  {
+    image: './tutorial-kelp-highlight.jpg'
+    title: "Happy Hunting"
+    content: "Thank you for your interest in Kelp Hunters! We are very grateful for your time. You can discuss the project with other volunteers by visiting Talk"
+  }
 ]
 
 class Tutorial
