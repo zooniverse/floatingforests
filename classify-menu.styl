@@ -26,7 +26,17 @@
         background-color AQUA
         color #fff
       @media screen and (max-width: 900px)
-        font-size 9px
+        font-size 0px
+        &:nth-child(1)
+          background rgba(0, 72, 91, 0.7) url("./icons/tut.svg") no-repeat center center
+        &:nth-child(2)
+          background rgba(0, 72, 91, 0.7) url("./icons/guide.svg") no-repeat center center
+        &:nth-child(3)
+          background rgba(0, 72, 91, 0.7) url("./icons/location.svg") no-repeat center center
+        &:nth-child(4)
+          background rgba(0, 72, 91, 0.7) url("./icons/favorite.svg") no-repeat center center
+        &.active
+          background-color AQUA
   .menu-content
     .menu-section
       background-color AQUA
