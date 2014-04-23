@@ -59,6 +59,10 @@ class ClassifyMenu
     $(".tab:nth-child(#{section.index() + 1}").removeClass("active")
     section.hide()
 
-  onChangeLocation: (e) -> $(e.target).addClass("selected").siblings().removeClass("selected")
+  onChangeLocation: (e) ->
+    btnClicked = $(e.target)
+    $("#location-data h2").text(btnClicked.text())
+    btnClicked.addClass("selected").siblings().removeClass("selected")
+
 
 module?.exports = ClassifyMenu
