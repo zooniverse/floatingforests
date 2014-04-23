@@ -208,15 +208,17 @@ LEFT_OFFSET = -250px
           z-index -1
         .content
           width 150px
-          // margin-right -5px
-          margin 0 -5px 0 260px
+          position absolute
+          top 0px
+          left 80%
+          margin-left -75px
           text-align left
           transition all 1s
         &.centered
           left 50%
           margin-left -214px
           .content
-            margin 0 auto
+            left 50%
             text-align center
         &.mobile-done
           left -530px

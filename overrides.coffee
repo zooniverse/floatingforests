@@ -127,7 +127,6 @@ class ClassifyPageEvents
       <div class='summary-overlay centered'>
         <div class='content'>
           <h1>Nice Work!</h1>
-          <img class='prev-image' src='#{image}'>
           <p>You Marked</p>
           <p class='bold-data' id='kelp-num'>#{kelpNum} kelp bed#{if kelpNum is 1 then '' else 's'}</p>
           <p>Located near</p>
@@ -135,6 +134,7 @@ class ClassifyPageEvents
           <p class='bold-data'>120'14'55.0 W</p>
           <a>Discuss on Talk</a>
         </div>
+        <img class='prev-image' src='#{image}'>
       </div>
      """).fadeIn(300).appendTo(".readymade-subject-viewer-container")
 
