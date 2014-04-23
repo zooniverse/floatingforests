@@ -9,13 +9,12 @@ project = require "zooniverse-readymade/current-project"
 classifyPage = project.classifyPages[0]
 subjectViewer = classifyPage.subjectViewer
 tools = subjectViewer.markingSurface.tools
-classification = classifyPage.classification
 markingsurface = subjectViewer.markingSurface
 
-window.subjectViewer = subjectViewer
-window.project = project
-window.tools = tools
-window.classifyPage = classifyPage
+# window.subjectViewer = subjectViewer
+# window.project = project
+# window.tools = tools
+# window.classifyPage = classifyPage
 
 aboutNav = new SubNav "about"
 
@@ -74,6 +73,7 @@ $ ->
 
   $("button#clouds-present").on "click", (e) ->
     $(@).toggleClass("present")
+    classifyPage.classification.annotations[0].clouds = $(@).hasClass("present")
 
   $("button#undo").on "click", (e) -> tools[tools.length-1].destroy() if tools.length
 
@@ -92,6 +92,7 @@ class ClassifyPageEvents
   @firstSubject = true
 
   classifyPage.on classifyPage.LOAD_SUBJECT, (e, subject) =>
+    classifyPage.classification.annotations.push {clouds: false} # clouds start as false
     if @firstSubject
       nextImage = $("<img class='right-image right' src='#{classifyPage.Subject.instances[1].location.standard}'>")
       $(".readymade-subject-viewer-container").append(nextImage)
@@ -128,6 +129,7 @@ class ClassifyPageEvents
 
       setTimeout (=>
         # code to execute at end of css transition - this timing should match the css transition
+        $("button#clouds-present").removeClass("present")
         nextSubject.remove()
         oldSummary.remove()
         readymadeSubjectViewer.show()
@@ -151,5 +153,6 @@ class ClassifyPageEvents
        </div>
      """).fadeIn(300).appendTo(".readymade-subject-viewer-container")
 
-#TODO: 1.disable buttons and reset in between classifications,
-#      2.make the ClassifyController a real class
+#TODO: 1. make nice work animation smoother
+#      2. pack clouds info into data
+#      3. add 'next subject' text to upcoming image
