@@ -19,11 +19,14 @@
       overflow auto
       user-select none
       cursor pointer
+      transition font-size .5s
       &:hover
         background-color rgba(0, 72, 91, 0.9)
       &.active
         background-color AQUA
         color #fff
+      @media screen and (max-width: 900px)
+        font-size 9px
   .menu-content
     .menu-section
       background-color AQUA
@@ -47,3 +50,4 @@
           background-color darken(#1e7779, 2)
         &.selected, &:active
           background-color LIME_GREEN
+
