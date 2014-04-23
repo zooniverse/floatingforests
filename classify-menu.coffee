@@ -44,11 +44,8 @@ class ClassifyMenu
 
   onTabClick: (e) ->
     return if e.target.id is 'tutorial' # disable default behavior for tutorial tab
-
     tabNum = $(e.target).index() + 1
     section = $(".menu-section:nth-child(#{tabNum})")
-    $(".tab:nth-child(#{tabNum}").addClass("active").siblings().removeClass("active")
-
     if section.is(":visible") then @hide section else @display section
 
   display: (section) ->
