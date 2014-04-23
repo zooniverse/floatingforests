@@ -1,6 +1,7 @@
 Footer = require 'zooniverse/controllers/footer'
 SubNav = require './sub-nav'
 Tutorial = require "./tutorial"
+ClassifyMenu = require "./classify-menu"
 
 # add open sans font
 $('head').append("<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700,800' rel='stylesheet' type='text/css'>")
@@ -10,11 +11,6 @@ classifyPage = project.classifyPages[0]
 subjectViewer = classifyPage.subjectViewer
 tools = subjectViewer.markingSurface.tools
 markingsurface = subjectViewer.markingSurface
-
-# window.subjectViewer = subjectViewer
-# window.project = project
-# window.tools = tools
-# window.classifyPage = classifyPage
 
 aboutNav = new SubNav "about"
 
@@ -51,17 +47,8 @@ $ ->
     </div>
   """)
 
-  $(".readymade-classify-page").append("""
-    <div id='guide-container'>
-      <div class='content-header'>
-        <span id='tutorial'>View Tutorial</span> <span class='or'> or </span> <span id='guide'>Spotters Guide</span>
-      </div>
-
-      <div id='guide-content'>
-        <h2>This will be the guide Content</h2>
-      </div>
-    </div>
-  """)
+  ClassifyMenu.create()
+  menu = new ClassifyMenu
 
   $(".readymade-call-to-action").html "Get Started"
 
@@ -85,8 +72,6 @@ $ ->
   tut = new Tutorial
 
   $("#tutorial").on 'click', => tut.start()
-
-  $("#guide").on 'click', => $("#guide-content").slideToggle()
 
 class ClassifyPageEvents
   @firstSubject = true
@@ -150,9 +135,8 @@ class ClassifyPageEvents
           <p class='bold-data'>120'14'55.0 W</p>
           <a>Discuss on Talk</a>
         </div>
-       </div>
+      </div>
      """).fadeIn(300).appendTo(".readymade-subject-viewer-container")
 
 #TODO: 1. make nice work animation smoother
-#      2. pack clouds info into data
-#      3. add 'next subject' text to upcoming image
+#      2. add 'next subject' text to upcoming image

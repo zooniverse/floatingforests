@@ -9,6 +9,7 @@ LEFT_OFFSET = -250px
 
 @import 'secondary-pages'
 @import 'tutorial'
+@import 'classify-menu'
 
 #readymade
   font-family 'Open Sans' sans-serif
@@ -57,8 +58,6 @@ LEFT_OFFSET = -250px
 
   #tutorial, #guide
     cursor pointer
-    &:hover
-      color LIME_GREEN
 
   .readymade-frame-controls
     display none
@@ -121,24 +120,6 @@ LEFT_OFFSET = -250px
 
   .readymade-classifier
     overflow hidden
-    #guide-container
-      min-height 20px
-      width 100%
-      background-color rgba(10, 10, 10, 0.25)
-      overflow auto
-      .content-header
-        text-align center
-        font-weight 300
-        font-size 12px
-        padding 10px 0
-        color #C1BDBD
-        .or
-          color LIME_GREEN
-          font-weight 600
-      #guide-content
-        display none
-        h2
-          text-align center
     #location-data
       font-size 14px
       text-align center
@@ -226,14 +207,16 @@ LEFT_OFFSET = -250px
           height SUBJECT_HEIGHT
           z-index -1
         .content
-          width 35%
-          float right
-          margin-right -5px
+          width 150px
+          // margin-right -5px
+          margin 0 -5px 0 260px
+          text-align left
+          transition all 1s
         &.centered
           left 50%
           margin-left -214px
           .content
-            width 100%
+            margin 0 auto
             text-align center
         &.mobile-done
           left -530px
@@ -245,6 +228,7 @@ LEFT_OFFSET = -250px
           opacity 0.7
           height 100%
           width 100%
+          top 0px
           position absolute
           z-index -1
       .readymade-subject-viewer
