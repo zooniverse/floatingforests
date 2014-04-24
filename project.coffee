@@ -106,6 +106,6 @@ module.exports =
     pickOne:
       type: 'drawing',
       choices: [{
-        value: FreeDrawTool,
+        type: FreeDrawTool,
         label: 'Default'
       }]
