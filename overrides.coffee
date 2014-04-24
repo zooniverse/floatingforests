@@ -155,3 +155,4 @@ class ClassifyPageEvents
      """).fadeIn(300).appendTo(".readymade-subject-viewer-container")
 
 #TODO: 1. make the transition code less grimey
+#      2. update readymade version and change 'value' to 'type'

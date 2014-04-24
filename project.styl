@@ -8,6 +8,11 @@ SUBJECT_HEIGHT = 390px
 SUBJECT_WIDTH = 429px
 LEFT_OFFSET = -250px
 
+.capitalized-text
+  text-transform uppercase
+  font-weight 700
+  letter-spacing 2px
+
 @import 'secondary-pages'
 @import 'tutorial'
 @import 'classify-menu'
@@ -46,10 +51,8 @@ LEFT_OFFSET = -250px
       p
         line-height 2em
       h2
-        text-transform uppercase
+        @extend .capitalized-text
         font-size 18px
-        font-weight 700
-        letter-spacing 2px
 
   &[data-location-hash="#/classify"]
   &[data-location-hash="#/about"]
@@ -126,10 +129,8 @@ LEFT_OFFSET = -250px
       text-align center
       margin 50px auto 0 auto
       h2
+        @extend .capitalized-text
         font-size 14px
-        text-transform uppercase
-        letter-spacing 0.1em
-        font-weight 600
         margin-bottom 5px
       p
         font-weight 400
@@ -275,14 +276,13 @@ LEFT_OFFSET = -250px
     .readymade-footer
       display inline
     .readymade-call-to-action
+      @extend .capitalized-text
       background-color LIME_GREEN
       color #fff
       box-shadow none
       border-radius 5px
-      text-transform uppercase
       height 40px
       line-height 40px
-      letter-spacing 2px
       font-size 10px
       padding 0 20px
       &:hover
@@ -297,13 +297,13 @@ LEFT_OFFSET = -250px
       float left
       text-align center
       button
+        @extend .capitalized-text
         width 100px
-        font-weight 800
+        letter-spacing 1px
         font-size 14px
         border 2px solid transparent
         border-radius 5px
         display inline-block
-        text-transform uppercase
         height 50px
         &:hover
           opacity 0.8
