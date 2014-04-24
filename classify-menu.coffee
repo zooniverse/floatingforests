@@ -12,8 +12,16 @@ class ClassifyMenu
         <div class='menu-section'>
           <h1>Tutorial Menu section</h1>
         </div>
-        <div class='menu-section'>
-          <h1>Field Guide Menu Section</h1>
+        <div class='menu-section' id="field-guide">
+          <h1>Field Guide</h1>
+          <div class="guide-item">
+            <img src="http://placehold.it/150X150">
+            <p>Kelp</p>
+          </div>
+          <div class="guide-item">
+            <img src="http://placehold.it/150X150">
+            <p>Clouds</p>
+          </div>
         </div>
         <div class='menu-section'>
           <button class='location-btn'>California</button>

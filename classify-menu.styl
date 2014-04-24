@@ -57,8 +57,28 @@
         text-transform uppercase
         letter-spacing 2px
         background-color #1e7779
+        transition background-color .1s
         &:hover
           background-color darken(#1e7779, 2)
         &.selected, &:active
           background-color LIME_GREEN
+        @media screen and (max-width: 900px)
+          height 60px
+          padding 0 20px
+          font-size 14px
+          clear both
+          transition all 1s
+    #field-guide
+      padding-bottom 20px
+      h1
+        font-size 36px
+      .guide-item
+        width 250px
+        display inline-block
+        img
+          border-radius 50%
+          margin 10px
+        p
+          @extend .capitalized-text
+          margin 0
 
