@@ -64,9 +64,6 @@ $ ->
 
   $("button#undo").on "click", (e) -> tools[tools.length-1].destroy() if tools.length
 
-  window.onresize = =>
-    $(".summary-overlay").removeClass("mobile-done") if window.innerWidth > 900
-
   # tutorial / guide
   Tutorial.create()
   tut = new Tutorial
@@ -76,10 +73,15 @@ $ ->
 class ClassifyPageEvents
   @firstSubject = true
 
+  @mobile: -> window.innerWidth < 900
+
+  window.onresize = =>
+    $(".summary-overlay").removeClass("mobile-done") if not @mobile()
+
   classifyPage.on classifyPage.LOAD_SUBJECT, (e, subject) =>
     classifyPage.classification.annotations.push {clouds: false} # clouds start as false
     if @firstSubject
-      nextImage = $("<img class='right-image right' src='#{classifyPage.Subject.instances[1].location.standard}'>")
+      nextImage = @nextImage(1)
       $(".readymade-subject-viewer-container").append(nextImage)
     @firstSubject = false
 
@@ -92,7 +94,9 @@ class ClassifyPageEvents
     @addSummary(tools.length, subjectViewer.subject.location.standard)
 
     # add the next image offscreen
-    nextImage = $("<img class='right-image right offscreen-right' src='#{classifyPage.Subject.instances[2].location.standard}'>")
+    nextImage = @nextImage()
+    rightImageOverlay = $(".right-image-overlay")
+
     $(".readymade-subject-viewer-container").append(nextImage)
 
     setTimeout =>
@@ -109,6 +113,9 @@ class ClassifyPageEvents
       # move the new subject into the center position
       nextSubject.removeClass("right")
 
+      # fade out the summary
+      rightImageOverlay.addClass("invisible")
+
       # move the next image from offscreen-right to right panel
       nextImage.removeClass("offscreen-right")
 
@@ -121,6 +128,15 @@ class ClassifyPageEvents
         nextSubjectButton.prop 'disabled', false
       ), 1000
     , 1000 # time that 'Nice Work' screen is displayed
+
+  @nextImage: (queue = 2) ->
+    # queue is 2 by default to load the image 2 ahead of subject into the offscreen-right position
+    $("""
+      <div class='right-image right #{'offscreen-right' if queue is 2}'>
+        <div class='right-image-overlay'></div>
+        <img src="#{classifyPage.Subject.instances[queue].location.standard}">
+      </div>
+    """)
 
   @addSummary: (kelpNum, image) ->
     $("""
@@ -138,5 +154,4 @@ class ClassifyPageEvents
       </div>
      """).fadeIn(300).appendTo(".readymade-subject-viewer-container")
 
-#TODO: 1. make nice work animation smoother
-#      2. add 'next subject' text to upcoming image
+#TODO: 1. make the transition code less grimey

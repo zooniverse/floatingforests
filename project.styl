@@ -2,6 +2,7 @@ LIME_GREEN = #b9d663
 TURQ = #4ed1ff
 AQUA = #34a6a8
 MARINE = #00485b
+OPAQUE_MARINE = rgba(0, 72, 91, 0.7)
 
 SUBJECT_HEIGHT = 390px
 SUBJECT_WIDTH = 429px
@@ -178,7 +179,7 @@ LEFT_OFFSET = -250px
       .summary-overlay
         height SUBJECT_HEIGHT
         width SUBJECT_WIDTH
-        background-color rgba(0, 72, 91, 0.7)
+        background-color OPAQUE_MARINE
         position absolute
         top 0px
         left -245px
@@ -243,16 +244,26 @@ LEFT_OFFSET = -250px
       .right-image
         left 50%
         width SUBJECT_WIDTH
-        opacity 1
         height SUBJECT_HEIGHT
         margin-left -214px
         transition-property all
         transition-duration 1.0s
         right auto
         pointer-events none
+        img
+          height SUBJECT_HEIGHT
+          width SUBJECT_WIDTH
+        .right-image-overlay
+          background-color OPAQUE_MARINE
+          position absolute
+          opacity 0.7
+          height 100%
+          width 100%
+          transition all 1s
+          &.invisible
+            opacity 0
         &.right
           left 100%
-          opacity 0.7
           margin-left -185px
           &.offscreen-right
             margin-left SUBJECT_WIDTH
