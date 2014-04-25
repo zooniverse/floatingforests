@@ -70,7 +70,7 @@ class Tutorial
     @nextBtn.on 'click', => @onClickNext()
     @dot.on 'click', (e) => @showSlide $(e.target).index() + 1
 
-    @numberOfSlides = $(".dot").size()
+    @numberOfSlides = slides.length
 
   start: ->
     @tutorial.fadeIn(250)

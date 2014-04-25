@@ -89,6 +89,7 @@ class ClassifyPageEvents
     nextSubject = $(".right-image")
     oldSummary = $(".summary-overlay")
     nextSubjectButton = $("button[name='decision-tree-confirm-task']").prop 'disabled', true
+    readymadeSubjectViewer = $(".readymade-subject-viewer").hide() # hide center container during transition
 
     # show the summary screen
     @addSummary(tools.length, subjectViewer.subject.location.standard)
@@ -106,8 +107,7 @@ class ClassifyPageEvents
       # move the new summary to the old summary location
       newSummary = $(".summary-overlay").removeClass("centered")
 
-      # create floating effect and mobile support
-      readymadeSubjectViewer = $(".readymade-subject-viewer").hide()
+      # mobile support
       newSummary.addClass("mobile-done") if window.innerWidth < 900
 
       # move the new subject into the center position
