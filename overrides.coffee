@@ -4,7 +4,10 @@ Tutorial = require "./tutorial"
 ClassifyMenu = require "./classify-menu"
 
 # add open sans font
-$('head').append("<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700,800' rel='stylesheet' type='text/css'>")
+$('head').append("""
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700,800' rel='stylesheet' type='text/css'>
+  <meta name="viewport" content="width=540, user-scalable=no">
+""")
 
 project = require "zooniverse-readymade/current-project"
 classifyPage = project.classifyPages[0]
