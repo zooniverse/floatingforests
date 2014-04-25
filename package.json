@@ -12,7 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "marking-surface": "^0.5.3",
-    "zooniverse-readymade": "0.1.0",
+    "zooniverse-readymade": "0.1.1",
     "zooniverse": "^0.6.1",
     "publisssh": "^0.2.4"
   }

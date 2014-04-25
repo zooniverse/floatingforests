@@ -39,9 +39,6 @@ $ ->
       </div>
     """).insertBefore(".readymade-classification-interface")
 
-  $(".stack-of-pages div:nth-child(4)").addClass("readymade-about-page")
-  $(".stack-of-pages div:nth-child(5)").addClass("readymade-discuss-page")
-
   $(".decision-tree-confirmation").prepend("""
     <div id="custom-buttons">
       <div class="third"><button id='map'>Map</button></div>
@@ -58,9 +55,6 @@ $ ->
   $("button[name='decision-tree-confirm-task']").html("Next Subject")
 
   # events
-  $(".readymade-site-link").on "click", (e) ->
-    $(@).addClass("active").siblings().removeClass("active")
-
   $("button#clouds-present").on "click", (e) ->
     $(@).toggleClass("present")
     classifyPage.classification.annotations[0].clouds = $(@).hasClass("present")
@@ -158,4 +152,3 @@ class ClassifyPageEvents
      """).fadeIn(300).appendTo(".readymade-subject-viewer-container")
 
 #TODO: 1. make the transition code less grimey
-#      2. update readymade version and change 'value' to 'type'

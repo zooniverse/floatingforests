@@ -69,5 +69,4 @@ class ClassifyMenu
     $("#location-data h2").text(btnClicked.text())
     btnClicked.addClass("selected").siblings().removeClass("selected")
 
-
 module?.exports = ClassifyMenu
