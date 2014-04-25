@@ -57,11 +57,11 @@ class ClassifyMenu
     if section.is(":visible") then @hide section else @display section
 
   display: (section) ->
-    $(".tab:nth-child(#{section.index() + 1}").addClass("active").siblings().removeClass("active")
+    $(".tab:eq(#{section.index()})").addClass("active").siblings().removeClass("active")
     section.show().addClass("active").siblings().hide().removeClass("active")
 
   hide: (section) ->
-    $(".tab:nth-child(#{section.index() + 1}").removeClass("active")
+    $(".tab:eq(#{section.index()})").removeClass("active")
     section.hide()
 
   onChangeLocation: (e) ->
