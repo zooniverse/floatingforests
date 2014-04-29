@@ -1,3 +1,6 @@
+project = require "zooniverse-readymade/current-project"
+classifyPage = project.classifyPages[0]
+
 class ClassifyMenu
   html = """
     <div class='classify-menu'>
@@ -5,7 +8,7 @@ class ClassifyMenu
         <div class='tab' id='tutorial'>View Tutorial</div>
         <div class='tab'>Open Field Guide</div>
         <div class='tab'>Change Location</div>
-        <div class='tab'>Add to Favorites</div>
+        <div class='tab' id='favorites'>Add to Favorites</div>
       </div>
 
       <div class='menu-content'>
@@ -50,8 +53,18 @@ class ClassifyMenu
 
     $(".location-btn#all-locations").addClass("selected")
 
+    $("#favorites").on 'click', => @updateFavorite()
+
+  updateFavorite: ->
+    classifyPage.classification.favorite = !classifyPage.classification.favorite
+    if classifyPage.classification.favorite
+      $("#favorites").text("Favorited").css("color", "#b9d663")
+    else
+      $("#favorites").text("Add to Favorites").css("color", "rgba(255,255,255,0.8)")
+
   onTabClick: (e) ->
-    return if e.target.id is 'tutorial' # disable default behavior for tutorial tab
+    # disable default behavior for tutorial and favorite tab
+    return if e.target.id is 'tutorial' or e.target.id is 'favorites'
     tabNum = $(e.target).index() + 1
     section = $(".menu-section:nth-child(#{tabNum})")
     if section.is(":visible") then @hide section else @display section
