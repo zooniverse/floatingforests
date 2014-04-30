@@ -7,12 +7,12 @@ slides = [
   {
     image: './tutorial-kelp-highlight.jpg'
     title: "Basics of Marking"
-    content: "To mark an area of Kelp, simply click and drag your mouse on the image. When you release, the remaining line will be filled in to make a complete shape."
+    content: "To mark an area of kelp, simply click and drag your mouse on the image. When you release, any remaining gap will be filled in to make a complete polygon."
   }, 
   {
     image: "./tutorial-kelp.jpg"
     title: "Removing Bad Marks"
-    content: "You can remove a bad or accidental mark by clicking the mark, then pressing “Delete”. You may also click “Undo” below to remove the last mark you did."
+    content: "You can remove a bad or accidental mark by clicking the mark, then pressing your delete key. You may also click “Undo” below to remove the last mark you did."
   },
   {
     image: './tutorial-kelp-highlight.jpg'
@@ -22,7 +22,7 @@ slides = [
   {
     image: './tutorial-kelp-highlight.jpg'
     title: "Happy Hunting"
-    content: "Thank you for your interest in Kelp Hunters! We are very grateful for your time. You can discuss the project with other volunteers by visiting Talk"
+    content: "Thank you for your interest in Kelp Hunters! You can discuss the project with the science team and other volunteers by visiting Talk."
   }
 ]
 
