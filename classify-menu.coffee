@@ -58,9 +58,9 @@ class ClassifyMenu
   updateFavorite: ->
     classifyPage.classification.favorite = !classifyPage.classification.favorite
     if classifyPage.classification.favorite
-      $("#favorites").text("Favorited").css("color", "#b9d663")
+      $("#favorites").text("Favorited").addClass("favorited")
     else
-      $("#favorites").text("Add to Favorites").css("color", "rgba(255,255,255,0.8)")
+      $("#favorites").text("Add to Favorites").removeClass("favorited")
 
   onTabClick: (e) ->
     # disable default behavior for tutorial and favorite tab

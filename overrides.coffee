@@ -119,7 +119,7 @@ class ClassifyPageEvents
       setTimeout (=>
         # code to execute at end of css transition - this timing should match the css transition
         $("button#clouds-present").removeClass("present")
-        $("#favorites").text("Add to Favorites").css("color", "rgba(255,255,255,0.8)") # reset fav
+        $("#favorites").text("Add to Favorites").removeClass("favorited") # reset fav
         nextSubject.remove()
         oldSummary.remove()
         readymadeSubjectViewer.show()
