@@ -146,7 +146,7 @@ class ClassifyPageEvents
           <p>Located near</p>
           <p class='bold-data'>34'00'02.3 N</p>
           <p class='bold-data'>120'14'55.0 W</p>
-          <a>Discuss on Talk</a>
+          <a onclick='alert("Talk features will become available once Kelp is launched")'>Discuss on Talk</a>
         </div>
         <img class='prev-image' src='#{image}'>
       </div>
