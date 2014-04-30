@@ -61,33 +61,33 @@ module.exports =
       </div>
     '''
   }, {
-    "Discuss": """
-      <h1>Discuss Kelp</h1>
+    "Feedback": """
+      <iframe id='feedback' frameborder='0' src="https://docs.google.com/a/zooniverse.org/forms/d/1gfpaTZ-kS3UefF5CpRlfEQwv4s9rIBPY18PZyBZcCfw/viewform"></iframe>
     """
   }]
 
-  organizations: [{
-    image: '//placehold.it/100.png?text=Example'
-    name: 'Example Organization'
-    description: 'This is an example organization.'
-    url: ['https://www.zooniverse.org/', 'https://twitter.com/the_zooniverse', 'https://github.com/zooniverse']
-  }]
+  # organizations: [{
+  #   image: '//placehold.it/100.png?text=Example'
+  #   name: 'Example Organization'
+  #   description: 'This is an example organization.'
+  #   url: ['https://www.zooniverse.org/', 'https://twitter.com/the_zooniverse', 'https://github.com/zooniverse']
+  # }]
 
-  scientists: [{
-    image: '//placehold.it/100.png?text=Example'
-    name: 'Example Scientist'
-    location: 'Oxford, U.K.'
-    description: 'This is an example scientist.'
-    url: 'https://twitter.com/orbitingfrog'
-  }]
+  # scientists: [{
+  #   image: '//placehold.it/100.png?text=Example'
+  #   name: 'Example Scientist'
+  #   location: 'Oxford, U.K.'
+  #   description: 'This is an example scientist.'
+  #   url: 'https://twitter.com/orbitingfrog'
+  # }]
 
-  developers: [{
-    image: '//placehold.it/100.png?text=Example'
-    name: 'Alex'
-    location: 'Chicago, IL'
-    description: 'This is an example developer.'
-    url: ['https://aweiksnar.github.io', 'https://github.com/aweiksnar']
-  }]
+  # developers: [{
+  #   image: '//placehold.it/100.png?text=Example'
+  #   name: 'Alex'
+  #   location: 'Chicago, IL'
+  #   description: 'This is an example developer.'
+  #   url: ['https://aweiksnar.github.io', 'https://github.com/aweiksnar']
+  # }]
 
   tasks:
     pickOne:
