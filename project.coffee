@@ -16,7 +16,7 @@ module.exports =
       <div class="secondary-bg">
         <div class="secondary-content">
           <nav class="sub-nav-about">
-            <button name="kelp">Kelp</button>
+            <button name="kelp">Overview</button>
             <button name="your-task">Your Task</button>
             <button name="goals">Goals</button>
             <button name="results">Results</button>
@@ -26,28 +26,15 @@ module.exports =
         <div class="secondary-content">
           <div class="left-column">
             <div class="content sub-nav-about-kelp">
-              <h1>Finding Kelp</h1>
-              <p>
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-              </p>
-
-              <p>
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-              </p>
-
-              <p>
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-              </p>
-
-              <p>
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-              </p>
-
+              <h1>Kelp Overview</h1>
+              <p>Giant kelp forests produce a dense floating canopy that is clearly visible on Landsat satellite imagery. Landsat Thematic Mapper (TM) imagery is freely available to the public and provides global coverage every ~16 days from 1984-present. By providing classifications of changes in kelp canopy cover over the past 30 years on global scales, this project will identify regions where kelp forests have experience significant long-term changes. We will then identify the likely environmental and anthropogenic drivers of these observed changes.</p>
+              <p>There is currently no long-term data on kelp canopy changes for most of the globe, so obtaining reliable classifications for any region (South Africa, Tasmania, New Zealand), would be a substantial improvement over our current data. Our ultimate goal would be to obtain global coverage over the entire Landsat TM time series (1984-present).</p>
             </div>
 
             <div class="content sub-nav-about-your-task">
-              <h1>Your Task</h1>
-              <p>This will be the your task section</p>
+              <h1>What is your task?</h1>
+              <p>You are asked to trace the outline of giant kelp forests on Landsat satellite imagery. Kelp forests are highly distinctive on these images and we believe that by showing a few images of example forests, you will be able to identify forests without any specialist knowledge.</p>
+              <p>There are currently many automated processing routines available for classifying satellite imagery. We have experimented with many of these, however they are not well suited for the nearshore coastal environment. Landsat was developed for terrestrial vegetation. The signal from floating aquatic vegetation is much weaker than that of terrestrial vegetation, and so we are working on the edge of Landsat’s signal to noise capabilities. High variability in nearshore conditions (e.g. clouds, sunglint, turbidity) complicates the situation. All of the automated processing routines we have used require extensive manual editing to produce an acceptable product.</p>
             </div>
 
             <div class="content sub-nav-about-goals">
