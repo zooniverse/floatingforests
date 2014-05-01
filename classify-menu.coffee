@@ -17,12 +17,13 @@ class ClassifyMenu
         </div>
         <div class='menu-section' id="field-guide">
           <h1>Field Guide</h1>
-          <div class="guide-item">
-            <img src="http://placehold.it/150X150">
+          <div class="guide-item kelp">
             <p>Kelp</p>
           </div>
-          <div class="guide-item">
-            <img src="http://placehold.it/150X150">
+          <div class="guide-item kelp-alt">
+            <p>Kelp</p>
+          </div>
+          <div class="guide-item clouds">
             <p>Clouds</p>
           </div>
         </div>
