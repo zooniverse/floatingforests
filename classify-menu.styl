@@ -77,11 +77,20 @@
         font-size 36px
       .guide-item
         width 250px
+        height 250px
         display inline-block
-        img
-          border-radius 50%
-          margin 10px
+        border-radius 50%
         p
           @extend .capitalized-text
           margin 0
-
+          position absolute
+          bottom 0px
+          width 250px
+          text-align center
+        &.clouds
+          background url("./clouds-1.jpg")
+        &.kelp
+          background url("./fg-marked1.jpg")
+          transition background 0.5s
+          &:hover
+            background url("./fg-unmarked1.png")
