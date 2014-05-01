@@ -9,6 +9,8 @@ $('head').append("""
   <meta name="viewport" content="width=540, user-scalable=no">
 """)
 
+$(".readymade-site-links").append("<a class='readymade-site-link' href='https://docs.google.com/a/zooniverse.org/forms/d/1gfpaTZ-kS3UefF5CpRlfEQwv4s9rIBPY18PZyBZcCfw/viewform'>Feedback</a>")
+
 project = require "zooniverse-readymade/current-project"
 classifyPage = project.classifyPages[0]
 subjectViewer = classifyPage.subjectViewer

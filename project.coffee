@@ -60,10 +60,6 @@ module.exports =
         </div>
       </div>
     '''
-  }, {
-    "Feedback": """
-      <iframe id='feedback' frameborder='0' src="https://docs.google.com/a/zooniverse.org/forms/d/1gfpaTZ-kS3UefF5CpRlfEQwv4s9rIBPY18PZyBZcCfw/viewform"></iframe>
-    """
   }]
 
   # organizations: [{
