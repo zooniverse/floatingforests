@@ -20,6 +20,9 @@ class ClassifyMenu
           <div class="guide-item kelp">
             <p>Kelp</p>
           </div>
+          <div class="guide-item kelp-alt">
+            <p>Kelp</p>
+          </div>
           <div class="guide-item clouds">
             <p>Clouds</p>
           </div>
