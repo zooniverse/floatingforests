@@ -36,6 +36,11 @@ class ClassifyMenu
           <h1>Favorites Menu Section</h1>
         </div>
       </div>
+
+      <div class="preload">
+        <img src='./kelp-marked1.jpg'>
+        <img src='./kelp-before2.jpg'>
+      </div>
     </div>
   """
 
