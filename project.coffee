@@ -2,7 +2,7 @@ FreeDrawTool = require "./free-draw-tool"
 
 module.exports =
   id: 'project_id'
-  background: 'kelp-forest-large.jpg'
+  background: './images/kelp-forest-large.jpg'
   title: 'Kelp Hunters'
   summary: 'Help find kelp forests'
   description: 'Join the search of satellite imagery to locate and track the worlds kelp forests!'
