@@ -3,7 +3,7 @@
 class FreeDrawTool extends Tool
   stroke: "rgba(255, 255, 255, 1)"
   strokeWidth: 1
-  fill: "rgba(255, 255, 255, 0.5)"
+  fill: "rgba(255, 255, 255, 0.3)"
 
   constructor: ->
     super
