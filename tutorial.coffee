@@ -5,12 +5,12 @@ slides = [
     content: "This is a brief tutorial to guide you through the steps to classify on Kelp Hunters"
   }, 
   {
-    image: './tutorial-kelp-highlight.jpg'
+    image: './gifs/kelp-tut.gif'
     title: "Basics of Marking"
     content: "To mark an area of kelp, simply click and drag your mouse on the image. When you release, any remaining gap will be filled in to make a complete polygon."
   }, 
   {
-    image: "./tutorial-kelp.jpg"
+    image: "./gifs/kelp-tut-delete.gif"
     title: "Removing Bad Marks"
     content: "You can remove a bad or accidental mark by clicking the mark, then pressing your delete key. You may also click “Undo” below to remove the last mark you did."
   },
