@@ -1,6 +1,6 @@
 slides = [
   {
-    image: "./images/tutorial-kelp.jpg"
+    image: "./images/tutorial-kelp-highlight.jpg"
     title: "Welcome to Kelp Hunters"
     content: "This is a brief tutorial to guide you through the steps to classify on Kelp Hunters"
   }, 
@@ -15,12 +15,12 @@ slides = [
     content: "You can remove a bad or accidental mark by clicking the mark, then pressing your delete key. You may also click “Undo” below to remove the last mark you did."
   },
   {
-    image: './images/tutorial-kelp-highlight.jpg'
+    image: './images/clouds-1.jpg'
     title: "Identifying Clouds"
     content: "You may occasionally spot clouds obscuring the view of the coastline. When you see this, click the “Clouds Present” button below. Do mark any kelp you can see!"
   },
   {
-    image: './images/tutorial-kelp-highlight.jpg'
+    image: './images/tutorial-kelp.jpg'
     title: "Happy Hunting"
     content: "Thank you for your interest in Kelp Hunters! You can discuss the project with the science team and other volunteers by visiting Talk."
   }
