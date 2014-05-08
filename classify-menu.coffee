@@ -74,6 +74,7 @@ class ClassifyMenu
     tabNum = $(e.target).index() + 1
     section = $(".menu-section:nth-child(#{tabNum})")
     if section.is(":visible") then @hide section else @display section
+    $("html, body").animate({ scrollTop:($("#footer-container").offset().top - window.innerHeight)}, 500)
 
   display: (section) ->
     $(".tab:eq(#{section.index()})").addClass("active").siblings().removeClass("active")
