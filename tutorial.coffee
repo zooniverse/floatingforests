@@ -90,7 +90,6 @@ class Tutorial
   onClickNext: ->
     if @currentSlide() is @numberOfSlides
       @exit()
-      # make this in exit, that removes event listeners, and with close button click
     else
       @showSlide(@currentSlide() + 1) 
 
