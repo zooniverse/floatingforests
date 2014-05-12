@@ -28,7 +28,7 @@ slides = [
 
 class Tutorial
   html = """
-    <div class='tutorial'>
+    <div class='tutorial' id='tutorial-bg'>
       <div class='tutorial-slide'>
         <button id='close'><span id='skip'>SKIP</span><img id='tut-x-icon' src='./icons/x-icon.svg'></button>
 
@@ -66,7 +66,7 @@ class Tutorial
     @closeBtn = $("button#close")
     @dot = $(".dot")
 
-    @closeBtn.on 'click', => @tutorial.fadeOut(250)
+    @closeBtn.on 'click', => @exit()
     @nextBtn.on 'click', => @onClickNext()
     @dot.on 'click', (e) => @showSlide $(e.target).index() + 1
 
@@ -75,6 +75,9 @@ class Tutorial
   start: ->
     @tutorial.fadeIn(250)
     @showSlide(1)
+    window.addEventListener "click", @exitIfClickOutside
+
+  exitIfClickOutside: (e) => @exit() if e.target.id is "tutorial-bg"
 
   currentSlide: -> $('.dot.active').index() + 1
 
@@ -86,8 +89,13 @@ class Tutorial
 
   onClickNext: ->
     if @currentSlide() is @numberOfSlides
-      @tutorial.fadeOut(250)
+      @exit()
+      # make this in exit, that removes event listeners, and with close button click
     else
       @showSlide(@currentSlide() + 1) 
+
+  exit: ->
+    @tutorial.fadeOut(250)
+    window.removeEventListener "click", @exitIfClickOutside
 
 module?.exports = Tutorial
