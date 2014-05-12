@@ -312,8 +312,6 @@ LEFT_OFFSET = -250px
         border-radius 5px
         display inline-block
         height 50px
-        &:hover
-          opacity 0.8
       #clouds-present
         background transparent
         border 2px solid #fff
@@ -334,9 +332,10 @@ LEFT_OFFSET = -250px
         background-color transparent
         display inline-block
         color #fff
-        &:active
-          color TURQ
-          border-color TURQ
+        transition 0.1s ease
+        &:hover
+          background-color #fff
+          color MARINE
 
   .zooniverse-profile
     .sign-in-form

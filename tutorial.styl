@@ -34,18 +34,20 @@ GREY = #8f8f8f
       width 10px
       margin-left 10px
     button#next
-      height 50px
-      width 150px
+      TUT_BTN_WIDTH = 130
+      @extend .capitalized-text
+      height 40px
+      width unit(TUT_BTN_WIDTH, "px")
       background-color LIME_GREEN
       color #fff
-      font-size 16px
+      font-size 12px
       font-weight 700
       border-radius 5px
       margin 0 auto
       position absolute
       bottom 45px
       left 50%
-      margin-left -75px
+      margin-left unit(-(TUT_BTN_WIDTH/2), "px")
     #close
       position absolute
       right 10px
