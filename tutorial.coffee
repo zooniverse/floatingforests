@@ -30,7 +30,7 @@ class Tutorial
   html = """
     <div class='tutorial'>
       <div class='tutorial-slide'>
-        <button id='close'><span id='skip'>SKIP</span> X</button>
+        <button id='close'><span id='skip'>SKIP</span><img id='tut-x-icon' src='./icons/x-icon.svg'></button>
 
         <div id='slides-container'></div>
 
