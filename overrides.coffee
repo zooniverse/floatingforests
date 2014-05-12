@@ -37,7 +37,7 @@ $ ->
   $("""
       <div id='location-data'>
         <h2>Location</h2>
-        <p>34'00'02.3 N, 120'14'55.0 W</p>
+        <p id='subject-coords'></p>
       </div>
     """).insertBefore(".readymade-classification-interface")
 
@@ -78,10 +78,12 @@ class ClassifyPageEvents
     $(".summary-overlay").removeClass("mobile-done") if not @mobile()
 
   classifyPage.on classifyPage.LOAD_SUBJECT, (e, subject) =>
+    [@lat, @long] = subject.coords
     classifyPage.classification.annotations.push {clouds: false} # clouds start as false
     if @firstSubject
       nextImage = @nextImage(1)
       $(".readymade-subject-viewer-container").append(nextImage)
+      @loadLatLong()
     @firstSubject = false
 
   classifyPage.on classifyPage.SEND_CLASSIFICATION, =>
@@ -122,12 +124,15 @@ class ClassifyPageEvents
         # code to execute at end of css transition - this timing should match the css transition
         $("button#clouds-present").removeClass("present")
         $("#favorites").text("Add to Favorites").removeClass("favorited") # reset fav
+        @loadLatLong()
         nextSubject.remove()
         oldSummary.remove()
         readymadeSubjectViewer.show()
         nextSubjectButton.prop 'disabled', false
       ), 1000
     , 1000 # time that 'Nice Work' screen is displayed
+
+  @loadLatLong: -> $("#subject-coords").text("#{@lat}, #{@long}")
 
   @nextImage: (queue = 2) ->
     # queue is 2 by default to load the image 2 ahead of subject into the offscreen-right position
