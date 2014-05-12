@@ -5,10 +5,10 @@ class ClassifyMenu
   html = """
     <div class='classify-menu'>
       <div class='menu-tabs'>
-        <div class='tab' id='tutorial'>View Tutorial</div>
-        <div class='tab'>Open Field Guide</div>
-        <div class='tab'>Change Location</div>
-        <div class='tab' id='favorites'>Add to Favorites</div>
+        <div class='tab' id='tutorial'><img src='./icons/tut.svg'>View Tutorial</div>
+        <div class='tab'><img src='./icons/guide.svg'>Open Field Guide</div>
+        <div class='tab'><img src='./icons/location.svg'>Change Location</div>
+        <div class='tab' id='favorites'><img src='./icons/favorite.svg'>Add to Favorites</div>
       </div>
 
       <div class='menu-content'>
@@ -66,7 +66,7 @@ class ClassifyMenu
     if classifyPage.classification.favorite
       $("#favorites").text("Favorited").addClass("favorited")
     else
-      $("#favorites").text("Add to Favorites").removeClass("favorited")
+      $("#favorites").html("<img src='./icons/favorite.svg'> Add to Favorites").removeClass("favorited")
 
   onTabClick: (e) ->
     # disable default behavior for tutorial and favorite tab
