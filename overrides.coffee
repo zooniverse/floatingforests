@@ -44,7 +44,7 @@ $ ->
   $(".decision-tree-confirmation").prepend("""
     <div id="custom-buttons">
       <div class="third"><button id='map'>Map</button></div>
-      <div class="third"><button id='clouds-present'>C</button><p>Clouds Present?<p></div>
+      <div class="third"><button id='clouds-present'></button><p>Clouds Present?<p></div>
       <div class="third"><button id='undo'>Undo</button></div>
     </div>
   """)

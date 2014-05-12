@@ -315,15 +315,18 @@ LEFT_OFFSET = -250px
         &:hover
           opacity 0.8
       #clouds-present
-        background-color TURQ
+        background transparent
+        border 2px solid #fff
         color #fff
         width 40px
         height 40px
         border-radius 50%
         transition 0.5s all ease
         &.present
-          background-color #fff
+          background TURQ url('./icons/cloud.svg') no-repeat center
           color TURQ
+         &:hover
+           background url('./icons/cloud.svg') no-repeat center
       #undo, #map
         margin-top 10px
         border 2px solid #fff
