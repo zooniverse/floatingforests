@@ -28,8 +28,8 @@ class ClassifyMenu
           </div>
         </div>
         <div class='menu-section'>
-          <button class='location-btn'>California</button>
           <button class='location-btn' id="all-locations">All Locations</button>
+          <button class='location-btn'>California</button>
           <button class='location-btn'>Tasmania</button>
         </div>
         <div class='menu-section'>
