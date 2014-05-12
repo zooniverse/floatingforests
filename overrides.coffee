@@ -160,3 +160,4 @@ class ClassifyPageEvents
      """).fadeIn(300).appendTo(".readymade-subject-viewer-container")
 
 #TODO: 1. make the transition code less grimey
+#      2. subject size- make full
