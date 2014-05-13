@@ -6,7 +6,7 @@ ClassifyMenu = require "./classify-menu"
 # add open sans font
 $('head').append("""
   <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700,800' rel='stylesheet' type='text/css'>
-  <meta name="viewport" content="width=540, user-scalable=no">
+  <meta name="viewport" content="width=600, user-scalable=no">
 """)
 
 $(".readymade-site-links").append("<a class='readymade-site-link' href='https://docs.google.com/a/zooniverse.org/forms/d/1gfpaTZ-kS3UefF5CpRlfEQwv4s9rIBPY18PZyBZcCfw/viewform'>Feedback</a>")
