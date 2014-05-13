@@ -146,11 +146,10 @@ class ClassifyPageEvents
       <div class='summary-overlay centered'>
         <div class='content'>
           <h1>Nice Work!</h1>
-          <p>You Marked</p>
+          <p>You Marked:</p>
           <p class='bold-data' id='kelp-num'>#{kelpNum} kelp bed#{if kelpNum is 1 then '' else 's'}</p>
-          <p>Located near</p>
-          <p class='bold-data'>34'00'02.3 N</p>
-          <p class='bold-data'>120'14'55.0 W</p>
+          <p>Located near:</p>
+          <p class='bold-data'>34'00'02.3 N <br> 120'14'55.0 W</p>
           <a onclick='alert("Talk features will become available once Kelp is launched")'>Discuss on Talk</a>
         </div>
         <img class='prev-image' src='#{image}'>

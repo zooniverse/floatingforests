@@ -206,14 +206,21 @@ LEFT_OFFSET_ADJUST = 50
           left -800px
         h1
           font-size 28px
-        p.bold-data
-          font-size 20px
-          font-weight 800
+        p
+          margin 30px 0 0 0
+          &.bold-data
+            margin 0
+            font-size 20px
+            font-weight 800
         a
+          display inline-block
           border 2px solid #fff
           color #fff
           border-radius 5px
-          padding 10px
+          padding 0 10px
+          height 40px
+          line-height 40px
+          margin-top 30px
           &:hover
             cursor pointer
         .prev-image
@@ -224,6 +231,7 @@ LEFT_OFFSET_ADJUST = 50
           z-index -1
         .content
           width 150px
+          height 100%
           position absolute
           top 0px
           left 80%
