@@ -237,7 +237,7 @@ LEFT_OFFSET_ADJUST = 50
             left 50%
             text-align center
         &.mobile-done
-          left -530px
+          left -600px
         &.offscreen-left
           left -800px
         &:after
@@ -281,10 +281,10 @@ LEFT_OFFSET_ADJUST = 50
           left 100%
           margin-left unit(LEFT_OFFSET + LEFT_OFFSET_ADJUST, 'px')
           &.offscreen-right
-            margin-left unit(SUBJECT_WIDTH, 'px')
+            margin-left unit((SUBJECT_WIDTH / 2) + LEFT_OFFSET_ADJUST , 'px')
           @media screen and (max-width: 1070px)
             left 100%
-            margin-left unit(SUBJECT_WIDTH, 'px')
+            margin-left unit(SUBJECT_WIDTH / 2, 'px')
   .readymade-home-page
     text-shadow none
     .readymade-footer
