@@ -70,6 +70,8 @@ class ClassifyPageEvents
 
   @mobile: -> window.innerWidth < 900
 
+  @roundTo: (dec, num) -> parseFloat(num).toFixed(dec)
+
   window.onresize = =>
     $(".summary-overlay").removeClass("mobile-done") if not @mobile()
 
@@ -130,7 +132,7 @@ class ClassifyPageEvents
       ), 1000
     , 500 # time that 'Nice Work' screen is displayed
 
-  @loadLatLong: -> $("#subject-coords").html("<a target='_tab' href='https://www.google.com/maps/@#{@lat},#{@long},8z'>#{@lat}, #{@long}</a>")
+  @loadLatLong: -> $("#subject-coords").html("<a target='_tab' href='https://www.google.com/maps/@#{@lat},#{@long},8z'>#{@roundTo(3, @lat)} N, #{@roundTo(3, @long)} W</a>")
 
   @nextImage: (queue = 2) ->
     # queue is 2 by default to load the image 2 ahead of subject into the offscreen-right position
@@ -149,7 +151,7 @@ class ClassifyPageEvents
           <p>You Marked:</p>
           <p class='bold-data' id='kelp-num'>#{kelpNum} kelp bed#{if kelpNum is 1 then '' else 's'}</p>
           <p>Located near:</p>
-          <p class='bold-data'>34'00'02.3 N <br> 120'14'55.0 W</p>
+          <p class='bold-data'>#{@roundTo(3, @lat)} N<br>#{@roundTo(3, @long)} W</p>
           <a onclick='alert("Talk features will become available once Kelp is launched")'>Discuss on Talk</a>
         </div>
         <img class='prev-image' src='#{image}'>
@@ -157,6 +159,3 @@ class ClassifyPageEvents
      """).fadeIn(300).appendTo(".readymade-subject-viewer-container")
 
 #TODO: 1. make the transition code less grimey
-#      2. fix favorites icon
-#      3. sync up media queries
-#      4. fix button states for new interface
