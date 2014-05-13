@@ -156,12 +156,13 @@ LEFT_OFFSET_ADJUST = 50
         button[name="decision-tree-go-back"]
           display none
         button[name="decision-tree-confirm-task"]
-          display block
+          display inline-block
+          float left
           height 50px
           font-weight 800
           font-size 16px
-          width 100%
-          margin-top 40px
+          width 50%
+          margin 0
           border 2px solid LIME_GREEN
           background-color LIME_GREEN
           &:hover
@@ -175,7 +176,7 @@ LEFT_OFFSET_ADJUST = 50
         .decision-tree-confirmation
           width unit(SUBJECT_WIDTH, 'px')
           overflow auto
-          margin-top 20px
+          margin 30px 0
         .decision-tree-task
           display block !important // prevent decision tree from blinking in between subjects
     .readymade-subject-viewer-container
@@ -201,7 +202,7 @@ LEFT_OFFSET_ADJUST = 50
         transition-duration 1.0s
         text-align left
         z-index 1
-        @media screen and (max-width: 900px)
+        @media screen and (max-width: 1070px)
           left -600px
         h1
           font-size 28px
@@ -281,7 +282,7 @@ LEFT_OFFSET_ADJUST = 50
           margin-left unit(LEFT_OFFSET + LEFT_OFFSET_ADJUST, 'px')
           &.offscreen-right
             margin-left unit(SUBJECT_WIDTH, 'px')
-          @media screen and (max-width: 900px)
+          @media screen and (max-width: 1070px)
             left 100%
             margin-left unit(SUBJECT_WIDTH, 'px')
   .readymade-home-page
@@ -301,48 +302,44 @@ LEFT_OFFSET_ADJUST = 50
       &:hover
         background-color darken(LIME_GREEN, 5)
 
-  #custom-buttons
-    margin-bottom 10px
-    .third
-      width 33%
+  .side-btn
+    width 25%
+    display inline-block
+    overflow auto
+    float left
+    text-align center
+    button
+      @extend .capitalized-text
+      width 100px
+      letter-spacing 1px
+      font-size 14px
+      border 2px solid transparent
+      border-radius 5px
       display inline-block
-      overflow auto
+      height 50px
+    #clouds-present
       float left
-      text-align center
-      button
-        @extend .capitalized-text
-        width 100px
-        letter-spacing 1px
-        font-size 14px
-        border 2px solid transparent
-        border-radius 5px
-        display inline-block
-        height 50px
-      #clouds-present
-        background transparent
-        border 2px solid #fff
-        color #fff
-        width 40px
-        height 40px
-        border-radius 50%
-        transition 0.5s all ease
-        background url('./icons/cloud.svg') no-repeat -30px
-        &.present
+      background transparent
+      border 2px solid #fff
+      color #fff
+      transition 0.5s all ease
+      background url('./icons/cloud.svg') no-repeat -30px
+      &.present
+        background TURQ url('./icons/cloud.svg') no-repeat center
+        &:hover
           background TURQ url('./icons/cloud.svg') no-repeat center
-          &:hover
-            background TURQ url('./icons/cloud.svg') no-repeat center
-        &:hover
-          background url('./icons/cloud.svg') no-repeat center
-      #undo, #map
-        margin-top 10px
-        border 2px solid #fff
-        background-color transparent
-        display inline-block
-        color #fff
-        transition 0.1s ease
-        &:hover
-          background-color #fff
-          color MARINE
+      &:hover
+        background url('./icons/cloud.svg') no-repeat center
+    #undo
+      float right
+      border 2px solid #fff
+      background-color transparent
+      display inline-block
+      color #fff
+      transition 0.1s ease
+      &:hover
+        background-color #fff
+        color MARINE
 
   .zooniverse-profile
     .sign-in-form

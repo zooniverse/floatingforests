@@ -41,13 +41,9 @@ $ ->
       </div>
     """).insertBefore(".readymade-classification-interface")
 
-  $(".decision-tree-confirmation").prepend("""
-    <div id="custom-buttons">
-      <div class="third"><button id='map'>Map</button></div>
-      <div class="third"><button id='clouds-present'></button><p>Clouds Present?<p></div>
-      <div class="third"><button id='undo'>Undo</button></div>
-    </div>
-  """)
+  $(".decision-tree-confirmation")
+    .prepend "<div class='side-btn'><button id='clouds-present'></button></div>"
+    .append "<div class='side-btn'><button id='undo'>Undo</button></div>"
 
   ClassifyMenu.create()
   menu = new ClassifyMenu
@@ -160,4 +156,6 @@ class ClassifyPageEvents
      """).fadeIn(300).appendTo(".readymade-subject-viewer-container")
 
 #TODO: 1. make the transition code less grimey
-#      2. subject size- make full
+#      2. fix favorites icon
+#      3. sync up media queries
+#      4. fix button states for new interface
