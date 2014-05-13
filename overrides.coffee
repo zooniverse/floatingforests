@@ -130,7 +130,7 @@ class ClassifyPageEvents
         readymadeSubjectViewer.show()
         nextSubjectButton.prop 'disabled', false
       ), 1000
-    , 1000 # time that 'Nice Work' screen is displayed
+    , 500 # time that 'Nice Work' screen is displayed
 
   @loadLatLong: -> $("#subject-coords").html("<a target='_tab' href='https://www.google.com/maps/@#{@lat},#{@long},8z'>#{@lat}, #{@long}</a>")
 

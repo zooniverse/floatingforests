@@ -4,9 +4,10 @@ AQUA = #34a6a8
 MARINE = #00485b
 OPAQUE_MARINE = rgba(0, 72, 91, 0.7)
 
-SUBJECT_HEIGHT = 390px
-SUBJECT_WIDTH = 429px
-LEFT_OFFSET = -250px
+SUBJECT_HEIGHT = 484
+SUBJECT_WIDTH = 532
+LEFT_OFFSET = -(SUBJECT_WIDTH / 2)
+LEFT_OFFSET_ADJUST = 50
 
 .capitalized-text
   text-transform uppercase
@@ -88,7 +89,7 @@ LEFT_OFFSET = -250px
     &:after
       content ""
       background-color AQUA
-      opacity 0.5
+      opacity 0.7
       height 100%
       width 100%
       position absolute
@@ -148,7 +149,7 @@ LEFT_OFFSET = -250px
         margin 0 0 10px 0
     .readymade-decision-tree-container
       display block
-      width SUBJECT_WIDTH
+      width unit(SUBJECT_WIDTH, 'px')
       margin 0 auto
       .decision-tree
         padding 0 !important
@@ -172,7 +173,7 @@ LEFT_OFFSET = -250px
         .decision-tree-choice
           display none
         .decision-tree-confirmation
-          width SUBJECT_WIDTH
+          width unit(SUBJECT_WIDTH, 'px')
           overflow auto
           margin-top 20px
         .decision-tree-task
@@ -181,21 +182,21 @@ LEFT_OFFSET = -250px
       width 100%
       padding 0
       border-radius 0px
-      min-height 395px
+      min-height unit(SUBJECT_HEIGHT, 'px')
       position relative
       display block
       background none
       .marking-surface
-        height SUBJECT_HEIGHT
-        width SUBJECT_WIDTH
+        height unit(SUBJECT_HEIGHT, 'px')
+        width unit(SUBJECT_WIDTH, 'px')
         cursor url("cursor.svg"), auto
       .summary-overlay
-        height SUBJECT_HEIGHT
-        width SUBJECT_WIDTH
+        height unit(SUBJECT_HEIGHT, 'px')
+        width unit(SUBJECT_WIDTH, 'px')
         background-color OPAQUE_MARINE
         position absolute
         top 0px
-        left -245px
+        left unit(LEFT_OFFSET - LEFT_OFFSET_ADJUST, 'px')
         transition-property margin-left, left
         transition-duration 1.0s
         text-align left
@@ -218,7 +219,7 @@ LEFT_OFFSET = -250px
           position absolute
           top 0px
           right 0px
-          height SUBJECT_HEIGHT
+          height unit(SUBJECT_HEIGHT, 'px')
           z-index -1
         .content
           width 150px
@@ -230,7 +231,7 @@ LEFT_OFFSET = -250px
           transition all 1s
         &.centered
           left 50%
-          margin-left -214px
+          margin-left unit(LEFT_OFFSET, 'px')
           .content
             left 50%
             text-align center
@@ -248,7 +249,7 @@ LEFT_OFFSET = -250px
           position absolute
           z-index -1
       .readymade-subject-viewer
-        width SUBJECT_WIDTH
+        width unit(SUBJECT_WIDTH, 'px')
         margin 0 auto
       .left-image, .right-image
         position absolute
@@ -256,16 +257,16 @@ LEFT_OFFSET = -250px
         transition all 1s ease
       .right-image
         left 50%
-        width SUBJECT_WIDTH
-        height SUBJECT_HEIGHT
-        margin-left -214px
+        width unit(SUBJECT_WIDTH, 'px')
+        height unit(SUBJECT_HEIGHT, 'px')
+        margin-left unit(LEFT_OFFSET, 'px')
         transition-property all
         transition-duration 1.0s
         right auto
         pointer-events none
         img
-          height SUBJECT_HEIGHT
-          width SUBJECT_WIDTH
+          height unit(SUBJECT_HEIGHT, 'px')
+          width unit(SUBJECT_WIDTH, 'px')
         .right-image-overlay
           background-color OPAQUE_MARINE
           position absolute
@@ -277,12 +278,12 @@ LEFT_OFFSET = -250px
             opacity 0
         &.right
           left 100%
-          margin-left -185px
+          margin-left unit(LEFT_OFFSET + LEFT_OFFSET_ADJUST, 'px')
           &.offscreen-right
-            margin-left SUBJECT_WIDTH
+            margin-left unit(SUBJECT_WIDTH, 'px')
           @media screen and (max-width: 900px)
             left 100%
-            margin-left SUBJECT_WIDTH
+            margin-left unit(SUBJECT_WIDTH, 'px')
   .readymade-home-page
     text-shadow none
     .readymade-footer
