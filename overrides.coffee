@@ -43,7 +43,7 @@ $ ->
 
   $(".decision-tree-confirmation")
     .prepend "<div class='side-btn'><button id='clouds-present'></button></div>"
-    .append "<div class='side-btn'><button id='undo'>Undo</button></div>"
+    .append "<div class='side-btn'><button id='undo'></button></div>"
 
   ClassifyMenu.create()
   menu = new ClassifyMenu
