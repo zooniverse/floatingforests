@@ -5,11 +5,12 @@
     overflow auto
     display block
     .tab
+      OPAQUE_AQUA = rgba(48, 154, 156, 0.3)
       text-transform uppercase
       letter-spacing 1px
       font-weight 600
       color rgba(255, 255, 255, 0.8)
-      background-color rgba(48, 154, 156, 0.3)
+      background-color OPAQUE_AQUA
       width 25%
       display inline-block
       text-align center
@@ -34,18 +35,18 @@
           display none
         font-size 0px
         &:nth-child(1)
-          background AQUA url("./icons/tut.svg") no-repeat center center
+          background OPAQUE_AQUA url("./icons/tut.svg") no-repeat center center
         &:nth-child(2)
-          background AQUA url("./icons/guide.svg") no-repeat center center
+          background OPAQUE_AQUA url("./icons/guide.svg") no-repeat center center
         &:nth-child(3)
-          background AQUA url("./icons/location.svg") no-repeat center center
+          background OPAQUE_AQUA url("./icons/location.svg") no-repeat center center
         &:nth-child(4)
-          background AQUA url("./icons/favorite.svg") no-repeat center center
+          background OPAQUE_AQUA url("./icons/favorite.svg") no-repeat center center
         &.active
-          background-color MARINE
+          background-color AQUA
         &#favorites
           &.favorited
-            opacity 0.8
+            background-color LIME_GREEN
       &#favorites
         &.favorited
           color LIME_GREEN

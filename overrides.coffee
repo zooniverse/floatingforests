@@ -157,5 +157,3 @@ class ClassifyPageEvents
         <img class='prev-image' src='#{image}'>
       </div>
      """).fadeIn(300).appendTo(".readymade-subject-viewer-container")
-
-#TODO: 1. make the transition code less grimey
