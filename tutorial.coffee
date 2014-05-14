@@ -1,6 +1,6 @@
 slides = [
   {
-    image: "./images/tutorial-kelp-highlight.jpg"
+    image: "./images/tutorial-kelp-1.jpg"
     title: "Welcome to Kelp Hunters"
     content: "This is a brief tutorial to guide you through the steps to classify on Kelp Hunters"
   }, 
