@@ -70,7 +70,7 @@ class ClassifyPageEvents
 
   @mobile: -> window.innerWidth < 900
 
-  @roundTo: (dec, num) -> parseFloat(num).toFixed(dec)
+  @roundTo: (dec, num) -> if num then parseFloat(num).toFixed(dec) else "-"
 
   window.onresize = =>
     $(".summary-overlay").removeClass("mobile-done") if not @mobile()
