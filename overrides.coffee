@@ -132,7 +132,7 @@ class ClassifyPageEvents
       ), 1000
     , 500 # time that 'Nice Work' screen is displayed
 
-  @loadLatLong: -> $("#subject-coords").html("<a target='_tab' href='https://www.google.com/maps/@#{@lat},#{@long},8z'>#{@roundTo(3, @lat)} N, #{@roundTo(3, @long)} W</a>")
+  @loadLatLong: -> $("#subject-coords").html("<a target='_tab' href='https://www.google.com/maps/@#{@lat},#{@long},12z'>#{@roundTo(3, @lat)} N, #{@roundTo(3, @long)} W</a>")
 
   @nextImage: (queue = 2) ->
     # queue is 2 by default to load the image 2 ahead of subject into the offscreen-right position
