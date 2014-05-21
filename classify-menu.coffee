@@ -1,14 +1,15 @@
 project = require "zooniverse-readymade/current-project"
 classifyPage = project.classifyPages[0]
+translate = require "t7e"
 
 class ClassifyMenu
   html = """
     <div class='classify-menu'>
       <div class='menu-tabs'>
-        <div class='tab' id='tutorial'><img src='./icons/tut.svg'>View Tutorial</div>
-        <div class='tab'><img src='./icons/guide.svg'>Open Field Guide</div>
-        <div class='tab'><img src='./icons/location.svg'>Change Location</div>
-        <div class='tab' id='favorites'><img src='./icons/favorite.svg'>Add to Favorites</div>
+        <div class='tab' id='tutorial'><img src='./icons/tut.svg'>#{translate 'classifyMenu.tab.tutorial'}</div>
+        <div class='tab'><img src='./icons/guide.svg'>#{translate 'classifyMenu.tab.fieldGuide'}</div>
+        <div class='tab'><img src='./icons/location.svg'>#{translate 'classifyMenu.tab.location'}</div>
+        <div class='tab' id='favorites'><img src='./icons/favorite.svg'>#{translate 'classifyMenu.tab.favorites'}</div>
       </div>
 
       <div class='menu-content'>
@@ -16,21 +17,21 @@ class ClassifyMenu
           <h1>Tutorial Menu section</h1>
         </div>
         <div class='menu-section' id="field-guide">
-          <h1>Field Guide</h1>
+          <h1>#{translate 'classifyMenu.content.fieldGuide'}</h1>
           <div class="guide-item kelp">
-            <p>Kelp</p>
+            <p>#{translate 'classifyMenu.content.kelp'}</p>
           </div>
           <div class="guide-item kelp-alt">
-            <p>Kelp</p>
+            <p>#{translate 'classifyMenu.content.kelp'}</p>
           </div>
           <div class="guide-item clouds">
-            <p>Clouds</p>
+            <p>#{translate 'classifyMenu.content.clouds'}</p>
           </div>
         </div>
         <div class='menu-section'>
-          <button class='location-btn' id="all-locations">All Locations</button>
-          <button class='location-btn'>California</button>
-          <button class='location-btn'>Tasmania</button>
+          <button class='location-btn' id="all-locations">#{translate 'classifyMenu.locations.all'}</button>
+          <button class='location-btn' id="california">#{translate 'classifyMenu.locations.california'}</button>
+          <button class='location-btn' id="tasmania">#{translate 'classifyMenu.locations.tasmania'}</button>
         </div>
         <div class='menu-section'>
           <h1>Favorites Menu Section</h1>
@@ -64,9 +65,9 @@ class ClassifyMenu
   updateFavorite: ->
     classifyPage.classification.favorite = !classifyPage.classification.favorite
     if classifyPage.classification.favorite
-      $("#favorites").text("Favorited").addClass("favorited")
+      $("#favorites").text("#{translate 'classifyMenu.tab.favorited'}").addClass("favorited")
     else
-      $("#favorites").html("<img src='./icons/favorite.svg'> Add to Favorites").removeClass("favorited")
+      $("#favorites").html("<img src='./icons/favorite.svg'>#{translate 'classifyMenu.tab.favorites'}").removeClass("favorited")
 
   onTabClick: (e) ->
     # disable default behavior for tutorial and favorite tab

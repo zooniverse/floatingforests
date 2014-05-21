@@ -14,6 +14,7 @@
     "marking-surface": "^0.5.3",
     "zooniverse-readymade": "0.1.1",
     "zooniverse": "^0.6.1",
-    "publisssh": "^0.2.4"
+    "publisssh": "^0.2.4",
+    "t7e": "^0.3.1"
   }
 }

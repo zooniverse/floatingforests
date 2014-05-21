@@ -1,28 +1,30 @@
+translate = require "t7e"
+
 slides = [
   {
     image: "./images/tutorial-kelp-1.jpg"
-    title: "Welcome to Kelp Hunters"
-    content: "This is a brief tutorial to guide you through the steps to classify on Kelp Hunters"
+    title: translate "tutorial.step1.header"
+    content: translate "tutorial.step1.content"
   }, 
   {
     image: './gifs/kelp-tut.gif'
-    title: "Basics of Marking"
-    content: "To mark an area of kelp, simply click and drag your mouse on the image. When you release, any remaining gap will be filled in to make a complete polygon."
+    title: translate "tutorial.step2.header"
+    content: translate "tutorial.step2.content"
   }, 
   {
     image: "./gifs/kelp-tut-delete.gif"
-    title: "Removing Bad Marks"
-    content: "You can remove a bad or accidental mark by clicking the mark, then pressing your delete key. You may also click “Undo” below to remove the last mark you did."
+    title: translate "tutorial.step3.header"
+    content: translate "tutorial.step3.content"
   },
   {
     image: './images/clouds-1.jpg'
-    title: "Identifying Clouds"
-    content: "You may occasionally spot clouds obscuring the view of the coastline. When you see this, click the “Clouds Present” button below. Do mark any kelp you can see!"
+    title: translate "tutorial.step4.header"
+    content: translate "tutorial.step4.content"
   },
   {
     image: './images/tutorial-kelp.jpg'
-    title: "Happy Hunting"
-    content: "Thank you for your interest in Kelp Hunters! You can discuss the project with the science team and other volunteers by visiting Talk."
+    title: translate "tutorial.step5.header"
+    content: translate "tutorial.step5.content"
   }
 ]
 
@@ -30,11 +32,11 @@ class Tutorial
   html = """
     <div class='tutorial' id='tutorial-bg'>
       <div class='tutorial-slide'>
-        <button id='close'><span id='skip'>SKIP</span><img id='tut-x-icon' src='./icons/x-icon.svg'></button>
+        <button id='close'><span id='skip'>#{translate 'tutorial.skip'}</span><img id='tut-x-icon' src='./icons/x-icon.svg'></button>
 
         <div id='slides-container'></div>
 
-        <button id='next'>Next</button>
+        <button id='next'>#{translate 'tutorial.next'}</button>
         <div class='dots'></div>
       </div>
     </div>
@@ -85,7 +87,7 @@ class Tutorial
     $("#slide#{num}").show().siblings().hide()
     $(".dot:nth-child(#{num})").addClass("active").siblings().removeClass("active")
 
-    @nextBtn.html(if num is @numberOfSlides then "Finish" else "Next")
+    @nextBtn.html(if num is @numberOfSlides then translate 'tutorial.finish' else translate 'tutorial.next')
 
   onClickNext: ->
     if @currentSlide() is @numberOfSlides

@@ -1,42 +1,46 @@
+translate = require "t7e"
+enUs = require './en-us'
+translate.load enUs
+
 Footer = require 'zooniverse/controllers/footer'
 SubNav = require './sub-nav'
 Tutorial = require "./tutorial"
 ClassifyMenu = require "./classify-menu"
+project = require "zooniverse-readymade/current-project"
 
-# add open sans font
+classifyPage = project.classifyPages[0]
+subjectViewer = classifyPage.subjectViewer
+tools = subjectViewer.markingSurface.tools
+aboutNav = new SubNav "about"
+
 $('head').append("""
   <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700,800' rel='stylesheet' type='text/css'>
   <meta name="viewport" content="width=600, user-scalable=no">
 """)
 
-$(".readymade-site-links").append("<a class='readymade-site-link' href='https://docs.google.com/a/zooniverse.org/forms/d/1gfpaTZ-kS3UefF5CpRlfEQwv4s9rIBPY18PZyBZcCfw/viewform'>Feedback</a>")
-
-project = require "zooniverse-readymade/current-project"
-classifyPage = project.classifyPages[0]
-subjectViewer = classifyPage.subjectViewer
-tools = subjectViewer.markingSurface.tools
-markingsurface = subjectViewer.markingSurface
-
-aboutNav = new SubNav "about"
+project.header.addNavLink 'https://docs.google.com/a/zooniverse.org/forms/d/1gfpaTZ-kS3UefF5CpRlfEQwv4s9rIBPY18PZyBZcCfw/viewform', 'Feedback'
 
 $ ->
   # additional sections
   footer = new Footer
+  ClassifyMenu.create()
+  menu = new ClassifyMenu
+
   $("<div id='footer-container'></div>").insertAfter(".stack-of-pages")
   footer.el.appendTo document.getElementById("footer-container")
 
   $("""
       <div class='home-content'>
         <div class='readymade-main-stack'>
-          <h2>Why is kelp so great?</h2>
-          <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p>
+          <h2>#{translate 'homeSecondary.header'}</h2>
+          <p>#{translate 'homeSecondary.p1'}</p>
         </div>
       </div>
     """).insertAfter(".stack-of-pages")
 
   $("""
       <div id='location-data'>
-        <h2>Location</h2>
+        <h2>#{translate 'site.location'}</h2>
         <p id='subject-coords'></p>
       </div>
     """).insertBefore(".readymade-classification-interface")
@@ -45,12 +49,9 @@ $ ->
     .prepend "<div class='side-btn'><button id='clouds-present'></button></div>"
     .append "<div class='side-btn'><button id='undo'></button></div>"
 
-  ClassifyMenu.create()
-  menu = new ClassifyMenu
+  $(".readymade-call-to-action").html translate 'site.callToAction'
 
-  $(".readymade-call-to-action").html "Get Started"
-
-  $("button[name='decision-tree-confirm-task']").html("Next Subject")
+  $("button[name='decision-tree-confirm-task']").html translate 'classifyPage.next'
 
   # events
   $("button#clouds-present").on "click", (e) ->
@@ -123,7 +124,7 @@ class ClassifyPageEvents
         $("button#clouds-present").removeClass("present")
         favoriteBtn = $("#favorites")
         if favoriteBtn.hasClass("favorited")
-          favoriteBtn.html("<img src='./icons/favorite.svg'>Add to Favorites").removeClass("favorited")
+          favoriteBtn.html("<img src='./icons/favorite.svg'>#{translate 'classifyMenu.tab.favorites'}").removeClass("favorited")
         @loadLatLong()
         nextSubject.remove()
         oldSummary.remove()
@@ -147,12 +148,12 @@ class ClassifyPageEvents
     $("""
       <div class='summary-overlay centered'>
         <div class='content'>
-          <h1>Nice Work!</h1>
-          <p>You Marked:</p>
+          <h1>#{translate 'classifyPage.summary.header'}</h1>
+          <p>#{translate 'classifyPage.summary.youMarked'}</p>
           <p class='bold-data' id='kelp-num'>#{kelpNum} kelp bed#{if kelpNum is 1 then '' else 's'}</p>
-          <p>Located near:</p>
+          <p>#{translate 'classifyPage.summary.locatedNear'}</p>
           <p class='bold-data'>#{@roundTo(3, @lat)} N<br>#{@roundTo(3, @long)} W</p>
-          <a onclick='alert("Talk features will become available once Kelp is launched")'>Discuss on Talk</a>
+          <a onclick='alert("Talk features will become available once Kelp is launched")'>#{translate 'classifyPage.summary.talk'}</a>
         </div>
         <img class='prev-image' src='#{image}'>
       </div>
