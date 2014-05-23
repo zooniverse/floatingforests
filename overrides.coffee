@@ -73,16 +73,19 @@ class ClassifyPageEvents
 
   @roundTo: (dec, num) -> if num then parseFloat(num).toFixed(dec) else "-"
 
+  @formattedTimestamp: (ts) -> ts.match(/\d{4}-\d{2}-\d{2}/)[0]
+
   window.onresize = =>
     $(".summary-overlay").removeClass("mobile-done") if not @mobile()
 
   classifyPage.on classifyPage.LOAD_SUBJECT, (e, subject) =>
     [@lat, @long] = subject.coords
+    @timestamp = subject.metadata.timestamp
     classifyPage.classification.annotations.push {clouds: false} # clouds start as false
     if @firstSubject
       nextImage = @nextImage(1)
       $(".readymade-subject-viewer-container").append(nextImage)
-      @loadLatLong()
+      @loadMetadata()
     @firstSubject = false
 
   classifyPage.on classifyPage.SEND_CLASSIFICATION, =>
@@ -125,7 +128,7 @@ class ClassifyPageEvents
         favoriteBtn = $("#favorites")
         if favoriteBtn.hasClass("favorited")
           favoriteBtn.html("<img src='./icons/favorite.svg'>#{translate 'classifyMenu.tab.favorites'}").removeClass("favorited")
-        @loadLatLong()
+        @loadMetadata()
         nextSubject.remove()
         oldSummary.remove()
         readymadeSubjectViewer.show()
@@ -133,7 +136,9 @@ class ClassifyPageEvents
       ), 1000
     , 500 # time that 'Nice Work' screen is displayed
 
-  @loadLatLong: -> $("#subject-coords").html("<a target='_tab' href='https://www.google.com/maps/@#{@lat},#{@long},12z'>#{@roundTo(3, @lat)} N, #{@roundTo(3, @long)} W</a>")
+  @loadMetadata: -> $("#subject-coords").html """
+      <a target='_tab' href='https://www.google.com/maps/@#{@lat},#{@long},12z'>#{@roundTo(3, @lat)} N, #{@roundTo(3, @long)} W</a>, #{@formattedTimestamp(@timestamp)}
+    """
 
   @nextImage: (queue = 2) ->
     # queue is 2 by default to load the image 2 ahead of subject into the offscreen-right position
