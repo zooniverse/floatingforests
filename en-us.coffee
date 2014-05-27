@@ -4,7 +4,7 @@ module.exports =
     summary: 'Help find kelp forests'
     description: """Join the search of satellite imagery to locate and track the worlds kelp forests!"""
     callToAction: "Get Started"
-    location: "Location"
+    location: "All Locations"
 
   homeSecondary: 
     header: "Why is kelp so great?"
