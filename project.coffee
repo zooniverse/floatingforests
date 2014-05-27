@@ -55,8 +55,8 @@ module.exports =
               <h1>#{translate 'about.getInvolved.header'}</h1>
               <p>#{translate 'about.getInvolved.p1'}</p>
               <a href='#/classify'><button>#{translate 'about.getInvolved.callToAction'}</button></a>
-              <h1>#{translate 'about.connect.header'}</h1>
-              <p>#{translate 'about.connect.p1'}</p>
+              <!--<h1>#{translate 'about.connect.header'}</h1>
+              <p>#{translate 'about.connect.p1'}</p>-->
             </div>
           </div>
         </div>
