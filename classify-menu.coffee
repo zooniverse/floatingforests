@@ -4,12 +4,12 @@ translate = require "t7e"
 
 class ClassifyMenu
   html = """
-    <div class='classify-menu'>
+    <div id='classify-menu'>
       <div class='menu-tabs'>
-        <div class='tab' id='tutorial'><img src='./icons/tut.svg'>#{translate 'classifyMenu.tab.tutorial'}</div>
+        <div class='tab' id='tutorial-tab'><img src='./icons/tut.svg'>#{translate 'classifyMenu.tab.tutorial'}</div>
         <div class='tab'><img src='./icons/guide.svg'>#{translate 'classifyMenu.tab.fieldGuide'}</div>
         <div class='tab'><img src='./icons/location.svg'>#{translate 'classifyMenu.tab.location'}</div>
-        <div class='tab' id='favorites'><img src='./icons/favorite.svg'>#{translate 'classifyMenu.tab.favorites'}</div>
+        <div class='tab' id='favorites-tab'><img src='./icons/favorite.svg'>#{translate 'classifyMenu.tab.favorites'}</div>
       </div>
 
       <div class='menu-content'>
@@ -29,11 +29,9 @@ class ClassifyMenu
           </div>
         </div>
         <div class='menu-section'>
-          <!-- TODO: remove after beta -->
-          <h3 style='padding: 50px 0; margin: 0;''>Location selection will be available at full launch.</h3>
-          <!--<button class='location-btn' id="all-locations">#{translate 'classifyMenu.locations.all'}</button>
+          <button class='location-btn' id="all-locations">#{translate 'classifyMenu.locations.all'}</button>
           <button class='location-btn' id="california">#{translate 'classifyMenu.locations.california'}</button>
-          <button class='location-btn' id="tasmania">#{translate 'classifyMenu.locations.tasmania'}</button>-->
+          <button class='location-btn' id="tasmania">#{translate 'classifyMenu.locations.tasmania'}</button>
         </div>
         <div class='menu-section'>
           <h1>Favorites Menu Section</h1>
@@ -47,49 +45,54 @@ class ClassifyMenu
     </div>
   """
 
-  @create: ->
-    $(".readymade-classify-page").append(html)
+  create: -> $(".readymade-classify-page").append(html)
 
   constructor: ->
-    @menus = $(".menu-section").hide()
+    @create()
+    @el = $("#classify-menu")
 
-    @tab = $(".tab")
+    @el.find(".menu-section").hide()
+    @el.find(".location-btn#all-locations").addClass("selected")
+
+    @tab = @el.find(".tab")
+    @locationBtn = @el.find(".location-btn")
+    @favoritesTab = @el.find("#favorites-tab")
+
     @tab.on "click", (e) => @onTabClick(e)
-
-    @locationBtn = $(".location-btn")
-    @locationBtn.on 'click', (e) =>
-      @onChangeLocation(e)
-
-    $(".location-btn#all-locations").addClass("selected")
-
-    $("#favorites").on 'click', => @updateFavorite()
+    @locationBtn.on 'click', (e) => @onChangeLocation(e)
+    @favoritesTab.on 'click', => @updateFavorite()
+    @el.on "new-subject", => @resetFavoriteTab()
 
   updateFavorite: ->
     classifyPage.classification.favorite = !classifyPage.classification.favorite
     if classifyPage.classification.favorite
-      $("#favorites").text("#{translate 'classifyMenu.tab.favorited'}").addClass("favorited")
+      @favoritesTab.text("#{translate 'classifyMenu.tab.favorited'}").addClass("favorited")
     else
-      $("#favorites").html("<img src='./icons/favorite.svg'>#{translate 'classifyMenu.tab.favorites'}").removeClass("favorited")
+      @resetFavoriteTab()
+
+  resetFavoriteTab: ->
+    if @favoritesTab.hasClass("favorited")
+      @favoritesTab.html("<img src='./icons/favorite.svg'>#{translate 'classifyMenu.tab.favorites'}").removeClass("favorited")
 
   onTabClick: (e) ->
-    # disable default behavior for tutorial and favorite tab
-    return if e.target.id is 'tutorial' or e.target.id is 'favorites'
-    tabNum = $(e.target).index() + 1
-    section = $(".menu-section:nth-child(#{tabNum})")
+    # disable default behavior for tutorial-tab and favorite tab
+    return if e.target.id is 'tutorial-tab' or e.target.id is 'favorites-tab'
+    tabNum = @el.find(e.target).index() + 1
+    section = @el.find(".menu-section:nth-child(#{tabNum})")
     if section.is(":visible") then @hide section else @display section
     $("html, body").animate({ scrollTop:($("#footer-container").offset().top - window.innerHeight)}, 500)
 
   display: (section) ->
-    $(".tab:eq(#{section.index()})").addClass("active").siblings().removeClass("active")
+    @el.find(".tab:eq(#{section.index()})").addClass("active").siblings().removeClass("active")
     section.show().addClass("active").siblings().hide().removeClass("active")
 
   hide: (section) ->
-    $(".tab:eq(#{section.index()})").removeClass("active")
+    @el.find(".tab:eq(#{section.index()})").removeClass("active")
     section.hide()
 
   onChangeLocation: (e) ->
-    btnClicked = $(e.target)
-    $("#location-data h2").text(btnClicked.text())
+    btnClicked = @el.find(e.target)
     btnClicked.addClass("selected").siblings().removeClass("selected")
+    $("#location-data h2").text(btnClicked.text())
 
 module?.exports = ClassifyMenu

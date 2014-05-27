@@ -30,7 +30,7 @@ slides = [
 
 class Tutorial
   html = """
-    <div class='tutorial' id='tutorial-bg'>
+    <div id='tutorial'>
       <div class='tutorial-slide'>
         <button id='close'><span id='skip'>#{translate 'tutorial.skip'}</span><img id='tut-x-icon' src='./icons/x-icon.svg'></button>
 
@@ -42,13 +42,12 @@ class Tutorial
     </div>
   """
 
-  @create: ->
+  create: ->
     $(".readymade-classify-page").append(html)
-    $(".tutorial").hide()
-    @dots = $(".dots")
+    @dots = $("#tutorial").find(".dots")
 
     for slide, i in slides
-      $("#slides-container").append("""
+      $("#tutorial #slides-container").append("""
         <div id='slide#{i + 1}'>
           <div class='top-half'>
             <img src=#{slide.image}>
@@ -63,29 +62,31 @@ class Tutorial
       @dots.append("<div class='dot'></div>")
 
   constructor: ->
-    @tutorial = $(".tutorial")
-    @nextBtn = $("button#next")
-    @closeBtn = $("button#close")
-    @dot = $(".dot")
+    @create()
+    @el = $("#tutorial").hide()
+
+    @nextBtn = @el.find("button#next")
+    @closeBtn = @el.find("button#close")
+    @dot = @el.find(".dot")
 
     @closeBtn.on 'click', => @exit()
     @nextBtn.on 'click', => @onClickNext()
-    @dot.on 'click', (e) => @showSlide $(e.target).index() + 1
+    @dot.on 'click', (e) => @showSlide @el.find(e.target).index() + 1
 
     @numberOfSlides = slides.length
 
   start: ->
-    @tutorial.fadeIn(250)
+    @el.fadeIn(250)
     @showSlide(1)
     window.addEventListener "click", @exitIfClickOutside
 
-  exitIfClickOutside: (e) => @exit() if e.target.id is "tutorial-bg"
+  exitIfClickOutside: (e) => @exit() if e.target.id is "tutorial"
 
-  currentSlide: -> $('.dot.active').index() + 1
+  currentSlide: -> @el.find('.dot.active').index() + 1
 
   showSlide: (num) ->
-    $("#slide#{num}").show().siblings().hide()
-    $(".dot:nth-child(#{num})").addClass("active").siblings().removeClass("active")
+    @el.find("#slide#{num}").show().siblings().hide()
+    @el.find(".dot:nth-child(#{num})").addClass("active").siblings().removeClass("active")
 
     @nextBtn.html(if num is @numberOfSlides then translate 'tutorial.finish' else translate 'tutorial.next')
 
@@ -96,7 +97,7 @@ class Tutorial
       @showSlide(@currentSlide() + 1) 
 
   exit: ->
-    @tutorial.fadeOut(250)
+    @el.fadeOut(250)
     window.removeEventListener "click", @exitIfClickOutside
 
 module?.exports = Tutorial

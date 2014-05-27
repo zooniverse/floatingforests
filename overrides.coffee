@@ -13,7 +13,7 @@ subjectViewer = classifyPage.subjectViewer
 tools = subjectViewer.markingSurface.tools
 aboutNav = new SubNav "about"
 
-$('head').append("""
+project.header.el.append("""
   <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700,800' rel='stylesheet' type='text/css'>
   <meta name="viewport" content="width=600, user-scalable=no">
 """)
@@ -23,7 +23,6 @@ project.header.addNavLink 'https://docs.google.com/a/zooniverse.org/forms/d/1gfp
 $ ->
   # additional sections
   footer = new Footer
-  ClassifyMenu.create()
   menu = new ClassifyMenu
 
   $("<div id='footer-container'></div>").insertAfter(".stack-of-pages")
@@ -61,10 +60,9 @@ $ ->
   $("button#undo").on "click", (e) -> tools[tools.length-1].destroy() if tools.length
 
   # tutorial / guide
-  Tutorial.create()
   tut = new Tutorial
 
-  $("#tutorial").on 'click', => tut.start()
+  $("#tutorial-tab").on 'click', => tut.start()
 
 class ClassifyPageEvents
   @firstSubject = true
@@ -125,9 +123,7 @@ class ClassifyPageEvents
       setTimeout (=>
         # code to execute at end of css transition - this timing should match the css transition
         $("button#clouds-present").removeClass("present")
-        favoriteBtn = $("#favorites")
-        if favoriteBtn.hasClass("favorited")
-          favoriteBtn.html("<img src='./icons/favorite.svg'>#{translate 'classifyMenu.tab.favorites'}").removeClass("favorited")
+        $("#classify-menu").trigger("new-subject")
         @loadMetadata()
         nextSubject.remove()
         oldSummary.remove()
