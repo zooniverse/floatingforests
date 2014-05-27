@@ -29,9 +29,11 @@ class ClassifyMenu
           </div>
         </div>
         <div class='menu-section'>
-          <button class='location-btn' id="all-locations">#{translate 'classifyMenu.locations.all'}</button>
+          <!-- TODO: remove after beta -->
+          <h3 style='padding: 50px 0; margin: 0;''>Location selection will be available at full launch.</h3>
+          <!--<button class='location-btn' id="all-locations">#{translate 'classifyMenu.locations.all'}</button>
           <button class='location-btn' id="california">#{translate 'classifyMenu.locations.california'}</button>
-          <button class='location-btn' id="tasmania">#{translate 'classifyMenu.locations.tasmania'}</button>
+          <button class='location-btn' id="tasmania">#{translate 'classifyMenu.locations.tasmania'}</button>-->
         </div>
         <div class='menu-section'>
           <h1>Favorites Menu Section</h1>
