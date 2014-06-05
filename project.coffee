@@ -61,8 +61,53 @@ module.exports =
               <h1>#{translate 'about.getInvolved.header'}</h1>
               <p>#{translate 'about.getInvolved.p1'}</p>
               <a href='#/classify'><button>#{translate 'about.getInvolved.callToAction'}</button></a>
-              <!--<h1>#{translate 'about.connect.header'}</h1>
-              <p>#{translate 'about.connect.p1'}</p>-->
+              <h1>#{translate 'about.connect.header'}</h1>
+              <p>#{translate 'about.connect.p1'}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    "
+  },{
+    "Education": "
+      <div class='secondary-header'>
+        <h1>#{translate 'education.title'}</h1>
+      </div>
+
+      <div class='secondary-bg'>
+        <div class='secondary-content'>
+          <nav class='sub-nav-education'>
+            <button name='overview'>#{translate 'education.overview.nav'}</button>
+            <button name='resources'>#{translate 'education.resources.nav'}</button>
+          </nav>
+        </div>
+
+        <div class='secondary-content'>
+          <div class='left-column'>
+            <div class='content sub-nav-education-overview'>
+              <h1>#{translate 'education.overview.canIUse'}</h1>
+              <p>#{translate 'education.overview.canIUseP'}</p>
+
+              <h1>#{translate 'education.overview.resources'}</h1>
+              <p>#{translate 'education.overview.resourcesP'}</p>
+            </div>
+
+            <div class='content sub-nav-education-resources'>
+              <h1><a href=''>#{translate 'education.resources.nasa'}</a></h1>
+              <h1><a href=''>#{translate 'education.resources.channelOnce'}</a></h1>
+              <h1><a href=''>#{translate 'education.resources.birch'}</a></h1>
+              <h1><a href=''>#{translate 'education.resources.monterest'}</a></h1>
+              <h1><a href=''>#{translate 'education.resources.tasmania'}</a></h1>
+            </div>
+          </div>
+
+          <div class='right-column'>
+            <div class='content'>
+              <h1>#{translate 'about.getInvolved.header'}</h1>
+              <p>#{translate 'about.getInvolved.p1'}</p>
+              <a href='#/classify'><button>#{translate 'about.getInvolved.callToAction'}</button></a>
+              <h1>#{translate 'about.connect.header'}</h1>
+              <p>#{translate 'about.connect.p1'}</p>
             </div>
           </div>
         </div>

@@ -104,10 +104,10 @@ module.exports =
         Well, first off, you might see *other* kelps. Some of the images we’ve included are from areas with both giant and other canopy forming kelps. To date, no one has looked at these pictures, and we really don’t know if we can use Landsat to count these other kelps, too. You might see debris lines, large ships, oil rigs, and many other interesting things. You’ll also see what areas of the coast look like around the world. Take a gander at the patterns of human habitation along developed coastline of California. Or look for interesting features on the islands just to the north of Antarctica. What do you see? Are there patterns relating to kelp? Is there something that intrigues you? Head on over to Talk and let us know about it.
       """
 
-    results: 
+    results:
       nav: "Results"
       header: "Results"
-      p1: """This will be the results section"""
+      p1: "This will be the results section"
     getInvolved:
       header: "Get Involved"
       p1: "Join us in the hunt for Kelp. Are you ready?"
@@ -115,3 +115,33 @@ module.exports =
     connect:
       header: "Connect"
       p1: "Follow the <a href=''>Kelp Hunters</a> Blog and <a href=''>@kelp_hunters</a> to keep current with the latest results"
+
+  education:
+    title: "Education"
+    overview:
+      nav: "Overview"
+      canIUse: "Can I use Floating Forests in the classroom?"
+      canIUseP: """
+        We would love you to! Floating Forests, just like all the Zooniverse projects, offers students a unique opportunity to explore real scientific data, while making a contribution to cutting edge research. 
+        We would like to stress that as each image is marked by multiple volunteers, it really does not matter if your students don't mark all the kelp beds perfectly. 
+        That being said, the task itself is simple enough that we believe most people can take part and make a worthwhile contribution regardless of age.
+      """
+
+      resources: "What resources are there to support use in the classroom?"
+      resourcesP: """
+        The Zooniverse has also recently launched ZooTeach where educators can share resources relating to Floating Forests and the other citizen science projects. 
+        Floating Forests is a recent addition, so if you have any idea's for how to use the project in the classroom, it would be great if you could share your lesson idea's or resources!
+      """
+
+      upToDate: "How can I keep up to date with education and Floating Forests?"
+      upToDateP: """
+        The Floating Forests blog is a great place to keep up to date with the latests science results. You can also check our archive of Google+ Hangouts on Air, or ask questions during our next HOA! For even more up to date info, follow us on Twitter at @FloatingForests. 
+        There is also a Zooniverse Education Blog as well as a @zooteach Twitter feed.
+      """
+    resources:
+      nav: "Additional Resources"
+      nasa: "NOAA’s introduction to kelp forests"
+      channelOnce: "Bosques de Kelp from Channel Once"
+      birch: "The Birch Aquarium’s excellent page"
+      monterest: "The Monterest Bay National Marine Sanctuary"
+      tasmania: "Tasmania’s Disappearing Kelp Forests"
