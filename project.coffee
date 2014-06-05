@@ -30,18 +30,24 @@ module.exports =
             <div class='content sub-nav-about-kelp'>
               <h1>#{translate 'about.overview.header'}</h1>
               <p>#{translate 'about.overview.p1'}</p>
-              <p>#{translate 'about.overview.p2'}</p>
             </div>
 
             <div class='content sub-nav-about-your-task'>
               <h1>#{translate 'about.task.header'}</h1>
               <p>#{translate 'about.task.p1'}</p>
-              <p>#{translate 'about.task.p2'}</p>
+              <h1>#{translate 'about.task.whyImportant'}</h1>
+              <p>#{translate 'about.task.whyImportantP'}</p>
             </div>
 
             <div class='content sub-nav-about-goals'>
-              <h1>#{translate 'about.goals.header'}</h1>
-              <p>#{translate 'about.goals.p1'}</p>
+              <h1>#{translate 'about.goals.whyPublic'}</h1>
+              <p>#{translate 'about.goals.whyPublicP'}</p>
+
+              <h1>#{translate 'about.goals.whatLearn'}</h1>
+              <p>#{translate 'about.goals.whatLearnP'}</p>
+
+              <h1>#{translate 'about.goals.whatElse'}</h1>
+              <p>#{translate 'about.goals.whatElseP'}</p>
             </div>
 
             <div class='content sub-nav-about-results'>
