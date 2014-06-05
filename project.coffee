@@ -79,6 +79,7 @@ module.exports =
           <nav class='sub-nav-education'>
             <button name='overview'>#{translate 'education.overview.nav'}</button>
             <button name='resources'>#{translate 'education.resources.nav'}</button>
+            <button name='other'>#{translate 'education.other.nav'}</button>
           </nav>
         </div>
 
@@ -93,11 +94,18 @@ module.exports =
             </div>
 
             <div class='content sub-nav-education-resources'>
-              <h1><a href=''>#{translate 'education.resources.nasa'}</a></h1>
-              <h1><a href=''>#{translate 'education.resources.channelOnce'}</a></h1>
-              <h1><a href=''>#{translate 'education.resources.birch'}</a></h1>
-              <h1><a href=''>#{translate 'education.resources.monterest'}</a></h1>
-              <h1><a href=''>#{translate 'education.resources.tasmania'}</a></h1>
+              <h1><a href='https://www.youtube.com/watch?v=GcbU4bfkDA4'>#{translate 'education.resources.noaa'}</a></h1>
+              <h1><a href='https://www.youtube.com/watch?v=vgYHUd5guf4'>#{translate 'education.resources.channelOnce'}</a></h1>
+              <h1><a href='http://aquarium.ucsd.edu/Education/Learning_Resources/Voyager_for_Kids/kelpvoyager/'>#{translate 'education.resources.birch'}</a></h1>
+              <h1><a href='http://montereybay.noaa.gov/sitechar/kelp.html'>#{translate 'education.resources.monterest'}</a></h1>
+              <h1><a href='https://www.youtube.com/watch?v=eRfxFZ4ndlg'>#{translate 'education.resources.tasmania'}</a></h1>
+            </div>
+
+            <div class='content sub-nav-education-other'>
+              <h1><a href='https://www.youtube.com/watch?v=HncMRSp8NNc'>#{translate 'education.other.octonauts'}</a></h1>
+              <h1><a href='https://www.youtube.com/watch?v=ZRFPy9wpDgc'>#{translate 'education.other.octonauts2'}</a></h1>
+              <h1><a href='https://www.youtube.com/watch?v=ZQb9ZFWfNZE'>#{translate 'education.other.tasmania'}</a></h1>
+              <h1><a href='https://www.youtube.com/watch?v=BwIJvmBOj7s'>#{translate 'education.other.scuba'}</a></h1>
             </div>
           </div>
 
@@ -114,29 +122,6 @@ module.exports =
       </div>
     "
   }]
-
-  # organizations: [{
-  #   image: '//placehold.it/100.png?text=Example'
-  #   name: 'Example Organization'
-  #   description: 'This is an example organization.'
-  #   url: ['https://www.zooniverse.org/', 'https://twitter.com/the_zooniverse', 'https://github.com/zooniverse']
-  # }]
-
-  # scientists: [{
-  #   image: '//placehold.it/100.png?text=Example'
-  #   name: 'Example Scientist'
-  #   location: 'Oxford, U.K.'
-  #   description: 'This is an example scientist.'
-  #   url: 'https://twitter.com/orbitingfrog'
-  # }]
-
-  # developers: [{
-  #   image: '//placehold.it/100.png?text=Example'
-  #   name: 'Alex'
-  #   location: 'Chicago, IL'
-  #   description: 'This is an example developer.'
-  #   url: ['https://aweiksnar.github.io', 'https://github.com/aweiksnar']
-  # }]
 
   tasks:
     pickOne:

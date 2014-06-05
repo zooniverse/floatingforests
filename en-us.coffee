@@ -85,9 +85,9 @@ module.exports =
       whyPublic: "Why do we need the public’s help?"
       whyPublicP: """
         The images you’re looking at come from Landsat images taken every 16 days from 1984 to the present. When one of our project scientists first began working with these images, he had hoped he could just throw the hundreds of thousands of images into some image classification software, and have the software tell him where kelp was located. There’s just one problem:
-        <br>
-        Kelp is tricky.
-        <br>
+        <br><br>
+        <strong>Kelp is tricky.</strong>
+        <br><br>
         Landsat was not designed to be able to see kelp. Kelp’s reflectance signature is just at the edge of its detection abilities. Because of this, kelp and something as simple as the glint of sun off of a wave look the same to a computer. But to a person, the shapes and patterns of kelp forests are fairly obvious. That’s where you come in.
       """
 
@@ -139,9 +139,15 @@ module.exports =
         There is also a Zooniverse Education Blog as well as a @zooteach Twitter feed.
       """
     resources:
-      nav: "Additional Resources"
-      nasa: "NOAA’s introduction to kelp forests"
+      nav: "Resources"
+      noaa: "NOAA’s introduction to kelp forests"
       channelOnce: "Bosques de Kelp from Channel Once"
       birch: "The Birch Aquarium’s excellent page"
       monterest: "The Monterest Bay National Marine Sanctuary"
       tasmania: "Tasmania’s Disappearing Kelp Forests"
+    other:
+      nav: "Other"
+      octonauts: "If you love the Octonauts, they love kelp forests!"
+      octonauts2: "Another Octonauts Video!"
+      tasmania: "Kelp Forests of Tasmania"
+      scuba: "SCUBA Dive Kelp Forests in the Channel Islands"

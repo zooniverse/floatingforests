@@ -101,12 +101,14 @@ LEFT_OFFSET_ADJUST = 50
     letter-spacing 2px
 
   .readymade-project-description
+    max-width 720px
     font-weight 300
     font-size 14px
     display inline-block
     margin-bottom 20px
 
   .readymade-project-summary
+    max-width 900px
     font-size 50px
     font-weight  800
     text-transform uppercase
@@ -124,7 +126,7 @@ LEFT_OFFSET_ADJUST = 50
     &.active
       opacity 1
       background-color transparent
-    &:nth-child(1), &:nth-child(3) // hide profile for beta
+    &:nth-child(1) // hide home link
       display none
     &:active
       color LIME_GREEN
