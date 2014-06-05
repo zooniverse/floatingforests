@@ -14,10 +14,7 @@ tools = subjectViewer.markingSurface.tools
 aboutNav = new SubNav "about"
 aboutNav = new SubNav "education"
 
-project.header.el.append("""
-  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700,800' rel='stylesheet' type='text/css'>
-  <meta name="viewport" content="width=600, user-scalable=no">
-""")
+project.header.el.append("<meta name='viewport' content='width=600, user-scalable=no'>")
 
 $ ->
   # additional sections
