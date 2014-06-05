@@ -12,7 +12,8 @@ classifyPage = project.classifyPages[0]
 subjectViewer = classifyPage.subjectViewer
 tools = subjectViewer.markingSurface.tools
 aboutNav = new SubNav "about"
-aboutNav = new SubNav "education"
+educationNav = new SubNav "education"
+teamNav = new SubNav "team"
 
 project.header.el.append("<meta name='viewport' content='width=600, user-scalable=no'>")
 

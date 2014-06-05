@@ -155,3 +155,85 @@ module.exports =
       octonauts2: "Another Octonauts Video!"
       tasmania: "Kelp Forests of Tasmania"
       scuba: "SCUBA Dive Kelp Forests in the Channel Islands"
+
+  team:
+    title: "Team"
+    organizations:
+      nav: "Organizations"
+      keen:
+        name: "KEEN"
+        description: """
+          The Kelp Ecosystem Ecology Network (KEEN) is a collection of marine scientists interested in assessing the impacts of global change on kelp forests throughout the world. 
+          Kelp forests provide a tremendous array of ecosystem services to the world around them. Yet kelps are sensitive to a wide variety of impacts - shifts in climate, release of herbivores from overfishing, 
+          competition from turf-algae fuelled by nutrient pollution, and more. We’re attempting to bring together experiments and observations to create a global understanding of the status, health, and future of 
+          our planet’s kelp forest ecosystems.
+        """
+      santaBarbara:
+        name: "Santa Barbara Coastal Long-Term Ecological Research Site"
+        description: """
+          The Santa Barbara Coastal Long Term Ecological Research Project (SBC) is housed at the University of California, Santa Barbara (UCSB) and is part of the National Science Foundation's (NSF) Long Term Ecological Research (LTER) Network. 
+          The LTER Program was established by the NSF in 1980 to support research on long-term ecological phenomena. SBC became the 24th site in the LTER network in April of 2000. 
+          The primary research objective of the SBC LTER is to investigate the relative importance of land and ocean processes in structuring giant kelp forest ecosystems.
+        """
+      nceas:
+        name: "National Center for Ecological Analysis and Synthesis"
+        description: """
+          Established in 1995, the National Center for Ecological Analysis and Synthesis (NCEAS) is a research center of the University of California, Santa Barbara and was the first national synthesis center of its kind. 
+          There is broad acknowledgement that NCEAS has significantly altered the way ecological science is conducted, towards being more collaborative, open, integrative, relevant, and technologically informed. 
+          Different from the scientific tradition of solitary lab or fieldwork, NCEAS fosters collaborative synthesis research – assembling interdisciplinary teams to distill existing data, ideas, theories, 
+          or methods drawn from many sources, across multiple fields of inquiry, to accelerate the generation of new scientific knowledge at a broad scale.
+        """
+
+    scientists:
+      nav: "Scientists"
+      kyle:
+        name: "Dr. Kyle Cavanaugh"
+        description: """
+          Kyle Cavanaugh is currently a postdoctoral researcher at the Smithsonian Environmental Research Center.  His research examines how coastal ecosystems respond to climate variability and direct human impacts. 
+          Kyle likes to observe coastal ecosystems from a variety of perspectives: under the sea, waist deep in a mangrove swamp, or via a satellite orbiting 700 km above the earth. 
+          Dr. Cavanaugh received his Ph.D. in Marine Science from the University of California, Santa Barbara.  In the Fall of 2014 he will be moving back to the west coast to start as an assistant professor in the Geography department at UCLA.
+        """
+      jarrett:
+        name: "Dr. Jarrett Byrnes"
+        description: """
+          Dr. Byrnes is an assistant professor of Biology at the University of Massachusetts Boston. An East Coast native, he began working in the rolling lush kelp meadows of New England. He nearly choked on his regulator the first time he found himself 
+          in a California Giant Kelp Forest while a Ph.D. student at UC Davis working in Bodega Bay. He’s spent the past decade working in a variety of kelp ecosystems, trying to understand how these incredible algae shape marine life in some of the most 
+          heavily populated coastlines around the world.
+        """
+      alejandro:
+        name: "Dr. Alejandro Pérez-Matus"
+        description: """
+          Dr. Perez-Matus is a research biologist and post doc at the Estacion Costera de Investigaciones Marinas (ECIM)-Pontificia Universidad Catolica de Chile. He has been diving in kelp forest taking underwater images and conducting research. 
+          Fascinated by fishes associated to Giant Kelp plants he has work on different services that kelp give to fishes such as habitat for early stages, food and refuge from predation. On the other hand, fish provides benefits to kelp by 
+          a) control grazers outbreaks, b) nutrients and c) dispersal of spores (kelp seeds) by herbivorous fishes. Understanding these feedbacks between kelp and fishes are important to understand dynamics of the community and their mutual benefits. 
+        """
+      andrew:
+        name: "Dr. Andrew Rassweiler"
+        description: """
+          Dr. Rassweiler is a research biologist at the University of California Santa Barbara.  He is fascinated by Giant Kelp plants.  They are as physically imposing and important for structuring ecological communities as trees in a terrestrial forest, but they change so fast. 
+          A Giant Kelp forest can disappear in a single storm, remain absent  for months or years and then fully reappear in a few months of explosive growth. Dr. Rassweiler has worked to better understand these dynamics by studying the physical and biological factors that affect kelp growth and survival.
+        """
+      alison:
+        name: "Dr. Alison Haupt"
+        description: """
+          Dr. Haupt is a postdoctoral fellow with Jarrett Byrnes at the University of Massachusetts Boston.  Alison was born and raised in Monterey, CA where she learned to dive and became captivated by the giant kelp forests of the west coast. 
+          This early introduction led her to explore kelp forests on the east and west coasts of the United States, Mexico, and Chile.  Alison is currently interested in how coastal development and urbanization might affect near-shore kelp forests as a postdoc at UMB, 
+          but next year she’ll be returning to California to start as an assistant professor in the Science and Environmental Policy Division at CSU Monterey Bay. 
+        """
+      jorge:
+        name: "Dr. Jorge Assis"
+        description: """
+          Dr. Assis’s research is mainly focused on identifying the environmental drivers shaping species distributions, to assess range dynamics for past and future times and to discuss the influences of range contractions and expansions on the global gene pool of species. 
+          These questions have been addressed for kelp and fucoid species using modeling technics at multiple scales, seascape ecology and seascape genetics. His work is also centered on scientific communication and community participation projects. 
+          He has conducted many outreach projects at national scales and promoted networks of volunteers in helping scientists gathering valuable data.
+        """
+      tom:
+        name: "Tom Bell"
+        description: """
+          Tom Bell is Ph.D. candidate in the Marine Science program at the University of California, Santa Barbara. Tom was born in Southern California, but has spent much time researching how photosynthetic organisms respond to their environment in Baja California, Mexico and French Polynesia. 
+          Currently, his research is focused on using remotely sensed images to study how giant kelp changes through time and space and how we can better understand this beautiful and important foundation species.
+        """
+
+    developers:
+      nav: "Developers"
+
