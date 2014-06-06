@@ -8,6 +8,8 @@ Tutorial = require "./tutorial"
 ClassifyMenu = require "./classify-menu"
 project = require "zooniverse-readymade/current-project"
 
+
+User = require "zooniverse/models/user"
 classifyPage = project.classifyPages[0]
 subjectViewer = classifyPage.subjectViewer
 tools = subjectViewer.markingSurface.tools
@@ -60,6 +62,14 @@ $ ->
   tut = new Tutorial
 
   $("#tutorial-tab").on 'click', => tut.start()
+
+  showTutorialIfNew = ->
+    firstVisit = User?.current?.preferences?.kelp?.first_visit
+    tut.start() if firstVisit isnt "false"
+    User.current.setPreference "first_visit", "false"
+
+  User.on('change', showTutorialIfNew)
+  User.fetch()
 
 class ClassifyPageEvents
   @firstSubject = true
