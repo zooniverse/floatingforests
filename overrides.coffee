@@ -6,6 +6,7 @@ Footer = require 'zooniverse/controllers/footer'
 SubNav = require './sub-nav'
 Tutorial = require "./tutorial"
 ClassifyMenu = require "./classify-menu"
+UserGoals = require "./user-goals"
 project = require "zooniverse-readymade/current-project"
 
 
@@ -66,9 +67,13 @@ $ ->
   showTutorialIfNew = ->
     firstVisit = User?.current?.preferences?.kelp?.first_visit
     tut.start() if firstVisit isnt "false"
-    User.current.setPreference "first_visit", "false"
+    User?.current?.setPreference "first_visit", "false"
+
+  showUserGoalsIfNeeded = (e, user) ->
+    userGoals = new UserGoals 'B'
 
   User.on('change', showTutorialIfNew)
+  User.on('change', showUserGoalsIfNeeded)
   User.fetch()
 
 class ClassifyPageEvents
@@ -138,6 +143,19 @@ class ClassifyPageEvents
         nextSubjectButton.prop 'disabled', false
       ), 1000
     , 500 # time that 'Nice Work' screen is displayed
+
+    #put some logic to ask user for goal on new logins (somewhere else)
+    @setUserGoal()
+
+  @setUserGoal: ->
+    goal = User?.current?.preferences?.kelp?.goal
+    User?.current?.setPreference("goal", (+goal - 1))
+
+    endDate = User?.current?.preferences?.kelp?.goal_end_date
+    dateCountDown = (+Date.parse(endDate) - Date.now())
+
+    if +goal is 0 and dateCountDown > 0
+      alert "GOAL ACHIEVED"
 
   @loadMetadata: -> $("#subject-coords").html """
       <a target='_tab' href='https://www.google.com/maps/@#{@lat},#{@long},12z'>#{@roundTo(3, @lat)} N, #{@roundTo(3, @long)} W</a>, #{@formattedTimestamp(@timestamp)}
