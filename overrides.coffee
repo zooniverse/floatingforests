@@ -8,22 +8,21 @@ Tutorial = require "./tutorial"
 ClassifyMenu = require "./classify-menu"
 UserGoals = require "./user-goals"
 project = require "zooniverse-readymade/current-project"
-
-
 User = require "zooniverse/models/user"
+
 classifyPage = project.classifyPages[0]
 subjectViewer = classifyPage.subjectViewer
 tools = subjectViewer.markingSurface.tools
 aboutNav = new SubNav "about"
 educationNav = new SubNav "education"
 teamNav = new SubNav "team"
+footer = new Footer
+menu = new ClassifyMenu
 
 project.header.el.append("<meta name='viewport' content='width=600, user-scalable=no'>")
 
 $ ->
   # additional sections
-  footer = new Footer
-  menu = new ClassifyMenu
 
   $("<div id='footer-container'></div>").insertAfter(".stack-of-pages")
   footer.el.appendTo document.getElementById("footer-container")
@@ -58,23 +57,6 @@ $ ->
     classifyPage.classification.annotations[0].clouds = $(@).hasClass("present")
 
   $("button#undo").on "click", (e) -> tools[tools.length-1].destroy() if tools.length
-
-  # tutorial / guide
-  tut = new Tutorial
-
-  $("#tutorial-tab").on 'click', => tut.start()
-
-  showTutorialIfNew = ->
-    firstVisit = User?.current?.preferences?.kelp?.first_visit
-    tut.start() if firstVisit isnt "false"
-    User?.current?.setPreference "first_visit", "false"
-
-  showUserGoalsIfNeeded = (e, user) ->
-    userGoals = new UserGoals 'C'
-
-  User.on('change', showTutorialIfNew)
-  User.on('change', showUserGoalsIfNeeded)
-  User.fetch()
 
 class ClassifyPageEvents
   @firstSubject = true
@@ -154,10 +136,13 @@ class ClassifyPageEvents
     endDate = User?.current?.preferences?.kelp?.goal_end_date
     dateCountDown = (+Date.parse(endDate) - Date.now())
 
-    console.log User?.current?.preferences?.kelp
+    # console.log User?.current?.preferences?.kelp
 
-    if +goal is 0 and dateCountDown > 0
+    if +goal is 1 and dateCountDown > 0
       alert "GOAL ACHIEVED"
+
+    # increase user session expiration
+    @userGoals.setGoalEnd()
 
   @loadMetadata: -> $("#subject-coords").html """
       <a target='_tab' href='https://www.google.com/maps/@#{@lat},#{@long},12z'>#{@roundTo(3, @lat)} N, #{@roundTo(3, @long)} W</a>, #{@formattedTimestamp(@timestamp)}
@@ -186,3 +171,22 @@ class ClassifyPageEvents
         <img class='prev-image' src='#{image}'>
       </div>
      """).fadeIn(300).appendTo(".readymade-subject-viewer-container")
+
+  @showTutorialIfNew: =>
+    firstVisit = User?.current?.preferences?.kelp?.first_visit
+    @tutorial.start() if firstVisit isnt "false"
+    User?.current?.setPreference "first_visit", "false"
+
+  @showUserGoalsIfNeeded: (e, user) =>
+    @userGoals = new UserGoals 'C'
+
+  @setupListeners: ->
+    @tutorial = new Tutorial
+
+    $("#tutorial-tab").on 'click', => @tutorial.start()
+
+    User.on('change', @showTutorialIfNew)
+    User.on('change', @showUserGoalsIfNeeded)
+    User.fetch()
+
+ClassifyPageEvents.setupListeners()

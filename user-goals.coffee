@@ -27,6 +27,8 @@ class UserGoals
     </form>
   """
 
+  SESSION_TIME = 30
+
   Messages =
     personallyMotivated: "You contributed 20 classifications your last session. Would you like to set a higher goal for this session?"
     sociallyMotivated: "Kelp Hunters citizen scientists have contributed 20 classifications per session. Would you like to set a goal?"
@@ -76,16 +78,18 @@ class UserGoals
     @goal or= @el.find("#user-goal-form input[type='radio']:checked").val()
     console.log "user Goal SET!", @goal
 
-    @el.html("<h1>Goal set for #{@goal} Classifications</h1>")
+    @el.html("<h1 id='user-goal-feedback'>Goal set for #{@goal} Classifications</h1>")
 
     User?.current?.setPreference "goal", @goal
-    time = new Date()
-    # User?.current?.deletePreference "goal_set_date"
 
     setTimeout =>
-      time.setDate(time.getDate() + 1)
-      User?.current?.setPreference "goal_end_date", time
+      @setGoalEnd()
       @el.remove()
     , 2000
+
+  setGoalEnd: ->
+    time = new Date()
+    time.setMinutes(time.getMinutes() + SESSION_TIME)
+    User?.current?.setPreference "goal_end_date", time
 
 module?.exports = UserGoals
