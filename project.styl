@@ -6,6 +6,7 @@ TURQ = #4ed1ff
 AQUA = #34a6a8
 MARINE = #00485b
 OPAQUE_MARINE = rgba(0, 72, 91, 0.7)
+OPAQUE_AQUA = rgba(48, 154, 156, 0.3)
 
 SUBJECT_HEIGHT = 484
 SUBJECT_WIDTH = 532
@@ -418,6 +419,11 @@ LEFT_OFFSET_ADJUST = 50
         font-size 12px
         a
           text-decoration none
+  .zooniverse-profile .zooniverse-paginator .controls button
+    color #fff
+    background-color OPAQUE_AQUA
+    &.active
+      background-color OPAQUE_MARINE
 
   // nav responsiveness
   @media screen and (max-width: 900px)
