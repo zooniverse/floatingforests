@@ -1,6 +1,6 @@
 module.exports =
   site:
-    title: 'Kelp Hunters'
+    title: 'Floating Forests'
     summary: 'Discover Floating Forests'
     description: "We are trying to understand how forests of kelp grow and change over time. We need your help to find these forests in pictures from space!"
     callToAction: "Get Started"
@@ -44,8 +44,8 @@ module.exports =
     next: "Next"
     finish: "Finish"
     step1:
-      header: "Welcome to Kelp Hunters"
-      content: """This is a brief tutorial to guide you through the steps to classify on Kelp Hunters"""
+      header: "Welcome to Floating Forests"
+      content: """This is a brief tutorial to guide you through the steps to classify on Floating Forests"""
     step2:
       header: "Basics of Marking"
       content: """To mark an area of kelp, simply click and drag your mouse on the image. When you release, any remaining gap will be filled in to make a complete polygon."""
@@ -57,10 +57,10 @@ module.exports =
       content: """You may occasionally spot clouds obscuring the view of the coastline. When you see this, click the “Clouds Present” button below. Do mark any kelp you can see!"""
     step5:
       header: "Happy Hunting"
-      content: """Thank you for your interest in Kelp Hunters! You can discuss the project with the science team and other volunteers by visiting Talk."""
+      content: """Thank you for your interest in Floating Forests! You can discuss the project with the science team and other volunteers by visiting Talk."""
 
   about:
-    title: "About Kelp Hunters"
+    title: "About Floating Forests"
     overview: 
       nav: "Overview"
       header: "Overview"
@@ -117,7 +117,7 @@ module.exports =
       callToAction: "Start Hunting"
     connect:
       header: "Connect"
-      p1: "Follow the <a href=''>Kelp Hunters</a> Blog and <a href=''>@kelp_hunters</a> to keep current with the latest results"
+      p1: "Follow the <a href=''>Floating Forests</a> Blog and <a href='https://twitter.com/floatingforests'>@floatingforests</a> to keep current with the latest results"
 
   education:
     title: "Education"

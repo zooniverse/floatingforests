@@ -66,7 +66,7 @@ $ ->
   showTutorialIfNew = ->
     firstVisit = User?.current?.preferences?.kelp?.first_visit
     tut.start() if firstVisit isnt "false"
-    User.current.setPreference "first_visit", "false"
+    User?.current?.setPreference "first_visit", "false"
 
   User.on('change', showTutorialIfNew)
   User.fetch()
