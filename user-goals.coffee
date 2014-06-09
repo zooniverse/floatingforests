@@ -86,6 +86,7 @@ class UserGoals
 
     @el.html("<h1 class='user-goal-feedback'>Goal set for #{@goal} Classifications</h1>")
 
+    User?.current?.setPreference "goal_set", "true"
     User?.current?.setPreference "goal", @goal
 
     setTimeout =>
