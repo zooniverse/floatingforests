@@ -136,10 +136,10 @@ class ClassifyPageEvents
     endDate = User?.current?.preferences?.kelp?.goal_end_date
     dateCountDown = (+Date.parse(endDate) - Date.now())
 
-    # console.log User?.current?.preferences?.kelp
+    console.log User?.current?.preferences?.kelp
 
-    if +goal is 1 and dateCountDown > 0
-      alert "GOAL ACHIEVED"
+    if +goal is 0 and dateCountDown > 0
+      @userGoals.feedback()
 
     # increase user session expiration
     @userGoals.setGoalEnd()
@@ -166,6 +166,8 @@ class ClassifyPageEvents
           <p class='bold-data' id='kelp-num'>#{kelpNum} kelp bed#{if kelpNum is 1 then '' else 's'}</p>
           <p>#{translate 'classifyPage.summary.locatedNear'}</p>
           <p class='bold-data'>#{@roundTo(3, @lat)} N<br>#{@roundTo(3, @long)} W</p>
+          <p>Goal Countdown:</p>
+          <p class='bold-data'>#{User?.current?.preferences?.kelp?.goal}</p>
           <a onclick='alert("Talk features will become available once Kelp is launched")'>#{translate 'classifyPage.summary.talk'}</a>
         </div>
         <img class='prev-image' src='#{image}'>

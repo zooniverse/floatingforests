@@ -10,6 +10,10 @@ class UserGoals
     </div>
   """
 
+  FEEDBACK = """
+    <h1 class='user-goal-feedback'>Classification Goal Achieved!</h1>
+  """
+
   SLIDER = """
     <p id='slider-val'>0 Classifications</p>
     <form id='user-goal-form'>
@@ -34,7 +38,7 @@ class UserGoals
     sociallyMotivated: "Kelp Hunters citizen scientists have contributed 20 classifications per session. Would you like to set a goal?"
 
   constructor: (@splitGroup) -> # @splitGroup = 'A', 'B ,'C' or 'D'
-    @create()
+    @create(html)
     @el = $("#user-goals")
     @content = @el.find("#content")
     console.log "hello from user goals"
@@ -48,6 +52,8 @@ class UserGoals
     # User.current.setPreference ""
 
   create: -> $(".readymade-classify-page").append html
+
+  feedback: -> @el.show().html(FEEDBACK).delay(2000).fadeOut()
 
   populateContent: ->
     switch @splitGroup
@@ -78,13 +84,13 @@ class UserGoals
     @goal or= @el.find("#user-goal-form input[type='radio']:checked").val()
     console.log "user Goal SET!", @goal
 
-    @el.html("<h1 id='user-goal-feedback'>Goal set for #{@goal} Classifications</h1>")
+    @el.html("<h1 class='user-goal-feedback'>Goal set for #{@goal} Classifications</h1>")
 
     User?.current?.setPreference "goal", @goal
 
     setTimeout =>
       @setGoalEnd()
-      @el.remove()
+      @el.fadeOut()
     , 2000
 
   setGoalEnd: ->
