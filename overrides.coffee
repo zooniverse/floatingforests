@@ -70,7 +70,7 @@ $ ->
     User?.current?.setPreference "first_visit", "false"
 
   showUserGoalsIfNeeded = (e, user) ->
-    userGoals = new UserGoals 'B'
+    userGoals = new UserGoals 'C'
 
   User.on('change', showTutorialIfNew)
   User.on('change', showUserGoalsIfNeeded)
@@ -153,6 +153,8 @@ class ClassifyPageEvents
 
     endDate = User?.current?.preferences?.kelp?.goal_end_date
     dateCountDown = (+Date.parse(endDate) - Date.now())
+
+    console.log User?.current?.preferences?.kelp
 
     if +goal is 0 and dateCountDown > 0
       alert "GOAL ACHIEVED"

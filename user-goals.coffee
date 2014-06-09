@@ -13,7 +13,7 @@ class UserGoals
   SLIDER = """
     <p id='slider-val'>0 Classifications</p>
     <form id='user-goal-form'>
-      <input id='user-goal-slider' type='range' value='0' max='50' step='1'>
+      <input id='user-goal-slider' type='range' value='25' max='50' step='1'>
     </form>
   """
 
@@ -62,7 +62,12 @@ class UserGoals
 
   listenForSliderChange: ->
     goalSlider = @el.find("#user-goal-slider")
-    goalSlider.val(0)
+
+    defaultValue = '25'
+    goalSlider.val(defaultValue)
+    @el.find("#slider-val").text(defaultValue + " Classifications")
+    @goal = defaultValue
+
     goalSlider.on 'input', (e) =>
       @goal = goalSlider.val()
       @el.find("#slider-val").text(@goal + " Classifications")
@@ -75,13 +80,12 @@ class UserGoals
 
     User?.current?.setPreference "goal", @goal
     time = new Date()
-    User?.current?.deletePreference "goal_set_date"
+    # User?.current?.deletePreference "goal_set_date"
 
     setTimeout =>
       time.setDate(time.getDate() + 1)
       User?.current?.setPreference "goal_end_date", time
       @el.remove()
     , 2000
-
 
 module?.exports = UserGoals
