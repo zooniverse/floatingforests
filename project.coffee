@@ -97,6 +97,7 @@ module.exports =
               <h1><a href='http://aquarium.ucsd.edu/Education/Learning_Resources/Voyager_for_Kids/kelpvoyager/'>#{translate 'education.resources.birch'}</a></h1>
               <h1><a href='http://montereybay.noaa.gov/sitechar/kelp.html'>#{translate 'education.resources.monterest'}</a></h1>
               <h1><a href='https://www.youtube.com/watch?v=eRfxFZ4ndlg'>#{translate 'education.resources.tasmania'}</a></h1>
+              <h1><a href='http://education.zooniverse.org/'>#{translate 'education.resources.blog'}</a></h1>
             </div>
 
             <div class='content sub-nav-education-other'>

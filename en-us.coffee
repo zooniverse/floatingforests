@@ -42,7 +42,7 @@ module.exports =
       content: """To mark an area of kelp, simply click and drag your mouse on the image. When you release, any remaining gap will be filled in to make a complete polygon."""
     step3:
       header: "Removing Bad Marks"
-      content: """You can remove a bad or accidental mark by clicking the mark, then pressing your delete key. You may also click “Undo” below to remove the last mark you did."""
+      content: """You can remove a bad or accidental mark by clicking the mark, then pressing your delete key. You may also click “Undo” below to remove your last mark."""
     step4:
       header: "Identifying Clouds"
       content: """You may occasionally spot clouds obscuring the view of the coastline. When you see this, click the “Clouds Present” button below. Do mark any kelp you can see!"""
@@ -140,6 +140,7 @@ module.exports =
       birch: "The Birch Aquarium’s excellent page"
       monterest: "The Monterest Bay National Marine Sanctuary"
       tasmania: "Tasmania’s Disappearing Kelp Forests"
+      blog: "Zooniverse Education Blog"
     other:
       nav: "Other"
       octonauts: "If you love the Octonauts, they love kelp forests!"
