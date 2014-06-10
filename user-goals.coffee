@@ -41,8 +41,6 @@ class UserGoals
     @create(html)
     @el = $("#user-goals")
     @content = @el.find("#content")
-    console.log "hello from user goals"
-    console.log User?.current?.preferences
 
     @populateContent()
 

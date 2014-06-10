@@ -131,19 +131,19 @@ class ClassifyPageEvents
 
   @setUserGoal: ->
     goal = User?.current?.preferences?.kelp?.goal
+    return if goal < 0
+
     User?.current?.setPreference("goal", (+goal - 1))
 
     endDate = User?.current?.preferences?.kelp?.goal_end_date
     dateCountDown = (+Date.parse(endDate) - Date.now())
 
-    console.log User?.current?.preferences?.kelp
-
     if +goal is 0 and dateCountDown > 0
       @userGoals.feedback()
       User?.current?.setPreference "goal_set", "false"
 
-    # increase user session expiration
-    @userGoals.setGoalEnd()
+    # increase user goals session expiration
+    @userGoals?.setGoalEnd()
 
   @loadMetadata: -> $("#subject-coords").html """
       <a target='_tab' href='https://www.google.com/maps/@#{@lat},#{@long},12z'>#{@roundTo(3, @lat)} N, #{@roundTo(3, @long)} W</a>, #{@formattedTimestamp(@timestamp)}
@@ -184,7 +184,7 @@ class ClassifyPageEvents
     User?.current?.setPreference "first_visit", "false"
 
   @showUserGoalsIfNeeded: (e, user) =>
-    @userGoals = new UserGoals 'C'
+    @userGoals = new UserGoals 'C' if user
 
   @setupListeners: ->
     @tutorial = new Tutorial
