@@ -47,8 +47,6 @@ class UserGoals
     @el.find("button[name='user-goal-submit']").on 'click', => @setUserGoal()
     @el.find("button[name='user-goal-close']").on 'click', => @el.remove()
 
-    # User.current.setPreference ""
-
   create: -> $(".readymade-classify-page").append html
 
   feedback: -> @el.show().html(FEEDBACK).delay(2000).fadeOut()
@@ -80,7 +78,6 @@ class UserGoals
 
   setUserGoal: ->
     @goal or= @el.find("#user-goal-form input[type='radio']:checked").val()
-    console.log "user Goal SET!", @goal
 
     @el.html("<h1 class='user-goal-feedback'>Goal set for #{@goal} Classifications</h1>")
 
