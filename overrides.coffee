@@ -28,15 +28,6 @@ $ ->
   footer.el.appendTo document.getElementById("footer-container")
 
   $("""
-      <div class='home-content'>
-        <div class='readymade-main-stack'>
-          <h2>#{translate 'homeSecondary.header'}</h2>
-          <p>#{translate 'homeSecondary.p1'}</p>
-        </div>
-      </div>
-    """).insertAfter(".stack-of-pages")
-
-  $("""
       <div id='location-data'>
         <h2>#{translate 'site.location'}</h2>
         <p id='subject-coords'></p>

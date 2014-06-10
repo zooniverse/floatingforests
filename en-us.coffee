@@ -6,15 +6,6 @@ module.exports =
     callToAction: "Get Started"
     location: "All Locations"
 
-  homeSecondary: 
-    header: "Why is kelp so great?"
-    p1: """
-      Giant kelp forests produce a dense floating canopy that is clearly visible on Landsat satellite imagery. 
-      Landsat Thematic Mapper (TM) imagery is freely available to the public and provides global coverage every ~16 days from 1984-present. 
-      By providing classifications of changes in kelp canopy cover over the past 30 years on global scales, this project will identify regions where kelp forests have experience significant long-term changes. 
-      We will then identify the likely environmental and anthropogenic drivers of these observed changes.
-    """
-
   classifyPage:
     next: "Next Image"
     summary:
