@@ -10,34 +10,68 @@ class UserGoals
     </div>
   """
 
-  FEEDBACK = """
-    <h1 class='user-goal-feedback'>Classification Goal Achieved!</h1>
-  """
-
-  SLIDER = """
-    <p id='slider-val'>0 Classifications</p>
-    <form id='user-goal-form'>
-      <input id='user-goal-slider' type='range' value='25' max='50' step='1'>
-    </form>
-  """
-
-  RADIOS = """
-    <form id='user-goal-form'>
-      <input type="radio" name="goal-radio" value="10">10
-      <input type="radio" name="goal-radio" value="20">20
-      <input type="radio" name="goal-radio" value="30">30
-      <input type="radio" name="goal-radio" value="40">40
-      <input type="radio" name="goal-radio" value="50">50
-    </form>
-  """
-
   SESSION_TIME = 30
+
+  Input =
+    slider: """
+      <p id='slider-val'>0 Classifications</p>
+      <form id='user-goal-form'>
+        <input type='range' id='user-goal-slider' value='25' max='50' step='1'>
+      </form>
+    """
+    radios: """
+      <form id='user-goal-form'>
+        <input type="radio" name="goal-radio" value="10">10
+        <input type="radio" name="goal-radio" value="20">20
+        <input type="radio" name="goal-radio" value="30">30
+        <input type="radio" name="goal-radio" value="40">40
+        <input type="radio" name="goal-radio" value="50">50
+      </form>
+    """
+
+  Feedback =
+    message: "<h1 class='user-goal-feedback'>Classification Goal Achieved!</h1>"
+    image: "<h1 class='user-goal-feedback'>Alternate feedback! Put a cool kelp image here</h1>"
 
   Messages =
     personallyMotivated: "You contributed 20 classifications your last session. Would you like to set a higher goal for this session?"
     sociallyMotivated: "Kelp Hunters citizen scientists have contributed 20 classifications per session. Would you like to set a goal?"
 
-  constructor: (@splitGroup) -> # @splitGroup = 'A', 'B ,'C' or 'D'
+  SPLIT =
+    A:
+      message: Messages.personallyMotivated
+      input: Input.radios
+      feedback: Feedback.image
+    B:
+      message: Messages.personallyMotivated
+      input: Input.radios
+      feedback: Feedback.message
+    C:
+      message: Messages.personallyMotivated
+      input: Input.slider
+      feedback: Feedback.image
+    D:
+      message: Messages.personallyMotivated
+      input: Input.slider
+      feedback: Feedback.message
+    E:
+      message: Messages.sociallyMotivated
+      input: Input.radios
+      feedback: Feedback.image
+    F:
+      message: Messages.sociallyMotivated
+      input: Input.radios
+      feedback: Feedback.message
+    G:
+      message: Messages.sociallyMotivated
+      input: Input.slider
+      feedback: Feedback.image
+    H:
+      message: Messages.sociallyMotivated
+      input: Input.slider
+      feedback: Feedback.message
+
+  constructor: (@splitGroup) ->
     @create(html)
     @el = $("#user-goals")
     @content = @el.find("#content")
@@ -49,20 +83,12 @@ class UserGoals
 
   create: -> $(".readymade-classify-page").append html
 
-  feedback: -> @el.show().html(FEEDBACK).delay(2000).fadeOut()
+  feedback: ->
+    @el.show().html(SPLIT[@splitGroup].feedback).delay(2000).fadeOut()
 
   populateContent: ->
-    switch @splitGroup
-      when 'A'
-        @content.append Messages.personallyMotivated, RADIOS
-      when 'B'
-        @content.append Messages.sociallyMotivated, RADIOS
-      when 'C'
-        @content.append Messages.personallyMotivated, SLIDER
-        @listenForSliderChange()
-      when 'D'
-        @content.append Messages.sociallyMotivated, SLIDER
-        @listenForSliderChange()
+    @content.append SPLIT[@splitGroup].message, SPLIT[@splitGroup].input
+    @listenForSliderChange() if SPLIT[@splitGroup].message.indexOf("user-goal-slider")
 
   listenForSliderChange: ->
     goalSlider = @el.find("#user-goal-slider")

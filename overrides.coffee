@@ -179,12 +179,15 @@ class ClassifyPageEvents
      """).fadeIn(300).appendTo(".readymade-subject-viewer-container")
 
   @showTutorialIfNew: =>
+    #TODO: set a user preference here to start counting classifications for user goals
     firstVisit = User?.current?.preferences?.kelp?.first_visit
     @tutorial.start() if firstVisit isnt "false"
     User?.current?.setPreference "first_visit", "false"
 
   @showUserGoalsIfNeeded: (e, user) =>
-    @userGoals = new UserGoals 'C' if user
+    #TODO: Pull this from back-end, do nothing for control group
+    SPLIT_GROUP = location.search.substring(1).split("=")[1] # ex. url: http://localhost:2005/index.html?split=G#/about
+    @userGoals = new UserGoals SPLIT_GROUP if user
 
   @setupListeners: ->
     @tutorial = new Tutorial
