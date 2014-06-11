@@ -88,7 +88,7 @@ class UserGoals
 
   populateContent: ->
     @content.append SPLIT[@splitGroup].message, SPLIT[@splitGroup].input
-    @listenForSliderChange() if SPLIT[@splitGroup].message.indexOf("user-goal-slider")
+    @listenForSliderChange() if !!~SPLIT[@splitGroup].input.indexOf("user-goal-slider")
 
   listenForSliderChange: ->
     goalSlider = @el.find("#user-goal-slider")
