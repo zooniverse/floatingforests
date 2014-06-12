@@ -88,10 +88,8 @@ class ClassifyPageEvents
     nextSubjectButton = $("button[name='decision-tree-confirm-task']").prop 'disabled', true
     readymadeSubjectViewer = $(".readymade-subject-viewer").hide() # hide center container during transition
 
-    # show the summary screen
     @addSummary(tools.length, subjectViewer.subject.location.standard)
 
-    # add the next image offscreen
     nextImage = @nextImage()
     rightImageOverlay = $(".right-image-overlay")
 
@@ -183,7 +181,7 @@ class ClassifyPageEvents
     SPLIT_GROUP = location.search.substring(1).split("=")[1] # ex. url: http://localhost:2005/index.html?split=G#/about
     if SPLIT_GROUP and user # change this to @userGoals.promptShouldBeDisplayed() for production
       # @userGoals = new UserGoals SPLIT_GROUP
-      @userGoals.prompt()
+      @userGoals.prompt() if @userGoals.promptShouldBeDisplayed()
 
   @setupListeners: ->
     @tutorial = new Tutorial
@@ -191,7 +189,7 @@ class ClassifyPageEvents
     $("#tutorial-tab").on 'click', => @tutorial.start()
 
     SPLIT_GROUP = location.search.substring(1).split("=")[1]
-    @userGoals = new UserGoals SPLIT_GROUP
+    @userGoals = new UserGoals SPLIT_GROUP # unless User opted out <- add later and then put @userGoals?.whatever in calls
 
     User.on('change', @showTutorialIfNew)
     User.on('change', @showUserGoalsIfNeeded)

@@ -3,11 +3,12 @@ User = require "zooniverse/models/user"
 class UserGoals
   html = """
     <div id='user-goals'>
-      <h1>User Goals</h1>
       <button name='user-goal-close'><img id='tut-x-icon' src='./icons/x-icon.svg'></button>
       <div id='content'></div>
     </div>
   """
+
+  HEADER = "<h1>User Goals</h1>"
 
   SUBMIT_BUTTON = "<button name='user-goal-submit'>Set Goal</button>"
 
@@ -32,7 +33,7 @@ class UserGoals
 
   Feedback =
     message: "<h1 class='user-goal-feedback'>Classification Goal Achieved!</h1>"
-    image: "<h1 class='user-goal-feedback'>Alternate feedback! Put a cool kelp image here</h1>"
+    image: "<h1 class='user-goal-feedback'>Alternate feedback!</h1>"
 
   Messages =
     personallyMotivated: "You contributed 20 classifications your last session. Would you like to set a higher goal for this session?"
@@ -76,9 +77,12 @@ class UserGoals
     @create(html)
     @el = $("#user-goals")
     @content = @el.find("#content")
+    @closed = false
 
     @el.find("button[name='user-goal-submit']").on 'click', => @setUserGoal()
-    @el.find("button[name='user-goal-close']").on 'click', => @el.remove()
+    @el.find("button[name='user-goal-close']").on 'click', =>
+      @el.remove()
+      @closed = true
 
   create: -> $(".readymade-classify-page").append html
 
@@ -87,7 +91,8 @@ class UserGoals
     @el.show()
 
   feedback: ->
-    @el.show().html(SPLIT[@splitGroup].feedback).delay(2000).fadeOut()
+    @content.html(SPLIT[@splitGroup].feedback)
+    @el.show().delay(2000).fadeOut()
     User?.current?.setPreference "goal_set", "false"
 
   currentGoal: ->
@@ -97,7 +102,7 @@ class UserGoals
     User?.current?.preferences?.kelp?.goal_set is 'true'
 
   promptShouldBeDisplayed: ->
-    @sessionHasExpired() or +User?.current?.preferences?.kelp?.classify_count is 2
+    @sessionHasExpired() or +User?.current?.preferences?.kelp?.classify_count is 2 and not @closed
 
   sessionHasExpired: ->
     @dateCountDown() < 0
@@ -119,7 +124,7 @@ class UserGoals
     @increaseSessionExpiration()
 
   populatePromptContent: ->
-    @content.append SPLIT[@splitGroup].message, SPLIT[@splitGroup].input, SUBMIT_BUTTON
+    @content.html HEADER + SPLIT[@splitGroup].message + SPLIT[@splitGroup].input + SUBMIT_BUTTON
     @listenForSliderChange() if !!~SPLIT[@splitGroup].input.indexOf("user-goal-slider")
     @listenForSubmit()
 
@@ -141,7 +146,7 @@ class UserGoals
   setUserGoal: ->
     @goal or= @el.find("#user-goal-form input[type='radio']:checked").val()
 
-    @el.html("<h1 class='user-goal-feedback'>Goal set for #{@goal} Classifications</h1>")
+    @content.html("<h1 class='user-goal-feedback'>Goal set for #{@goal} Classifications</h1>")
 
     User?.current?.setPreference "goal_set", "true"
     User?.current?.setPreference "goal", @goal
