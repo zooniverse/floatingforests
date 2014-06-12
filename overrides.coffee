@@ -129,23 +129,12 @@ class ClassifyPageEvents
     , 500 # time that 'Nice Work' screen is displayed
 
     #put some logic to ask user for goal on new logins (somewhere else)
-    @setUserGoal()
 
-  @setUserGoal: ->
-    goal = User?.current?.preferences?.kelp?.goal
-    return if goal < 0
+    if @userGoals.promptShouldBeDisplayed() then @userGoals.prompt() else @userGoals.updateStatus()
 
-    User?.current?.setPreference("goal", (+goal - 1))
-
-    endDate = User?.current?.preferences?.kelp?.goal_end_date
-    dateCountDown = (+Date.parse(endDate) - Date.now())
-
-    if +goal is 0 and dateCountDown > 0
-      @userGoals.feedback()
-      User?.current?.setPreference "goal_set", "false"
-
-    # increase user goals session expiration
-    @userGoals?.setGoalEnd()
+  @incrementUserClassifyCount: ->
+    currentCount = +User?.current?.preferences?.kelp?.classify_count
+    User?.current?.setPreference "classify_count", (currentCount + 1)
 
   @loadMetadata: -> $("#subject-coords").html """
       <a target='_tab' href='https://www.google.com/maps/@#{@lat},#{@long},12z'>#{@roundTo(3, @lat)} N, #{@roundTo(3, @long)} W</a>, #{@formattedTimestamp(@timestamp)}
@@ -183,22 +172,31 @@ class ClassifyPageEvents
   @showTutorialIfNew: =>
     #TODO: set a user preference here to start counting classifications for user goals
     firstVisit = User?.current?.preferences?.kelp?.first_visit
-    @tutorial.start() if firstVisit isnt "false"
+    if firstVisit isnt "false"
+      @tutorial.start()
+      User?.current?.setPreference "classify_count", 0
+
     User?.current?.setPreference "first_visit", "false"
 
   @showUserGoalsIfNeeded: (e, user) =>
     #TODO: Pull this from back-end, do nothing for control group
     SPLIT_GROUP = location.search.substring(1).split("=")[1] # ex. url: http://localhost:2005/index.html?split=G#/about
-    if SPLIT_GROUP #temporary if statment for demo url : delete later
-      @userGoals = new UserGoals SPLIT_GROUP if user
+    if SPLIT_GROUP and user # change this to @userGoals.promptShouldBeDisplayed() for production
+      # @userGoals = new UserGoals SPLIT_GROUP
+      @userGoals.prompt()
 
   @setupListeners: ->
     @tutorial = new Tutorial
 
     $("#tutorial-tab").on 'click', => @tutorial.start()
 
+    SPLIT_GROUP = location.search.substring(1).split("=")[1]
+    @userGoals = new UserGoals SPLIT_GROUP
+
     User.on('change', @showTutorialIfNew)
     User.on('change', @showUserGoalsIfNeeded)
+    #TODO: show/fill userGoals at the correct times for the correct users
     User.fetch()
 
+    # window.user = User
 ClassifyPageEvents.setupListeners()

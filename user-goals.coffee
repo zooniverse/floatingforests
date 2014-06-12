@@ -6,9 +6,10 @@ class UserGoals
       <h1>User Goals</h1>
       <button name='user-goal-close'><img id='tut-x-icon' src='./icons/x-icon.svg'></button>
       <div id='content'></div>
-      <button name='user-goal-submit'>Set Goal</button>
     </div>
   """
+
+  SUBMIT_BUTTON = "<button name='user-goal-submit'>Set Goal</button>"
 
   SESSION_TIME = 30
 
@@ -76,19 +77,54 @@ class UserGoals
     @el = $("#user-goals")
     @content = @el.find("#content")
 
-    @populateContent()
-
     @el.find("button[name='user-goal-submit']").on 'click', => @setUserGoal()
     @el.find("button[name='user-goal-close']").on 'click', => @el.remove()
 
   create: -> $(".readymade-classify-page").append html
 
+  prompt: ->
+    @populatePromptContent()
+    @el.show()
+
   feedback: ->
     @el.show().html(SPLIT[@splitGroup].feedback).delay(2000).fadeOut()
+    User?.current?.setPreference "goal_set", "false"
 
-  populateContent: ->
-    @content.append SPLIT[@splitGroup].message, SPLIT[@splitGroup].input
+  currentGoal: ->
+    +User?.current?.preferences?.kelp?.goal
+
+  goalSet: ->
+    User?.current?.preferences?.kelp?.goal_set is 'true'
+
+  promptShouldBeDisplayed: ->
+    @sessionHasExpired() or +User?.current?.preferences?.kelp?.classify_count is 2
+
+  sessionHasExpired: ->
+    @dateCountDown() < 0
+
+  completedSuccessfully: ->
+    goal = +User?.current?.preferences?.kelp?.goal
+    goal is 0 and @dateCountDown() > 0 and @goalSet()
+
+  dateCountDown: ->
+    endDate = User?.current?.preferences?.kelp?.goal_end_date
+    dateCountDown = (+Date.parse(endDate) - Date.now())
+
+  decrimentGoal: ->
+    goal = User?.current?.preferences?.kelp?.goal
+    User?.current?.setPreference("goal", (+goal - 1))
+
+  updateStatus: ->
+    if @completedSuccessfully() then @feedback() else @decrimentGoal()
+    @increaseSessionExpiration()
+
+  populatePromptContent: ->
+    @content.append SPLIT[@splitGroup].message, SPLIT[@splitGroup].input, SUBMIT_BUTTON
     @listenForSliderChange() if !!~SPLIT[@splitGroup].input.indexOf("user-goal-slider")
+    @listenForSubmit()
+
+  listenForSubmit: ->
+    @el.find("button[name='user-goal-submit']").on 'click', => @setUserGoal()
 
   listenForSliderChange: ->
     goalSlider = @el.find("#user-goal-slider")
@@ -111,11 +147,11 @@ class UserGoals
     User?.current?.setPreference "goal", @goal
 
     setTimeout =>
-      @setGoalEnd()
+      @increaseSessionExpiration()
       @el.fadeOut()
     , 2000
 
-  setGoalEnd: ->
+  increaseSessionExpiration: ->
     time = new Date()
     time.setMinutes(time.getMinutes() + SESSION_TIME)
     User?.current?.setPreference "goal_end_date", time
