@@ -22,6 +22,11 @@ module.exports =
       youMarked: "You Marked:"
       locatedNear: "Located Near:"
       talk: "Discuss on Talk"
+    noMoreSubjects: """
+      <h1>Nice Work!</h1>
+      <p>We're all out of images to classify right now.</p>
+      <p>Check out one of <a href="https://www.zooniverse.org/">our other projects</a> while we load up some more!</p>
+    """
 
   classifyMenu:
     tab:

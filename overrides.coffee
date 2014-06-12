@@ -12,6 +12,7 @@ User = require "zooniverse/models/user"
 
 classifyPage = project.classifyPages[0]
 subjectViewer = classifyPage.subjectViewer
+Subject = classifyPage.Subject
 tools = subjectViewer.markingSurface.tools
 aboutNav = new SubNav "about"
 educationNav = new SubNav "education"
@@ -22,8 +23,6 @@ menu = new ClassifyMenu
 project.header.el.append("<meta name='viewport' content='width=600, user-scalable=no'>")
 
 $ ->
-  # additional sections
-
   $("<div id='footer-container'></div>").insertAfter(".stack-of-pages")
   footer.el.appendTo document.getElementById("footer-container")
 
@@ -57,6 +56,9 @@ $ ->
     classifyPage.classification.annotations[0].clouds = $(@).hasClass("present")
 
   $("button#undo").on "click", (e) -> tools[tools.length-1].destroy() if tools.length
+
+  Subject.on "no-more", =>
+    $(".readymade-classify-page").html translate 'div', 'classifyPage.noMoreSubjects', id: 'no-more-subjects'
 
 class ClassifyPageEvents
   @firstSubject = true
@@ -187,7 +189,8 @@ class ClassifyPageEvents
   @showUserGoalsIfNeeded: (e, user) =>
     #TODO: Pull this from back-end, do nothing for control group
     SPLIT_GROUP = location.search.substring(1).split("=")[1] # ex. url: http://localhost:2005/index.html?split=G#/about
-    @userGoals = new UserGoals SPLIT_GROUP if user
+    if SPLIT_GROUP #temporary if statment for demo url : delete later
+      @userGoals = new UserGoals SPLIT_GROUP if user
 
   @setupListeners: ->
     @tutorial = new Tutorial
