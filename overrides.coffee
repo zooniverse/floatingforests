@@ -128,7 +128,7 @@ class ClassifyPageEvents
 
     #put some logic to ask user for goal on new logins (somewhere else)
 
-    if @userGoals.promptShouldBeDisplayed() then @userGoals.prompt() else @userGoals.updateStatus()
+    if @userGoals?.promptShouldBeDisplayed() then @userGoals.prompt() else @userGoals?.updateStatus()
 
   @incrementUserClassifyCount: ->
     currentCount = +User?.current?.preferences?.kelp?.classify_count
@@ -181,7 +181,7 @@ class ClassifyPageEvents
     SPLIT_GROUP = location.search.substring(1).split("=")[1] # ex. url: http://localhost:2005/index.html?split=G#/about
     if SPLIT_GROUP and user # change this to @userGoals.promptShouldBeDisplayed() for production
       # @userGoals = new UserGoals SPLIT_GROUP
-      @userGoals.prompt() if @userGoals.promptShouldBeDisplayed()
+      @userGoals.prompt() if @userGoals?.promptShouldBeDisplayed()
 
   @setupListeners: ->
     @tutorial = new Tutorial
@@ -189,7 +189,7 @@ class ClassifyPageEvents
     $("#tutorial-tab").on 'click', => @tutorial.start()
 
     SPLIT_GROUP = location.search.substring(1).split("=")[1]
-    @userGoals = new UserGoals SPLIT_GROUP # unless User opted out <- add later and then put @userGoals?.whatever in calls
+    @userGoals = new UserGoals SPLIT_GROUP if SPLIT_GROUP # unless User opted out <- add later and then put @userGoals?.whatever in calls
 
     User.on('change', @showTutorialIfNew)
     User.on('change', @showUserGoalsIfNeeded)
