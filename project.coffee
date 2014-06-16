@@ -159,7 +159,7 @@ module.exports =
 
               <div class='team-member'>
                 <h1>#{translate 'team.scientists.kyle.name'}</h1>
-                <img src='http://placehold.it/150X150'>
+                <img src='./images/team/kyle.png'>
                 <p>#{translate 'team.scientists.kyle.description'}</p>
               </div>
 
