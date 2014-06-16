@@ -12,7 +12,7 @@ class UserGoals
 
   SUBMIT_BUTTON = "<button name='user-goal-submit'>Set Goal</button>"
 
-  SESSION_TIME = 30
+  SESSION_TIME = 1 # TODO: change to 30 min for production
 
   Input =
     slider: """
