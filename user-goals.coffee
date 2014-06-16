@@ -18,7 +18,7 @@ class UserGoals
     slider: """
       <p id='slider-val'>0 Classifications</p>
       <form id='user-goal-form'>
-        <input type='range' id='user-goal-slider' value='25' max='50' step='1'>
+        <input type='range' id='user-goal-slider' value='25' min='1' max='50' step='1'>
       </form>
     """
     radios: """
@@ -146,7 +146,7 @@ class UserGoals
   setUserGoal: ->
     @goal or= @el.find("#user-goal-form input[type='radio']:checked").val()
 
-    @content.html("<h1 class='user-goal-feedback'>Goal set for #{@goal} Classifications</h1>")
+    @content.html("<h1 class='user-goal-feedback'>Goal set for #{@goal} Classification#{if +@goal is 1 then '' else 's'}</h1>")
 
     User?.current?.setPreference "goal_set", "true"
     User?.current?.setPreference "goal", @goal
