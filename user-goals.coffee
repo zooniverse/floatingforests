@@ -36,7 +36,7 @@ class UserGoals
     image: "<h1 class='user-goal-feedback'>Alternate feedback!</h1>"
 
   Messages =
-    personallyMotivated: "You contributed 20 classifications your last session. Would you like to set a higher goal for this session?"
+    personallyMotivated: "You can set goals in Floating Forests to manage your contribution. Would you like to set a goal for this session?"
     sociallyMotivated: "Kelp Hunters citizen scientists have contributed 20 classifications per session. Would you like to set a goal?"
 
   SPLIT =
@@ -101,8 +101,12 @@ class UserGoals
   goalSet: ->
     User?.current?.preferences?.kelp?.goal_set is 'true'
 
+  userClassifyCount: ->
+    +User?.current?.preferences?.kelp?.classify_count
+
   promptShouldBeDisplayed: ->
-    @sessionHasExpired() or +User?.current?.preferences?.kelp?.classify_count is 2 and not @closed
+    return if @closed
+    (@sessionHasExpired() and @userClassifyCount() > 2) or (@userClassifyCount() is 2)
 
   sessionHasExpired: ->
     @dateCountDown() < 0
@@ -112,7 +116,7 @@ class UserGoals
     goal is 0 and @dateCountDown() > 0 and @goalSet()
 
   dateCountDown: ->
-    endDate = User?.current?.preferences?.kelp?.goal_end_date
+    endDate = User?.current?.preferences?.kelp?.goal_end_date || -1
     dateCountDown = (+Date.parse(endDate) - Date.now())
 
   decrimentGoal: ->

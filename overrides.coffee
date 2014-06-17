@@ -126,8 +126,7 @@ class ClassifyPageEvents
       ), 1000
     , 500 # time that 'Nice Work' screen is displayed
 
-    #put some logic to ask user for goal on new logins (somewhere else)
-
+    @incrementUserClassifyCount()
     if @userGoals?.promptShouldBeDisplayed() then @userGoals.prompt() else @userGoals?.updateStatus()
 
   @incrementUserClassifyCount: ->
@@ -193,6 +192,7 @@ class ClassifyPageEvents
 
     User.on('change', @showTutorialIfNew)
     User.on('change', @showUserGoalsIfNeeded)
+
     #TODO: show/fill userGoals at the correct times for the correct users
     User.fetch()
 
