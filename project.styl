@@ -170,6 +170,7 @@ LEFT_OFFSET_ADJUST = 50
           margin 0
           border 2px solid LIME_GREEN
           background-color LIME_GREEN
+          -webkit-font-smoothing antialiased
           &:hover
             background-color darken(LIME_GREEN, 5)
           &:disabled
@@ -367,21 +368,29 @@ LEFT_OFFSET_ADJUST = 50
   .zooniverse-profile
     .sign-in-form
       header
+        margin-top 50px
         font-size 36px
         font-weight 300
       .action
         button
           background-color LIME_GREEN
+          padding 10px 20px
           color #fff
           box-shadow none
+      input
+        box-shadow none
+        border 2px solid AQUA
+        outline none
+        &:focus
+          border-color LIME_GREEN
     .no-account
       button[name="sign-up"]
         background none
         border none
         color #fff
         font-size 13px
-    // .zooniverse-paginator .items .item a img, .zooniverse-paginator .items .item a
-    //   border-radius 5px
+    .zooniverse-paginator .items .item a img, .zooniverse-paginator .items .item a
+      border-radius 5px
   .zooniverse-footer
     FOOTER_WIDTH = 80%
     background-color rgba(0,0,0,0.7)
