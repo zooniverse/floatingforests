@@ -3,7 +3,7 @@
   position absolute
   top 200px
   width 400px
-  height 230px
+  min-height 230px
   background-color #fff
   color MARINE
   padding 10px
@@ -12,10 +12,20 @@
   text-align center
   box-shadow 10px 10px rgba(34, 34, 34, 0.540)
   z-index 100
+  &.feedback-image
+    top 75px
+
   h1
     font-size 20px
-    &.user-goal-feedback
-      line-height 210px
+    &.user-goal-set
+      margin 0
+      line-height 230px
+    &.user-goal-feedback-message
+      margin-top 90px
+      line-height 1.2em
+
+  img
+    width 100%
 
   form
     margin 10px 0

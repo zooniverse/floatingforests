@@ -32,8 +32,8 @@ class UserGoals
     """
 
   Feedback =
-    message: "<h1 class='user-goal-feedback'>Classification Goal Achieved!</h1>"
-    image: "<h1 class='user-goal-feedback'>Alternate feedback!</h1>"
+    message: "<h1 class='user-goal-feedback-message'>Classification Goal Achieved!<br>Thank you for your efforts!</h1>"
+    image: "<h1>Classification Goal Achieved!<br>Thank you for your efforts!<br>Enjoy this old kelp map from 1912</h1><img src='./images/old_kelp_maps/43.jpeg'>"
 
   Messages =
     personallyMotivated: "You can set goals in Floating Forests to manage your contribution. Would you like to set a goal for this session?"
@@ -80,6 +80,8 @@ class UserGoals
     @closed = false
 
     @el.find("button[name='user-goal-submit']").on 'click', => @setUserGoal()
+
+    # TODO: remove feedback class on close / or 'opt-out' on close / or just keep as is?
     @el.find("button[name='user-goal-close']").on 'click', =>
       @el.remove()
       @closed = true
@@ -92,7 +94,8 @@ class UserGoals
 
   feedback: ->
     @content.html(SPLIT[@splitGroup].feedback)
-    @el.show().delay(2000).fadeOut()
+    @el.show()
+    @el.addClass("feedback-image") if !!~SPLIT[@splitGroup].feedback.indexOf("img")
     User?.current?.setPreference "goal_set", "false"
 
   currentGoal: ->
@@ -150,7 +153,7 @@ class UserGoals
   setUserGoal: ->
     @goal or= @el.find("#user-goal-form input[type='radio']:checked").val()
 
-    @content.html("<h1 class='user-goal-feedback'>Goal set for #{@goal} Classification#{if +@goal is 1 then '' else 's'}</h1>")
+    @content.html("<h1 class='user-goal-set'>Goal set for #{@goal} Classification#{if +@goal is 1 then '' else 's'}</h1>")
 
     User?.current?.setPreference "goal_set", "true"
     User?.current?.setPreference "goal", @goal
