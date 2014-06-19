@@ -14,6 +14,13 @@ class UserGoals
 
   SESSION_TIME = 1 # TODO: change to 30 min for production
 
+  # To generate IMAGE_FILES (from root in irb):
+  # Dir.entries("public/images/old_kelp_maps").map {|e| e.gsub!(/\D/, "").to_i }.reject {|n| n == 0}
+  IMAGE_FILES = [26, 27, 29, 30, 31, 32, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 49, 50, 51, 52, 61]
+
+  @sampleArray: (arr) -> arr[Math.floor(Math.random() * arr.length)]
+  @randomKelpImage: -> @sampleArray(IMAGE_FILES)
+
   Input =
     slider: """
       <p id='slider-val'>0 Classifications</p>
@@ -33,7 +40,7 @@ class UserGoals
 
   Feedback =
     message: "<h1 class='user-goal-feedback-message'>Classification Goal Achieved!<br>Thank you for your efforts!</h1>"
-    image: "<h1>Classification Goal Achieved!<br>Thank you for your efforts!<br>Enjoy this kelp map from 1912</h1><img src='./images/old_kelp_maps/43.jpeg'>"
+    image: "<h1>Classification Goal Achieved!<br>Thank you for your efforts!<br>Enjoy this kelp map from 1912</h1><img src='./images/old_kelp_maps/#{@randomKelpImage()}.jpeg'>"
 
   Messages =
     personallyMotivated: "You can set goals in Floating Forests to manage your contribution. Would you like to set a goal for this session?"
