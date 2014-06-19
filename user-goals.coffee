@@ -33,7 +33,7 @@ class UserGoals
 
   Feedback =
     message: "<h1 class='user-goal-feedback-message'>Classification Goal Achieved!<br>Thank you for your efforts!</h1>"
-    image: "<h1>Classification Goal Achieved!<br>Thank you for your efforts!<br>Enjoy this old kelp map from 1912</h1><img src='./images/old_kelp_maps/43.jpeg'>"
+    image: "<h1>Classification Goal Achieved!<br>Thank you for your efforts!<br>Enjoy this kelp map from 1912</h1><img src='./images/old_kelp_maps/43.jpeg'>"
 
   Messages =
     personallyMotivated: "You can set goals in Floating Forests to manage your contribution. Would you like to set a goal for this session?"
@@ -115,16 +115,14 @@ class UserGoals
     @dateCountDown() < 0
 
   completedSuccessfully: ->
-    goal = +User?.current?.preferences?.kelp?.goal
-    goal is 0 and @dateCountDown() > 0 and @goalSet()
+    @currentGoal() is 0 and @dateCountDown() > 0 and @goalSet()
 
   dateCountDown: ->
     endDate = User?.current?.preferences?.kelp?.goal_end_date || -1
     dateCountDown = (+Date.parse(endDate) - Date.now())
 
   decrimentGoal: ->
-    goal = User?.current?.preferences?.kelp?.goal
-    User?.current?.setPreference("goal", (+goal - 1))
+    User?.current?.setPreference("goal", (@currentGoal() - 1))
 
   updateStatus: ->
     if @completedSuccessfully() then @feedback() else @decrimentGoal()
@@ -141,7 +139,7 @@ class UserGoals
   listenForSliderChange: ->
     goalSlider = @el.find("#user-goal-slider")
 
-    defaultValue = '25'
+    defaultValue = 25
     goalSlider.val(defaultValue)
     @el.find("#slider-val").text(defaultValue + " Classifications")
     @goal = defaultValue
