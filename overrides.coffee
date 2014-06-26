@@ -37,6 +37,8 @@ $(".decision-tree-confirmation")
 
 $(".readymade-call-to-action").html translate 'site.callToAction'
 
+$(".readymade-subject-viewer-container").append "<div class='subject-loader'></div>"
+
 $("button[name='decision-tree-confirm-task']").html translate 'classifyPage.next'
 
 # events

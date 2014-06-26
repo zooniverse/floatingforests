@@ -10,6 +10,8 @@ Subject = classifyPage.Subject
 tools = subjectViewer.markingSurface.tools
 
 class ClassifyPageEvents
+  @el = $(".readymade-classify-page")
+
   @firstSubject = true
 
   @mobile: -> window.innerWidth < 900
@@ -19,7 +21,7 @@ class ClassifyPageEvents
   @formattedTimestamp: (ts) -> ts.match(/\d{4}-\d{2}-\d{2}/)[0]
 
   window.onresize = =>
-    $(".summary-overlay").removeClass("mobile-done") if not @mobile()
+    @el.find(".summary-overlay").removeClass("mobile-done") if not @mobile()
 
   classifyPage.on classifyPage.LOAD_SUBJECT, (e, subject) =>
     [@lat, @long] = subject.coords
@@ -32,17 +34,17 @@ class ClassifyPageEvents
     @firstSubject = false
 
   classifyPage.on classifyPage.SEND_CLASSIFICATION, =>
-    nextSubject = $(".right-image")
-    oldSummary = $(".summary-overlay")
-    nextSubjectButton = $("button[name='decision-tree-confirm-task']").prop 'disabled', true
-    readymadeSubjectViewer = $(".readymade-subject-viewer").hide() # hide center container during transition
+    nextSubject = @el.find(".right-image")
+    oldSummary = @el.find(".summary-overlay")
+    nextSubjectButton = @el.find("button[name='decision-tree-confirm-task']").prop 'disabled', true
+    readymadeSubjectViewer = @el.find(".readymade-subject-viewer").hide() # hide center container during transition
 
     @addSummary(tools.length, subjectViewer.subject.location.standard)
 
     nextImage = @nextImage()
-    rightImageOverlay = $(".right-image-overlay")
+    rightImageOverlay = @el.find(".right-image-overlay")
 
-    $(".readymade-subject-viewer-container").append(nextImage)
+    @el.find(".readymade-subject-viewer-container").append(nextImage)
 
     setTimeout =>
       # move the old summary offscreen
@@ -65,8 +67,8 @@ class ClassifyPageEvents
 
       setTimeout (=>
         # code to execute at end of css transition - this timing should match the css transition
-        $("button#clouds-present").removeClass("present")
-        $("#classify-menu").trigger("new-subject")
+        @el.find("button#clouds-present").removeClass("present")
+        @el.find("#classify-menu").trigger("new-subject")
         @loadMetadata()
         nextSubject.remove()
         oldSummary.remove()
@@ -82,7 +84,7 @@ class ClassifyPageEvents
     currentCount = +User?.current?.preferences?.kelp?.classify_count
     User?.current?.setPreference "classify_count", (currentCount + 1)
 
-  @loadMetadata: -> $("#subject-coords").html """
+  @loadMetadata: -> @el.find("#subject-coords").html """
       <a target='_tab' href='https://www.google.com/maps/@#{@lat},#{@long},12z'>#{@roundTo(3, @lat)} N, #{@roundTo(3, @long)} W</a>, #{@formattedTimestamp(@timestamp)}
     """
 
@@ -126,10 +128,13 @@ class ClassifyPageEvents
 
   @setupListeners: ->
     Subject.on "no-more", =>
-      $(".readymade-classify-page").html translate 'div', 'classifyPage.noMoreSubjects', id: 'no-more-subjects'
+      @el.html translate 'div', 'classifyPage.noMoreSubjects', id: 'no-more-subjects'
+
+    Subject.on 'get-next', => @el.find(".subject-loader").show()
+    Subject.on 'select', => @el.find(".subject-loader").hide()
 
     @tutorial = new Tutorial
-    $("#tutorial-tab").on 'click', => @tutorial.start()
+    @el.find("#tutorial-tab").on 'click', => @tutorial.start()
 
     SPLIT_GROUP = location.search.substring(1).split("=")[1] # this will come from back-end
     @userGoals = new UserGoals SPLIT_GROUP if SPLIT_GROUP    # ex. url: http://localhost:2005/index.html?split=G#/about
@@ -138,10 +143,10 @@ class ClassifyPageEvents
     User.on('change', @showUserGoalsIfNeeded)
     User.fetch()
 
-    $("button#clouds-present").on "click", (e) ->
-      $(@).toggleClass("present")
-      classifyPage.classification.annotations[0].clouds = $(@).hasClass("present")
+    @el.find("button#clouds-present").on "click", (e) ->
+      cloudButton = $(@).toggleClass("present")
+      classifyPage.classification.annotations[0].clouds = cloudButton.hasClass("present")
 
-    $("button#undo").on "click", (e) -> tools[tools.length-1].destroy() if tools.length
+    @el.find("button#undo").on "click", (e) -> tools[tools.length-1].destroy() if tools.length
 
 module?.exports = ClassifyPageEvents
