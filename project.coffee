@@ -160,7 +160,7 @@ module.exports =
 
               <div class='team-member'>
                 <h1>#{translate 'team.scientists.kyle.name'}</h1>
-                <img src='./images/team/face_pic.jpg'>
+                <img src='./images/team/kyle.jpg'>
                 <p>#{translate 'team.scientists.kyle.description'}</p>
               </div>
 
@@ -190,13 +190,13 @@ module.exports =
 
               <div class='team-member'>
                 <h1>#{translate 'team.scientists.jorge.name'}</h1>
-                <img src='./images/team/jorge.png'>
+                <img src='./images/team/jorge.jpg'>
                 <p>#{translate 'team.scientists.jorge.description'}</p>
               </div>
 
               <div class='team-member'>
                 <h1>#{translate 'team.scientists.tom.name'}</h1>
-                <img src='http://placehold.it/150X150'>
+                <img src='./images/team/tom.jpg'>
                 <p>#{translate 'team.scientists.tom.description'}</p>
               </div>
             </div>

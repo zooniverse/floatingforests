@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "zooniverse-readymade serve --css project.styl --js overrides.coffee",
+    "start": "zooniverse-readymade serve --css project.styl --js overrides.coffee",
     "deploy-to-demo": "npm run build && publisssh ./build demo.zooniverse.org/kelp && rm -rf ./build",
+    "deploy-to-user-goals": "npm run build && publisssh ./build demo.zooniverse.org/kelp-with-user-goals && rm -rf ./build",
     "build": "zooniverse-readymade build --force --output ./build --js overrides.coffee --css ./project.styl"
   },
   "author": "",
