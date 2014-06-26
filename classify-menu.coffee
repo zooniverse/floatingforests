@@ -3,6 +3,11 @@ classifyPage = project.classifyPages[0]
 translate = require "t7e"
 
 class ClassifyMenu
+  GROUPS =
+    'all-locations': true
+    'california': "53ac8475edf877f0bc000002"
+    'tasmania': "536d226d3ae740fd20000003"
+
   html = """
     <div id='classify-menu'>
       <div class='menu-tabs'>
@@ -91,6 +96,9 @@ class ClassifyMenu
     section.hide()
 
   onChangeLocation: (e) ->
+    locationName = e.target.id
+    classifyPage.Subject.group = GROUPS[locationName]
+
     btnClicked = @el.find(e.target)
     btnClicked.addClass("selected").siblings().removeClass("selected")
     $("#location-data h2").text(btnClicked.text())
