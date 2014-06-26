@@ -1,5 +1,5 @@
 ###
-Secondary Page SubNav Usage
+Secondary Page SubNav Usage : readymade
 
 1. Create a nav with class="sub-nav-PAGE_NAME"
     ex: "science", "education"
@@ -9,21 +9,33 @@ Secondary Page SubNav Usage
 
 3. Add content sections with class="sub-nav-PAGE_NAME-SECTION_NAME"
 
-4. The first child button and content section will be the default active
+4. Name the Readymade page PAGE_NAME
 ###
 
 class SubNav
-  constructor: (pageName) -> @createSubNav(pageName)
+  constructor: (@page) ->
+    @el = $(".readymade-generic-page[data-readymade-page='#{@page}']")
+    setTimeout => @activateFirstTab(page)
 
-  createSubNav: (pageName) ->
-    setTimeout =>
-      initialPageBtn = $(".sub-nav-#{pageName} button:nth-child(1)").addClass("active")
-      initialClassName = initialPageBtn.attr('name')
+    @el.find(".sub-nav-#{page} button").on "click", (e) =>
+      @activateSection(e.target.name)
 
-      $(".sub-nav-#{pageName}-#{initialClassName}:nth-child(1)").siblings().hide()
+  showSection: (section) ->
+    @el.find(".sub-nav-#{@page}-#{section}")
+      .show()
+      .siblings().hide()
 
-      $(".sub-nav-#{pageName} button").on "click", (e) =>
-        $(".sub-nav-#{pageName}-#{e.target.name}").show().siblings().hide()
-        $(".sub-nav-#{pageName} button[name=#{e.target.name}]").addClass("active").siblings().removeClass("active")
+  activateSubNavLink: (section) ->
+    @el.find(".sub-nav-#{@page} button[name=#{section}]")
+      .addClass("active")
+      .siblings().removeClass("active")
+
+  activateFirstTab: ->
+     firstSection = $(".sub-nav-#{@page} button:nth-child(1)").attr('name')
+     @activateSection(firstSection)
+
+  activateSection: (section) ->
+    @showSection(section)
+    @activateSubNavLink(section)
 
 module?.exports = SubNav
