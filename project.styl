@@ -24,8 +24,9 @@ LEFT_OFFSET_ADJUST = 50
 @import 'user-goals'
 
 #readymade
-  -webkit-font-smoothing: antialiased
-  font-family 'Open Sans' sans-serif
+  div
+    font-family 'Open Sans' sans-serif
+    -webkit-font-smoothing: antialiased
   button
     outline none
     border 0
@@ -36,6 +37,8 @@ LEFT_OFFSET_ADJUST = 50
     display none
 
   &[data-location-hash="#/"]
+    .readymade-site-link
+      opacity 1.0
     .readymade-main-stack
       margin-top 200px
 
@@ -66,6 +69,7 @@ LEFT_OFFSET_ADJUST = 50
   &[data-location-hash="#/about"]
   &[data-location-hash="#/education"]
   &[data-location-hash="#/team"]
+  &[data-location-hash="#/profile"]
     .readymade-main-stack
       margin 0
       width auto
@@ -106,7 +110,7 @@ LEFT_OFFSET_ADJUST = 50
 
   .readymade-project-description
     max-width 720px
-    font-weight 300
+    font-weight 400
     font-size 14px
     display inline-block
     margin-bottom 20px
@@ -123,7 +127,7 @@ LEFT_OFFSET_ADJUST = 50
     text-transform none
     font-weight 400
     font-size 14px
-    opacity 0.5
+    opacity 0.6
     letter-spacing 0px
     &:hover
       background transparent
@@ -365,9 +369,25 @@ LEFT_OFFSET_ADJUST = 50
       &:active
         background-color #fff
   .zooniverse-profile
+    .content
+      background-color rgba(0,0,0,0.4)
+      min-height 500px
+      > nav
+        display none
+    &.signed-in
+      .content > nav
+        display block
+    nav, .favorites, .favorites-empty, .recents, .recents-empty
+      max-width 1090px
+      margin 0 auto
+      padding 0 5vw 10px 5vw
+    nav:not(.controls)
+      button
+        @extend .secondary-nav-btn
     .sign-in-form
+      transition width 0.5s
       header
-        margin-top 50px
+        padding-top 50px
         font-size 36px
         font-weight 300
       .action
@@ -382,7 +402,12 @@ LEFT_OFFSET_ADJUST = 50
         outline none
         &:focus
           border-color LIME_GREEN
+      @media screen and (max-width: 720px)
+        width 80%
     .no-account
+      font-weight 300
+      margin 0
+      padding-bottom 50px
       button[name="sign-up"]
         background none
         border none
@@ -390,6 +415,24 @@ LEFT_OFFSET_ADJUST = 50
         font-size 13px
     .zooniverse-paginator .items .item a img, .zooniverse-paginator .items .item a
       border-radius 5px
+    .zooniverse-paginator
+      .controls
+        background-color transparent
+        button
+          color #fff
+          text-shadow none
+          background-color transparent
+          &.active
+            background-color LIME_GREEN
+      .items
+        margin-top 0
+        .item
+          a
+            transition border-color 0.2s
+            &:hover
+              border-color LIME_GREEN
+            img
+              box-shadow none
   .zooniverse-footer
     FOOTER_WIDTH = 80%
     background-color rgba(0,0,0,0.7)
@@ -436,12 +479,6 @@ LEFT_OFFSET_ADJUST = 50
         font-size 12px
         a
           text-decoration none
-
-  .zooniverse-profile .zooniverse-paginator .controls button
-    color #fff
-    background-color OPAQUE_AQUA
-    &.active
-      background-color OPAQUE_MARINE
 
   #no-more-subjects
     width 100%

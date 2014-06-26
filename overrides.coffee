@@ -41,5 +41,9 @@ $(".readymade-subject-viewer-container").append "<div class='subject-loader'></d
 
 $("button[name='decision-tree-confirm-task']").html translate 'classifyPage.next'
 
+$(".zooniverse-profile")
+  .wrapInner "<div class='content'></div>"
+  .prepend "<div class='secondary-header'><h1>Your Profile</h1></div>"
+
 # events
 $ -> ClassifyPageEvents.setupListeners()

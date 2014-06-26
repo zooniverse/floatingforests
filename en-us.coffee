@@ -56,7 +56,7 @@ module.exports =
       content: """Thank you for your interest in Floating Forests! You can discuss the project with the science team and other volunteers by visiting Talk."""
 
   about:
-    title: "About Floating Forests"
+    title: "About"
     overview: 
       nav: "Overview"
       header: "Overview"

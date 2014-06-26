@@ -8,6 +8,22 @@
   h1
     line-height 150px
     font-size 40px
+
+.secondary-nav-btn
+  height 60px
+  color #DFDFDF
+  font-size 16px
+  font-weight 400
+  text-transform none
+  margin 0
+  padding 0 10px
+  background-color transparent
+  border-radius 0px
+  transition background-color 0.2s
+  &.active
+    color #fff
+    background-color AQUA
+
 .secondary-bg
   background-color rgba(0,0,0,0.4)
   padding 0 5vw 50px 5vw
@@ -20,16 +36,7 @@
     nav
       margin-bottom 40px
       button
-        height 60px
-        color #DFDFDF
-        font-size 16px
-        font-weight 300
-        padding 0 10px
-        background-color transparent
-        transition background-color 0.2s
-        &.active
-          color #fff
-          background-color AQUA
+        @extend .secondary-nav-btn
     h1
       font-weight 300
       font-size 36px
@@ -51,7 +58,7 @@
     p
       line-height 1.5em
       font-size 16px
-      font-weight 300
+      font-weight 400
       margin-bottom 20px
     img
       width 100%
