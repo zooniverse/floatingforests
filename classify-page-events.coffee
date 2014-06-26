@@ -14,14 +14,9 @@ class ClassifyPageEvents
 
   @firstSubject = true
 
-  @mobile: -> window.innerWidth < 900
-
   @roundTo: (dec, num) -> if num then parseFloat(num).toFixed(dec) else "-"
 
   @formattedTimestamp: (ts) -> ts.match(/\d{4}-\d{2}-\d{2}/)[0]
-
-  window.onresize = =>
-    @el.find(".summary-overlay").removeClass("mobile-done") if not @mobile()
 
   classifyPage.on classifyPage.LOAD_SUBJECT, (e, subject) =>
     [@lat, @long] = subject.coords
@@ -52,9 +47,6 @@ class ClassifyPageEvents
 
       # move the new summary to the old summary location
       newSummary = $(".summary-overlay").removeClass("centered")
-
-      # mobile support
-      newSummary.addClass("mobile-done") if window.innerWidth < 900
 
       # move the new subject into the center position
       nextSubject.removeClass("right")
