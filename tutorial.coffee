@@ -103,7 +103,6 @@ class Tutorial
 
   showIfNewUser: ->
     classifyCount = User.current?.preferences?.kelp?.classify_count
-    console.log classifyCount
     unless classifyCount
       @start()
       User.current?.setPreference "classify_count", 0

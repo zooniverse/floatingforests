@@ -1,4 +1,5 @@
 project = require "zooniverse-readymade/current-project"
+ClassifyMetadata = require "./classify-metadata"
 classifyPage = project.classifyPages[0]
 
 ClassifySubjectLoader =
