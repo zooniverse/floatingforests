@@ -12,7 +12,7 @@ Secondary Page SubNav Usage : readymade
 4. Name the Readymade page PAGE_NAME
 ###
 
-class SubNav
+class SecondarySubNav
   constructor: (@page) ->
     @el = $(".readymade-generic-page[data-readymade-page='#{@page}']")
     setTimeout => @activateFirstTab(page)
@@ -38,4 +38,4 @@ class SubNav
     @showSection(section)
     @activateSubNavLink(section)
 
-module?.exports = SubNav
+module?.exports = SecondarySubNav

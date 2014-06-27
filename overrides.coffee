@@ -3,7 +3,7 @@ enUs = require './en-us'
 translate.load enUs
 
 Footer = require 'zooniverse/controllers/footer'
-SubNav = require './sub-nav'
+SecondarySubNav = require './secondary-sub-nav'
 ClassifyMenu = require "./classify-menu"
 UserGoals = require "./user-goals"
 project = require "zooniverse-readymade/current-project"
@@ -15,9 +15,9 @@ subjectViewer = classifyPage.subjectViewer
 Subject = classifyPage.Subject
 tools = subjectViewer.markingSurface.tools
 
-aboutNav = new SubNav "about"
-educationNav = new SubNav "education"
-teamNav = new SubNav "team"
+aboutNav = new SecondarySubNav "about"
+educationNav = new SecondarySubNav "education"
+teamNav = new SecondarySubNav "team"
 footer = new Footer
 menu = new ClassifyMenu
 
