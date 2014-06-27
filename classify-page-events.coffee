@@ -16,8 +16,6 @@ tools = subjectViewer.markingSurface.tools
 class ClassifyPageEvents
   @el = $(".readymade-classify-page")
 
-  @firstSubject = true
-
   classifyPage.on classifyPage.LOAD_SUBJECT, (e, subject) =>
     classifyPage.classification.annotations.push {clouds: false} # clouds start as false
     ClassifyMetadata.setSubject(subject)
