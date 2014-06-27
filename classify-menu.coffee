@@ -80,11 +80,21 @@ class ClassifyMenu
       @favoritesTab.html("<img src='./icons/favorite.svg'>#{translate 'classifyMenu.tab.favorites'}").removeClass("favorited")
 
   onTabClick: (e) ->
-    # disable default behavior for tutorial-tab and favorite tab
-    return if e.target.id is 'tutorial-tab' or e.target.id is 'favorites-tab'
-    tabNum = @el.find(e.target).index() + 1
-    section = @el.find(".menu-section:nth-child(#{tabNum})")
+    tab = e.target
+    return if tab.id is 'tutorial-tab' or tab.id is 'favorites-tab'
+    @displayTabSection(tab)
+    @scrollToBottomOfSiteFooter()
+
+  tabNum: (tab) -> @el.find(tab).index() + 1
+
+  displayTabSection: (tab) ->
+    section = @correspondingSectionTo(tab)
     if section.is(":visible") then @hide section else @display section
+
+  correspondingSectionTo: (tab) ->
+    @el.find(".menu-section:nth-child(#{@tabNum(tab)})")
+
+  scrollToBottomOfSiteFooter: ->
     $("html, body").animate({ scrollTop:($("#footer-container").offset().top - window.innerHeight)}, 500)
 
   display: (section) ->
@@ -98,6 +108,9 @@ class ClassifyMenu
   onChangeLocation: (e) ->
     locationName = e.target.id
     classifyPage.Subject.group = GROUPS[locationName]
+    # classifyPage.Subject.next()
+
+    # classifyPage.trigger("location-change")
 
     btnClicked = @el.find(e.target)
     btnClicked.addClass("selected").siblings().removeClass("selected")

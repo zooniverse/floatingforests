@@ -118,6 +118,12 @@ class UserGoals
     return if @closed
     (@sessionHasExpired() and @userClassifyCount() > 2) or (@userClassifyCount() is 2)
 
+  showIfNeeded: -> 
+    @prompt() if @promptShouldBeDisplayed()
+
+  promptOrUpdateCurrentGoal: ->
+    if @promptShouldBeDisplayed() then @prompt() else @updateStatus()
+
   sessionHasExpired: ->
     @dateCountDown() < 0
 

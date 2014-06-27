@@ -1,4 +1,5 @@
 translate = require "t7e"
+User = require "zooniverse/models/user"
 
 slides = [
   {
@@ -99,5 +100,12 @@ class Tutorial
   exit: ->
     @el.fadeOut(250)
     window.removeEventListener "click", @exitIfClickOutside
+
+  showIfNewUser: ->
+    classifyCount = User.current?.preferences?.kelp?.classify_count
+    console.log classifyCount
+    unless classifyCount
+      @start()
+      User.current?.setPreference "classify_count", 0
 
 module?.exports = Tutorial
