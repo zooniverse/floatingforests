@@ -20,14 +20,14 @@ ClassifySummary =
           <p class='bold-data' id='kelp-num'>#{kelpNum} kelp bed#{if kelpNum is 1 then '' else 's'}</p>
           <p>#{translate 'classifyPage.summary.locatedNear'}</p>
           <p class='bold-data'>#{@roundTo(3, lat)} N<br>#{@roundTo(3, long)} W</p>
-          #{if User?.current?.preferences?.kelp?.goal_set is 'true' then @goalText else ''}
+          #{if User?.current?.preferences?.kelp?.goal_set is 'true' then @goalText() else ''}
           <a onclick='alert("Talk features will become available once Kelp is launched")'>#{translate 'classifyPage.summary.talk'}</a>
         </div>
         <img class='prev-image' src='#{image}'>
       </div>
      """)
 
-  goalText: """
+  goalText: -> """
       <p>Goal Countdown:</p>
       <p class='bold-data'>#{User?.current?.preferences?.kelp?.goal}</p>
     """
