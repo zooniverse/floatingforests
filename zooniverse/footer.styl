@@ -1,0 +1,47 @@
+#readymade
+  .zooniverse-footer
+    FOOTER_WIDTH = 80%
+    background-color rgba(0,0,0,0.7)
+    a
+      color #9d9d9d
+      transition color 0.2s ease
+      &:hover
+        color LIME_GREEN
+    span
+      color #565857
+    .zooniverse-logo-container
+      padding 50px 0
+      display block
+      width 100%
+      text-align center
+      .zooniverse-logo
+        width 100px
+        height 100px
+    .zooniverse-footer-heading
+      text-align center
+      font-size 20px
+      width FOOTER_WIDTH
+      margin 0 auto
+    .zooniverse-footer-projects
+      padding-top 50px
+      overflow auto
+      width FOOTER_WIDTH
+      margin 0 auto
+      .zooniverse-footer-category
+        float left
+        width 25%
+        a
+          text-decoration none
+        @media screen and (max-width: 720px)
+          width 100%
+          text-align center
+    .zooniverse-footer-general
+      width 80%
+      margin 0 auto
+      padding 20px 0
+      .zooniverse-footer-category
+        display inline
+        margin-right 10px
+        font-size 12px
+        a
+          text-decoration none

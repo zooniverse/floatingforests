@@ -1,12 +1,12 @@
 translate = require "t7e"
-Tutorial = require "./tutorial"
-UserGoals = require "./user-goals"
+Tutorial = require "../tutorial/tutorial"
+UserGoals = require "../user-goals/user-goals"
 project = require "zooniverse-readymade/current-project"
 User = require "zooniverse/models/user"
-ClassifySummary = require "./classify-summary"
-ClassifyMetadata = require "./classify-metadata"
-ClassifyTransitioner = require "./classify-transitioner"
-ClassifySubjectLoader = require "./classify-subject-loader"
+ClassifySummary = require "./summary"
+ClassifyMetadata = require "./metadata"
+ClassifyTransitioner = require "./transitioner"
+ClassifySubjectLoader = require "./subject-loader"
 
 classifyPage = project.classifyPages[0]
 subjectViewer = classifyPage.subjectViewer

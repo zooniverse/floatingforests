@@ -1,0 +1,66 @@
+#readymade
+  .zooniverse-profile
+    .content
+      background-color rgba(0,0,0,0.4)
+      min-height 500px
+      > nav
+        display none
+    &.signed-in
+      .content > nav
+        display block
+    nav, .favorites, .favorites-empty, .recents, .recents-empty
+      max-width 1090px
+      margin 0 auto
+      padding 0 5vw 10px 5vw
+    nav:not(.controls)
+      button
+        @extend .secondary-nav-btn
+    .sign-in-form
+      transition width 0.5s
+      header
+        padding-top 50px
+        font-size 36px
+        font-weight 300
+      .action
+        button
+          background-color LIME_GREEN
+          padding 10px 20px
+          color #fff
+          box-shadow none
+      input
+        box-shadow none
+        border 2px solid AQUA
+        outline none
+        &:focus
+          border-color LIME_GREEN
+      @media screen and (max-width: 720px)
+        width 80%
+    .no-account
+      font-weight 300
+      margin 0
+      padding-bottom 50px
+      button[name="sign-up"]
+        background none
+        border none
+        color #fff
+        font-size 13px
+    .zooniverse-paginator .items .item a img, .zooniverse-paginator .items .item a
+      border-radius 5px
+    .zooniverse-paginator
+      .controls
+        background-color transparent
+        button
+          color #fff
+          text-shadow none
+          background-color transparent
+          &.active
+            background-color LIME_GREEN
+      .items
+        margin-top 0
+        .item
+          a
+            transition border-color 0.2s
+            &:hover
+              border-color LIME_GREEN
+            img
+              box-shadow none

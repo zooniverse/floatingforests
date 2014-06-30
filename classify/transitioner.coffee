@@ -1,5 +1,5 @@
-ClassifyButtons = require "./classify-buttons"
-ClassifyMetadata = require "./classify-metadata"
+ClassifyButtons = require "./buttons"
+ClassifyMetadata = require "./metadata"
 
 class ClassifyTransitioner
   SUMMARY_DISPLAY_TIME = 500

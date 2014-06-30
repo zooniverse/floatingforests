@@ -1,5 +1,5 @@
 project = require "zooniverse-readymade/current-project"
-ClassifyMetadata = require "./classify-metadata"
+ClassifyMetadata = require "./metadata"
 classifyPage = project.classifyPages[0]
 
 ClassifySubjectLoader =
@@ -19,5 +19,8 @@ ClassifySubjectLoader =
         <img src="#{classifyPage.Subject.instances[queue].location.standard}">
       </div>
     """)
+
+  init: ->
+    $(".readymade-subject-viewer-container").append "<div class='subject-loader'></div>"
 
 module?.exports = ClassifySubjectLoader

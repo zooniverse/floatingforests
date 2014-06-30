@@ -2,12 +2,18 @@ project = require "zooniverse-readymade/current-project"
 classifyPage = project.classifyPages[0]
 subjectViewer = classifyPage.subjectViewer
 tools = subjectViewer.markingSurface.tools
+translate = require 't7e'
 
 class ClassifyButtons
+  @init: ->
+    $(".decision-tree-confirmation")
+      .prepend "<div class='side-btn'><button id='clouds-present'></button></div>"
+      .append "<div class='side-btn'><button id='undo'></button></div>"
+
   constructor: (@el) ->
     @clouds = @el.find("button#clouds-present")
     @undo =  @el.find("button#undo")
-    @nextSubject = @el.find("button[name='decision-tree-confirm-task']")
+    @nextSubject = @el.find("button[name='decision-tree-confirm-task']").html translate 'classifyPage.next'
 
     @clouds.on "click", (e) =>
       @clouds.toggleClass("present")
@@ -20,6 +26,5 @@ class ClassifyButtons
   disableNextSubject: -> @nextSubject.prop 'disabled', true
 
   enableNextSubject: -> @nextSubject.prop 'disabled', false
-
 
 module?.exports = ClassifyButtons

@@ -44,7 +44,7 @@ class ClassifyMenu
       </div>
 
       <div class="preload">
-        <img src='./images/kelp-marked1.jpg'>
+        <img src='./images/kelp-before1.jpg'>
         <img src='./images/kelp-before2.jpg'>
       </div>
     </div>
