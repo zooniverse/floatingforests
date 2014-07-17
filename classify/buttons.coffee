@@ -12,7 +12,7 @@ class ClassifyButtons
 
   constructor: (@el) ->
     @clouds = @el.find("button#clouds-present")
-    @undo =  @el.find("button#undo")
+    @undo = @el.find("button#undo")
     @nextSubject = @el.find("button[name='decision-tree-confirm-task']").html translate 'classifyPage.next'
 
     @clouds.on "click", (e) =>

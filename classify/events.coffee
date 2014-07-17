@@ -19,8 +19,10 @@ class ClassifyPageEvents
   classifyPage.on classifyPage.LOAD_SUBJECT, (e, subject) =>
     classifyPage.classification.annotations.push {clouds: false} # clouds start as false
     ClassifyMetadata.setSubject(subject)
-    ClassifyMetadata.load() if ClassifySubjectLoader.firstSubject
-    ClassifySubjectLoader.handleFirstSubject()
+
+    if ClassifySubjectLoader.firstSubject
+      ClassifyMetadata.load()
+      ClassifySubjectLoader.handleFirstSubject()
 
   classifyPage.on classifyPage.SEND_CLASSIFICATION, =>
     currentAppState =
