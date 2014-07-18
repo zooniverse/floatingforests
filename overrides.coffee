@@ -9,7 +9,6 @@ project = require "zooniverse-readymade/current-project"
 
 ProfileOverrides = require "./zooniverse/profile"
 
-ClassifyPageEvents = require "./classify/events"
 ClassifyMetadata = require "./classify/metadata"
 ClassifyButtons = require "./classify/buttons"
 ClassifySubjectLoader = require "./classify/subject-loader"
@@ -31,5 +30,4 @@ ProfileOverrides.init()
 
 $(".readymade-call-to-action").html translate 'site.callToAction'
 
-# events
-$ -> ClassifyPageEvents.setupListeners()
+$ -> require "./classify/events"

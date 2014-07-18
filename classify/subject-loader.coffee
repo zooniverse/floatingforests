@@ -13,12 +13,10 @@ ClassifySubjectLoader =
 
   nextImage: (queue = 2) ->
     # queue is 2 by default to load the image 2 ahead of subject into the offscreen-right position
-    $("""
-      <div class='right-image right #{'offscreen-right' if queue is 2}'>
-        <div class='right-image-overlay'></div>
-        <img src="#{classifyPage.Subject.instances[queue].location.standard}">
-      </div>
-    """)
+    $ "<div class='right-image right #{'offscreen-right' if queue is 2}'>
+         <div class='right-image-overlay'></div>
+         <img src='#{classifyPage.Subject.instances[queue].location.standard}'>
+       </div>"
 
   init: ->
     $(".readymade-subject-viewer-container").append "<div class='subject-loader'></div>"

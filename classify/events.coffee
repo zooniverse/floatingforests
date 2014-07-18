@@ -13,52 +13,48 @@ subjectViewer = classifyPage.subjectViewer
 Subject = classifyPage.Subject
 tools = subjectViewer.markingSurface.tools
 
-class ClassifyPageEvents
-  @el = $(".readymade-classify-page")
+el = $(".readymade-classify-page")
 
-  classifyPage.on classifyPage.LOAD_SUBJECT, (e, subject) =>
-    classifyPage.classification.annotations.push {clouds: false} # clouds start as false
-    ClassifyMetadata.setSubject(subject)
+incrementUserClassifyCount = ->
+  currentCount = +User?.current?.preferences?.kelp?.classify_count
+  User?.current?.setPreference "classify_count", currentCount + 1
 
-    if ClassifySubjectLoader.firstSubject
-      ClassifyMetadata.load()
-      ClassifySubjectLoader.handleFirstSubject()
+Subject.on "no-more", => el.html translate 'div', 'classifyPage.noMoreSubjects', id: 'no-more-subjects'
+Subject.on 'get-next', => el.find(".subject-loader").show()
+Subject.on 'select', => el.find(".subject-loader").hide()
 
-  classifyPage.on classifyPage.SEND_CLASSIFICATION, =>
-    currentAppState =
-      nextSubject: @el.find(".right-image")
-      oldSubject: @el.find(".summary-overlay")
-      readymadeSubjectViewer: @el.find(".readymade-subject-viewer").hide() # hide center container during transition
-      queuedImage: ClassifySubjectLoader.nextImage()
-      nextSubjectOverlay: @el.find(".right-image-overlay")
+tutorial = new Tutorial
+el.find("#tutorial-tab").on 'click', => tutorial.start()
 
-    ClassifySummary.addSummary(tools.length, subjectViewer.subject)
+SPLIT_GROUP = location.search.substring(1).split("=")[1] # this will come from back-end
+userGoals = new UserGoals SPLIT_GROUP if SPLIT_GROUP    # ex. url: http://localhost:2005/index.html?split=G#/about
 
-    @classifyTransition.run(currentAppState)
+User.on 'change', => tutorial.showIfNewUser()
+User.on 'change', => userGoals?.showIfNeeded()
+User.fetch()
 
-    @incrementUserClassifyCount()
+classifyTransition = new ClassifyTransitioner el
 
-    @userGoals?.promptOrUpdateCurrentGoal()
+classifyPage.on classifyPage.LOAD_SUBJECT, (e, subject) ->
+  classifyPage.classification.annotations.push {clouds: false} # clouds start as false
+  ClassifyMetadata.setSubject(subject)
 
-  @incrementUserClassifyCount: ->
-    currentCount = +User?.current?.preferences?.kelp?.classify_count
-    User?.current?.setPreference "classify_count", currentCount + 1
+  if ClassifySubjectLoader.firstSubject
+    ClassifyMetadata.load()
+    ClassifySubjectLoader.handleFirstSubject()
 
-  @setupListeners: ->
-    Subject.on "no-more", => @el.html translate 'div', 'classifyPage.noMoreSubjects', id: 'no-more-subjects'
-    Subject.on 'get-next', => @el.find(".subject-loader").show()
-    Subject.on 'select', => @el.find(".subject-loader").hide()
+classifyPage.on classifyPage.SEND_CLASSIFICATION, ->
+  currentAppState =
+    nextSubject: el.find(".right-image")
+    oldSubject: el.find(".summary-overlay")
+    readymadeSubjectViewer: el.find(".readymade-subject-viewer").hide() # hide center container during transition
+    queuedImage: ClassifySubjectLoader.nextImage()
+    nextSubjectOverlay: el.find(".right-image-overlay")
 
-    @tutorial = new Tutorial
-    @el.find("#tutorial-tab").on 'click', => @tutorial.start()
+  ClassifySummary.addSummary(tools.length, subjectViewer.subject)
 
-    SPLIT_GROUP = location.search.substring(1).split("=")[1] # this will come from back-end
-    @userGoals = new UserGoals SPLIT_GROUP if SPLIT_GROUP    # ex. url: http://localhost:2005/index.html?split=G#/about
+  classifyTransition.run(currentAppState)
 
-    User.on 'change', => @tutorial.showIfNewUser()
-    User.on 'change', => @userGoals?.showIfNeeded()
-    User.fetch()
+  incrementUserClassifyCount()
 
-    @classifyTransition = new ClassifyTransitioner @el
-
-module?.exports = ClassifyPageEvents
+  userGoals?.promptOrUpdateCurrentGoal()
