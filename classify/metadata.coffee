@@ -3,7 +3,9 @@ translate = require 't7e'
 ClassifyMetadata =
   roundTo: (dec, num) -> if num then parseFloat(num).toFixed(dec) else "-"
 
-  formattedTimestamp: (ts) -> ts.match(/\d{4}-\d{2}-\d{2}/)[0]
+  formattedTimestamp: (ts) ->
+    date = new Date(ts)
+    "#{date.getMonth()}-#{date.getDate()}-#{date.getYear()}"
 
   setSubject: (subject) -> @subject = subject
 
