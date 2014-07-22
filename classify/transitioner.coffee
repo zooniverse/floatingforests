@@ -59,5 +59,4 @@ class ClassifyTransitioner
   displayQueuedImage: (nextImage) ->
     nextImage.removeClass("offscreen-right")
 
-
 module?.exports = ClassifyTransitioner

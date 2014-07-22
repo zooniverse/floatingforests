@@ -108,12 +108,10 @@ class ClassifyMenu
   onChangeLocation: (e) ->
     locationName = e.target.id
     classifyPage.Subject.group = GROUPS[locationName]
-    # classifyPage.Subject.next()
-
-    # classifyPage.trigger("location-change")
-
     btnClicked = @el.find(e.target)
-    btnClicked.addClass("selected").siblings().removeClass("selected")
+    btnClicked
+      .addClass("selected")
+      .siblings().removeClass("selected")
     $("#location-data h2").text(btnClicked.text())
 
 module?.exports = ClassifyMenu

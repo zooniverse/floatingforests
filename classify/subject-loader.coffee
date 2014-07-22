@@ -19,6 +19,7 @@ ClassifySubjectLoader =
        </div>"
 
   init: ->
-    $(".readymade-subject-viewer-container").append "<div class='subject-loader'></div>"
+    $(".readymade-subject-viewer-container")
+      .append "<div class='subject-loader'></div>"
 
 module?.exports = ClassifySubjectLoader

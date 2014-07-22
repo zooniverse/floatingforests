@@ -43,9 +43,9 @@ class Tutorial
     @closeBtn = @el.find("button#close")
     @dot = @el.find(".dot")
 
-    @closeBtn.on 'click', => @exit()
-    @nextBtn.on 'click', => @onClickNext()
-    @dot.on 'click', (e) => @showSlide @el.find(e.target).index() + 1
+    @closeBtn.on 'click', @exit
+    @nextBtn.on 'click', @onClickNext
+    @dot.on 'click', @onClickDot
 
     @numberOfSlides = slides.length
 
@@ -58,19 +58,22 @@ class Tutorial
 
   currentSlide: -> @el.find('.dot.active').index() + 1
 
+  onClickDot: (e) =>
+    @showSlide @el.find(e.target).index() + 1
+
   showSlide: (num) ->
     @el.find("#slide#{num}").show().siblings().hide()
     @el.find(".dot:nth-child(#{num})").addClass("active").siblings().removeClass("active")
 
     @nextBtn.html(if num is @numberOfSlides then translate 'tutorial.finish' else translate 'tutorial.next')
 
-  onClickNext: ->
+  onClickNext: =>
     if @currentSlide() is @numberOfSlides
       @exit()
     else
       @showSlide(@currentSlide() + 1) 
 
-  exit: ->
+  exit: =>
     @el.fadeOut(250)
     window.removeEventListener "click", @exitIfClickOutside
 
