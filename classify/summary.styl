@@ -1,0 +1,70 @@
+#readymade .readymade-classifier .readymade-subject-viewer-container
+  .summary-overlay
+    height unit(SUBJECT_HEIGHT, 'px')
+    width unit(SUBJECT_WIDTH, 'px')
+    background-color OPAQUE_MARINE
+    position absolute
+    top 0px
+    left unit(LEFT_OFFSET - LEFT_OFFSET_ADJUST, 'px')
+    transition-property margin-left, left
+    transition-duration 1.0s
+    text-align left
+    border-radius 5px
+    z-index 1
+    @media screen and (max-width: 1070px)
+      left -800px
+    h1
+      font-size 28px
+    p
+      margin 30px 0 0 0
+      &.bold-data
+        margin 0
+        font-size 20px
+        font-weight 800
+    a
+      display inline-block
+      border 2px solid #fff
+      color #fff
+      border-radius 5px
+      padding 0 10px
+      height 40px
+      line-height 40px
+      margin-top 100px
+      &:hover
+        cursor pointer
+        background-color #fff
+        color MARINE
+    .prev-image
+      position absolute
+      top 0px
+      right 0px
+      height unit(SUBJECT_HEIGHT, 'px')
+      z-index -1
+      border-radius 5px
+    .content
+      width 150px
+      position absolute
+      overflow auto
+      top 35px
+      left 80%
+      margin-left -75px
+      text-align left
+      transition all 1s
+    &.centered
+      left 50%
+      margin-left unit(LEFT_OFFSET, 'px')
+      .content
+        left 50%
+        text-align center
+    &.offscreen-left
+      left -800px
+    &:after
+      content ""
+      background-color MARINE
+      border-radius 5px
+      opacity 0.7
+      height 100%
+      width 100%
+      top 0px
+      position absolute
+      z-index -1

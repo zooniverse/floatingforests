@@ -10,10 +10,10 @@ class ClassifyTransitioner
 
   run: (state) ->
     @appendQueuedImage(state)
+    @buttons.disableNextSubject()
     setTimeout (=> @executeTransition(state)), SUMMARY_DISPLAY_TIME
 
   executeTransition: (state) ->
-    @buttons.disableNextSubject()
     @moveAllImagesLeft(state)
     @fadeOutOverlay(state)
     @resetAfterTransition(state)

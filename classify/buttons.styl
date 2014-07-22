@@ -1,0 +1,59 @@
+#readymade
+  .side-btn
+    width 25%
+    display inline-block
+    overflow auto
+    float left
+    text-align center
+    button
+      @extend .capitalized-text
+      width 100px
+      letter-spacing 1px
+      font-size 14px
+      border 2px solid transparent
+      border-radius 5px
+      display inline-block
+      height 50px
+      transition-property background-position, background-color
+      transition-duration 0.3s
+      transition-timing-function ease
+    #clouds-present
+      float left
+      background transparent
+      border 2px solid #fff
+      color #fff
+      background url('./icons/clouds-txt.svg') no-repeat 50% -30px, url('./icons/cloud.svg') no-repeat center
+      &.present
+        background url('./icons/clouds-txt.svg') no-repeat 50% -30px, TURQ url('./icons/cloud.svg') no-repeat center
+        &:hover
+          background url('./icons/clouds-txt.svg') no-repeat 50% -30px, TURQ url('./icons/cloud.svg') no-repeat center
+      &:hover
+        background url('./icons/clouds-txt.svg') no-repeat center, url('./icons/cloud.svg') no-repeat 50% 80px
+    #undo
+      float right
+      border 2px solid #fff
+      display inline-block
+      background url('./icons/undo-txt.svg') no-repeat 50% -30px, url('./icons/undo.svg') no-repeat center
+      &:hover
+        background url('./icons/undo-txt.svg') no-repeat center, url('./icons/undo.svg') no-repeat 50% 80px
+      &:active
+        background-color #fff
+
+  .readymade-classifier
+    .readymade-decision-tree-container
+      .decision-tree
+        button[name="decision-tree-confirm-task"]
+          display inline-block
+          float left
+          height 50px
+          font-weight 800
+          font-size 16px
+          width 50%
+          margin 0
+          border 2px solid LIME_GREEN
+          background-color LIME_GREEN
+          -webkit-font-smoothing antialiased
+          &:hover
+            background-color darken(LIME_GREEN, 5)
+          &:disabled
+            opacity 1
