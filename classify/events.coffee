@@ -58,3 +58,10 @@ classifyPage.on classifyPage.SEND_CLASSIFICATION, ->
   incrementUserClassifyCount()
 
   userGoals?.promptOrUpdateCurrentGoal()
+
+delKeyWasPressed = (keyCode) -> keyCode is 8
+
+classifyPageIsActive = -> location.hash is "#/classify"
+
+$(document).on 'keydown', (e) =>
+  e.preventDefault() if delKeyWasPressed(e.which) and classifyPageIsActive()
