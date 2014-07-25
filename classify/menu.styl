@@ -52,6 +52,7 @@
           color LIME_GREEN
   .menu-content
     .menu-section
+      display none
       background-color AQUA
       text-align center
       position relative
@@ -72,7 +73,7 @@
         transition background-color .1s
         &:hover
           background-color darken(#1e7779, 2)
-        &.selected, &:active
+        &.active, &:active
           background-color LIME_GREEN
         @media screen and (max-width: 900px)
           height 60px

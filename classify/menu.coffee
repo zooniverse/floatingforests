@@ -8,47 +8,11 @@ class ClassifyMenu
     'california': "53ac8475edf877f0bc000002"
     'tasmania': "536d226d3ae740fd20000003"
 
-  html = """
-    <div id='classify-menu'>
-      <div class='menu-tabs'>
-        <div class='tab' id='tutorial-tab'><img src='./icons/tut.svg'>#{translate 'classifyMenu.tab.tutorial'}</div>
-        <div class='tab'><img src='./icons/guide.svg'>#{translate 'classifyMenu.tab.fieldGuide'}</div>
-        <div class='tab'><img src='./icons/location.svg'>#{translate 'classifyMenu.tab.location'}</div>
-        <div class='tab' id='favorites-tab'><img src='./icons/favorite.svg'>#{translate 'classifyMenu.tab.favorites'}</div>
-      </div>
+  html = require "./menu-html"
 
-      <div class='menu-content'>
-        <div class='menu-section'>
-          <h1>Tutorial Menu section</h1>
-        </div>
-        <div class='menu-section' id="field-guide">
-          <h1>#{translate 'classifyMenu.content.fieldGuide'}</h1>
-          <div class="guide-item kelp">
-            <p>#{translate 'classifyMenu.content.kelp'}</p>
-          </div>
-          <div class="guide-item kelp-alt">
-            <p>#{translate 'classifyMenu.content.kelp'}</p>
-          </div>
-          <div class="guide-item clouds">
-            <p>#{translate 'classifyMenu.content.clouds'}</p>
-          </div>
-        </div>
-        <div class='menu-section'>
-          <button class='location-btn' id="all-locations">#{translate 'classifyMenu.locations.all'}</button>
-          <button class='location-btn' id="california">#{translate 'classifyMenu.locations.california'}</button>
-          <button class='location-btn' id="tasmania">#{translate 'classifyMenu.locations.tasmania'}</button>
-        </div>
-        <div class='menu-section'>
-          <h1>Favorites Menu Section</h1>
-        </div>
-      </div>
+  FAVORITE_TEXT  = "<img src='./icons/favorite.svg'>#{translate 'classifyMenu.tab.favorites'}"
 
-      <div class="preload">
-        <img src='./images/kelp-before1.jpg'>
-        <img src='./images/kelp-before2.jpg'>
-      </div>
-    </div>
-  """
+  FAVORITED_TEXT = "#{translate 'classifyMenu.tab.favorited'}"
 
   create: -> $(".readymade-classify-page").append(html)
 
@@ -56,34 +20,52 @@ class ClassifyMenu
     @create()
     @el = $("#classify-menu")
 
-    @el.find(".menu-section").hide()
-    @el.find(".location-btn#all-locations").addClass("selected")
-
     @tab = @el.find(".tab")
-    @locationBtn = @el.find(".location-btn")
+    @locationBtns = @el.find(".location-btn")
     @favoritesTab = @el.find("#favorites-tab")
 
     @tab.on "click", (e) => @onTabClick(e)
-    @locationBtn.on 'click', (e) => @onChangeLocation(e)
+    @locationBtns.on 'click', (e) => @onChangeLocation(e)
     @favoritesTab.on 'click', => @updateFavorite()
     @el.on "new-subject", => @resetFavoriteTab()
 
-  updateFavorite: ->
-    classifyPage.classification.favorite = !classifyPage.classification.favorite
-    if classifyPage.classification.favorite
-      @favoritesTab.text("#{translate 'classifyMenu.tab.favorited'}").addClass("favorited")
-    else
-      @resetFavoriteTab()
-
-  resetFavoriteTab: ->
-    if @favoritesTab.hasClass("favorited")
-      @favoritesTab.html("<img src='./icons/favorite.svg'>#{translate 'classifyMenu.tab.favorites'}").removeClass("favorited")
+    @activate @locationBtns.filter("#all-locations")
 
   onTabClick: (e) ->
     tab = e.target
-    return if tab.id is 'tutorial-tab' or tab.id is 'favorites-tab'
+    return if @notOpenable(tab)
     @displayTabSection(tab)
     @scrollToBottomOfSiteFooter()
+
+  onChangeLocation: (e) ->
+    location = e.target.id
+    @selectGroup location
+    btnClicked = @el.find("#" + location)
+    @activate btnClicked
+    $("#location-data h2").text(btnClicked.text())
+
+  updateFavorite: ->
+    @toggleFavorite()
+    if @favorited() then @activateFavoriteTab() else @resetFavoriteTab()
+
+  resetFavoriteTab: ->
+    @deactivateFavoriteTab() if @favoritesTab.hasClass("favorited")
+
+  favorited: -> classifyPage.classification.favorite
+
+  toggleFavorite: ->
+    classifyPage.classification.favorite = !classifyPage.classification.favorite
+
+  selectGroup: (locationKey) ->
+    classifyPage.Subject.group = GROUPS[locationKey]
+
+  activateFavoriteTab: ->
+    @favoritesTab.text(FAVORITED_TEXT).addClass("favorited")
+
+  deactivateFavoriteTab: ->
+    @favoritesTab.html(FAVORITE_TEXT).removeClass("favorited")
+
+  notOpenable: (tab) -> tab.id in ['tutorial-tab', 'favorites-tab']
 
   tabNum: (tab) -> @el.find(tab).index() + 1
 
@@ -94,24 +76,25 @@ class ClassifyMenu
   correspondingSectionTo: (tab) ->
     @el.find(".menu-section:nth-child(#{@tabNum(tab)})")
 
+  correspondingTabTo: (section) ->
+    @el.find(".tab:eq(#{section.index()})")
+
   scrollToBottomOfSiteFooter: ->
     $("html, body").animate({ scrollTop:($("#footer-container").offset().top - window.innerHeight)}, 500)
 
+  activate: (el) ->
+    el.addClass("active").siblings().removeClass("active")
+
+  show: (el) ->
+    el.show().siblings().hide()
+
   display: (section) ->
-    @el.find(".tab:eq(#{section.index()})").addClass("active").siblings().removeClass("active")
-    section.show().addClass("active").siblings().hide().removeClass("active")
+    @activate @correspondingTabTo(section)
+    @show section
 
   hide: (section) ->
-    @el.find(".tab:eq(#{section.index()})").removeClass("active")
     section.hide()
-
-  onChangeLocation: (e) ->
-    locationName = e.target.id
-    classifyPage.Subject.group = GROUPS[locationName]
-    btnClicked = @el.find(e.target)
-    btnClicked
-      .addClass("selected")
-      .siblings().removeClass("selected")
-    $("#location-data h2").text(btnClicked.text())
+    @correspondingTabTo(section).removeClass("active")
 
 module?.exports = ClassifyMenu
+

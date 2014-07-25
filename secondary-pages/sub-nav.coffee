@@ -31,8 +31,8 @@ class SecondarySubNav
       .siblings().removeClass("active")
 
   activateFirstTab: ->
-     firstSection = $(".sub-nav-#{@page} button:nth-child(1)").attr('name')
-     @activateSection(firstSection)
+    firstSection = $(".sub-nav-#{@page} button:nth-child(1)").attr('name')
+    @activateSection(firstSection)
 
   activateSection: (section) ->
     @showSection(section)
