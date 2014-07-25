@@ -9,12 +9,14 @@ ClassifyMetadata =
 
   setSubject: (subject) -> @subject = subject
 
+  googleMapsLink: (lat, long) ->
+    "https://www.google.com/maps/@#{lat},#{long},12z'>#{@roundTo(3, lat)} N, #{@roundTo(3, long)} W"
+
   load: ->
     [lat, long] = @subject.coords
     timestamp = @subject.metadata.timestamp
-    $("#subject-coords").html """
-      <a target='_tab' href='https://www.google.com/maps/@#{lat},#{long},12z'>#{@roundTo(3, lat)} N, #{@roundTo(3, long)} W</a>, #{@formattedTimestamp(timestamp)}
-    """
+    $("#subject-coords")
+      .html "<a target='_tab' href='#{@googleMapsLink(lat, long)}'</a>, #{@formattedTimestamp(timestamp)}"
 
   init: ->
     $(".readymade-classification-interface")
