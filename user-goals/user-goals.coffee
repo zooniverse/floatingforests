@@ -19,24 +19,17 @@ class UserGoals
   IMAGE_FILES = [26, 27, 29, 30, 31, 32, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 49, 50, 51, 52, 61]
 
   @sampleArray: (arr) -> arr[Math.floor(Math.random() * arr.length)]
+
   @randomKelpImage: -> @sampleArray(IMAGE_FILES)
 
   Input =
-    slider: """
-      <p id='slider-val'>0 Classifications</p>
+    min: 1
+    max: 50
+    slider:
+     "<p id='slider-val'></p>
       <form id='user-goal-form'>
-        <input type='range' id='user-goal-slider' value='25' min='1' max='50' step='1'>
-      </form>
-    """
-    radios: """
-      <form id='user-goal-form'>
-        <input type="radio" name="goal-radio" value="10">10
-        <input type="radio" name="goal-radio" value="20">20
-        <input type="radio" name="goal-radio" value="30">30
-        <input type="radio" name="goal-radio" value="40">40
-        <input type="radio" name="goal-radio" value="50">50
-      </form>
-    """
+        <input type='range' id='user-goal-slider' min='1' max='50' step='1'>
+      </form>"
 
   Feedback =
     message: "<h1 class='user-goal-feedback-message'>Classification Goal Achieved!<br>Thank you for your efforts!</h1>"
@@ -49,35 +42,35 @@ class UserGoals
   SPLIT =
     A:
       message: Messages.personallyMotivated
-      input: Input.radios
+      input: Input.min
       feedback: Feedback.image
     B:
       message: Messages.personallyMotivated
-      input: Input.radios
+      input: Input.min
       feedback: Feedback.message
     C:
       message: Messages.personallyMotivated
-      input: Input.slider
+      input: Input.max
       feedback: Feedback.image
     D:
       message: Messages.personallyMotivated
-      input: Input.slider
+      input: Input.max
       feedback: Feedback.message
     E:
       message: Messages.sociallyMotivated
-      input: Input.radios
+      input: Input.min
       feedback: Feedback.image
     F:
       message: Messages.sociallyMotivated
-      input: Input.radios
+      input: Input.min
       feedback: Feedback.message
     G:
       message: Messages.sociallyMotivated
-      input: Input.slider
+      input: Input.max
       feedback: Feedback.image
     H:
       message: Messages.sociallyMotivated
-      input: Input.slider
+      input: Input.max
       feedback: Feedback.message
 
   constructor: (@splitGroup) ->
@@ -99,10 +92,13 @@ class UserGoals
     @populatePromptContent()
     @el.show()
 
+  userShouldSeeImage: ->
+    !!~SPLIT[@splitGroup].feedback.indexOf("img")
+
   feedback: ->
     @content.html(SPLIT[@splitGroup].feedback)
     @el.show()
-    @el.addClass("feedback-image") if !!~SPLIT[@splitGroup].feedback.indexOf("img")
+    @el.addClass("feedback-image") if @userShouldSeeImage()
     User?.current?.setPreference "goal_set", "false"
 
   currentGoal: ->
@@ -118,7 +114,7 @@ class UserGoals
     return if @closed
     (@sessionHasExpired() and @userClassifyCount() > 2) or (@userClassifyCount() is 2)
 
-  showIfNeeded: -> 
+  showIfNeeded: ->
     @prompt() if @promptShouldBeDisplayed()
 
   promptOrUpdateCurrentGoal: ->
@@ -141,30 +137,37 @@ class UserGoals
     if @completedSuccessfully() then @feedback() else @decrimentGoal()
     @increaseSessionExpiration()
 
+  inputFormHTML: ->
+    HEADER + SPLIT[@splitGroup].message + Input.slider + SUBMIT_BUTTON
+
+  createInputForm: ->
+    @content.html @inputFormHTML()
+
   populatePromptContent: ->
-    @content.html HEADER + SPLIT[@splitGroup].message + SPLIT[@splitGroup].input + SUBMIT_BUTTON
-    @listenForSliderChange() if !!~SPLIT[@splitGroup].input.indexOf("user-goal-slider")
+    @createInputForm()
+    @listenForSliderChange()
     @listenForSubmit()
 
   listenForSubmit: ->
     @el.find("button[name='user-goal-submit']").on 'click', => @setUserGoal()
 
+  sCheck: (int) ->
+    if +int is 1 then '' else 's'
+
   listenForSliderChange: ->
     goalSlider = @el.find("#user-goal-slider")
 
-    defaultValue = 25
+    defaultValue = SPLIT[@splitGroup].input
     goalSlider.val(defaultValue)
-    @el.find("#slider-val").text(defaultValue + " Classifications")
+    @el.find("#slider-val").text(defaultValue + " Classification#{@sCheck(defaultValue)}")
     @goal = defaultValue
 
     goalSlider.on 'input', (e) =>
       @goal = goalSlider.val()
-      @el.find("#slider-val").text(@goal + " Classifications")
+      @el.find("#slider-val").text(@goal + " Classification#{@sCheck(@goal)}")
 
   setUserGoal: ->
-    @goal or= @el.find("#user-goal-form input[type='radio']:checked").val()
-
-    @content.html("<h1 class='user-goal-set'>Goal set for #{@goal} Classification#{if +@goal is 1 then '' else 's'}</h1>")
+    @content.html("<h1 class='user-goal-set'>Goal set for #{@goal} Classification#{@sCheck(@goal)}</h1>")
 
     User?.current?.setPreference "goal_set", "true"
     User?.current?.setPreference "goal", @goal
