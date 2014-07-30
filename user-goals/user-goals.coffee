@@ -79,12 +79,7 @@ class UserGoals
     @content = @el.find("#content")
     @closed = false
 
-    @el.find("button[name='user-goal-submit']").on 'click', => @setUserGoal()
-
-    # TODO: remove feedback class on close / or 'opt-out' on close / or just keep as is?
-    @el.find("button[name='user-goal-close']").on 'click', =>
-      @el.remove()
-      @closed = true
+    @el.find("button[name='user-goal-close']").on 'click', @onClickClose
 
   create: -> $(".readymade-classify-page").append html
 
@@ -94,6 +89,10 @@ class UserGoals
 
   userShouldSeeImage: ->
     !!~SPLIT[@splitGroup].feedback.indexOf("img")
+
+  onClickClose: =>
+    @el.remove()
+    @closed = true
 
   feedback: ->
     @content.html(SPLIT[@splitGroup].feedback)
@@ -149,7 +148,7 @@ class UserGoals
     @listenForSubmit()
 
   listenForSubmit: ->
-    @el.find("button[name='user-goal-submit']").on 'click', => @setUserGoal()
+    @el.find("button[name='user-goal-submit']").on 'click', @setUserGoal
 
   sCheck: (int) ->
     if +int is 1 then '' else 's'
@@ -166,7 +165,7 @@ class UserGoals
       @goal = goalSlider.val()
       @el.find("#slider-val").text(@goal + " Classification#{@sCheck(@goal)}")
 
-  setUserGoal: ->
+  setUserGoal: =>
     @content.html("<h1 class='user-goal-set'>Goal set for #{@goal} Classification#{@sCheck(@goal)}</h1>")
 
     User?.current?.setPreference "goal_set", "true"
