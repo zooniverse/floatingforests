@@ -1,12 +1,11 @@
 User = require "zooniverse/models/user"
 
 class UserGoals
-  html = """
-    <div id='user-goals'>
+  html =
+   "<div id='user-goals'>
       <button name='user-goal-close'><img id='tut-x-icon' src='./icons/x-icon.svg'></button>
       <div id='content'></div>
-    </div>
-  """
+    </div>"
 
   HEADER = "<h1>User Goals</h1>"
 
@@ -37,6 +36,7 @@ class UserGoals
 
   Messages =
     personallyMotivated: "You can set goals in Floating Forests to manage your contribution. Would you like to set a goal for this session?"
+    personallyMotivatedAlt: (num) -> "Last session you contributed #{num} classifications. Would you like to set a classification goal for your session?"
     sociallyMotivated: "Kelp Hunters citizen scientists have contributed 20 classifications per session. Would you like to set a goal?"
 
   SPLIT =
@@ -109,6 +109,15 @@ class UserGoals
   userClassifyCount: ->
     +User?.current?.preferences?.kelp?.classify_count
 
+  lastSessionCount: ->
+    +User?.current?.preferences?.kelp?.last_session_count
+
+  setLastSessionCount: (count) ->
+    User?.current?.setPreference "last_session_count", count
+
+  incrementLastSessionCount: ->
+    @setLastSessionCount(@lastSessionCount() + 1)
+
   promptShouldBeDisplayed: ->
     return if @closed
     (@sessionHasExpired() and @userClassifyCount() > 2) or (@userClassifyCount() is 2)
@@ -135,9 +144,17 @@ class UserGoals
   updateStatus: ->
     if @completedSuccessfully() then @feedback() else @decrimentGoal()
     @increaseSessionExpiration()
+    @incrementLastSessionCount() unless @sessionHasExpired()
+
+  splitMessage: ->
+    lastSessionCount = @lastSessionCount()
+    if lastSessionCount > 0
+      Messages.personallyMotivatedAlt(lastSessionCount)
+    else
+      SPLIT[@splitGroup].message
 
   inputFormHTML: ->
-    HEADER + SPLIT[@splitGroup].message + Input.slider + SUBMIT_BUTTON
+    HEADER + @splitMessage() + Input.slider + SUBMIT_BUTTON
 
   createInputForm: ->
     @content.html @inputFormHTML()
@@ -170,6 +187,7 @@ class UserGoals
 
     User?.current?.setPreference "goal_set", "true"
     User?.current?.setPreference "goal", @goal
+    @setLastSessionCount(0)
 
     setTimeout =>
       @increaseSessionExpiration()

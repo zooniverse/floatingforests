@@ -63,5 +63,8 @@ delKeyWasPressed = (keyCode) -> keyCode is 8
 
 classifyPageIsActive = -> location.hash is "#/classify"
 
+notSigningIn = -> !$(".zooniverse-dialog").hasClass("showing")
+
 $(document).on 'keydown', (e) =>
-  e.preventDefault() if delKeyWasPressed(e.which) and classifyPageIsActive()
+  if delKeyWasPressed(e.which) and classifyPageIsActive() and notSigningIn()
+    e.preventDefault()
