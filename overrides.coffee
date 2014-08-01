@@ -28,6 +28,11 @@ ClassifyButtons.init()
 ClassifySubjectLoader.init()
 ProfileOverrides.init()
 
+GoogleAnalytics = require 'zooniverse/lib/google-analytics'
+analytics = new GoogleAnalytics
+  account: 'UA-1224199-59'
+  domain: 'floatingforests.org'
+
 $(".readymade-call-to-action").html translate 'site.callToAction'
 
 $ -> require "./classify/events"
