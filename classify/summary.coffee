@@ -25,7 +25,7 @@ ClassifySummary =
            <p>#{translate 'classifyPage.summary.locatedNear'}</p>
            <p class='bold-data'>#{@roundTo(3, lat)} N<br>#{@roundTo(3, long)} W</p>
           #{if @userSetAGoal() then @goalText() else ''}
-           <a onclick='alert('Talk features will become available once Kelp is launched')'>#{translate 'classifyPage.summary.talk'}</a>
+           <a href='http://talk.floatingforests.org/'>#{translate 'classifyPage.summary.talk'}</a>
          </div>
          <img class='prev-image' src='#{image}'>
        </div>"
