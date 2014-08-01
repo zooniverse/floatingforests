@@ -6,9 +6,15 @@ ClassifySummary =
 
   addSummary: (kelpNum, subject) ->
     [lat, long] = subject.coords
-    image = subject.location.standard
 
-    @summary(kelpNum, image, lat, long)
+    summaryData =
+      kelpNum: kelpNum
+      lat: lat
+      long: long
+      image: subject.location.standard
+      talkLink: subject.talkHref()
+
+    @summary(summaryData)
       .fadeIn(300).appendTo(".readymade-subject-viewer-container")
 
   userSetAGoal: ->
@@ -16,7 +22,7 @@ ClassifySummary =
 
   sCheck: (int) -> if +int is 1 then '' else 's'
 
-  summary: (kelpNum, image, lat, long) ->
+  summary: ({kelpNum, image, lat, long, talkLink}) ->
     $ "<div class='summary-overlay centered'>
          <div class='content'>
            <h1>#{translate 'classifyPage.summary.header'}</h1>
@@ -25,7 +31,7 @@ ClassifySummary =
            <p>#{translate 'classifyPage.summary.locatedNear'}</p>
            <p class='bold-data'>#{@roundTo(3, lat)} N<br>#{@roundTo(3, long)} W</p>
           #{if @userSetAGoal() then @goalText() else ''}
-           <a href='http://talk.floatingforests.org/'>#{translate 'classifyPage.summary.talk'}</a>
+           <a href='#{talkLink}'>#{translate 'classifyPage.summary.talk'}</a>
          </div>
          <img class='prev-image' src='#{image}'>
        </div>"
