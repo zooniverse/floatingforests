@@ -18,19 +18,19 @@ module?.exports = "
         <div class='content sub-nav-team-organizations'>
           <div class='team-member'>
             <h1>#{translate 'team.organizations.keen.name'}</h1>
-            <img src='./images/team/keen.jpg'>
+            <img src='./images/team/keen.png'>
             <p>#{translate 'team.organizations.keen.description'}</p>
           </div>
 
           <div class='team-member'>
             <h1>#{translate 'team.organizations.santaBarbara.name'}</h1>
-            <img src='./images/team/nceas.png'>
+            <img src='./images/team/sbclter-logo.gif'>
             <p>#{translate 'team.organizations.santaBarbara.description'}</p>
           </div>
 
           <div class='team-member'>
             <h1>#{translate 'team.organizations.nceas.name'}</h1>
-            <img src='./images/team/sbclter-logo.gif'>
+            <img src='./images/team/nceas.png'>
             <p>#{translate 'team.organizations.nceas.description'}</p>
           </div>
         </div>
