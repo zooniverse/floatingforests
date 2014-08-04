@@ -6,6 +6,7 @@ module.exports =
     callToAction: "Get Started"
     location: "All Locations"
     talkLink: "Discuss"
+    blogLink: "Blog"
 
   classifyPage:
     next: "Next Image"

@@ -38,6 +38,7 @@ addDirectNavLink = (name, url) ->
     .append "<a href='#{url}' class='readymade-site-link'>#{name}</a>"
 
 addDirectNavLink translate('site.talkLink'), "http://talk.floatingforests.org"
+addDirectNavLink translate('site.blogLink'), "http://blog.floatingforests.org/"
 
 $(".readymade-call-to-action").html translate 'site.callToAction'
 

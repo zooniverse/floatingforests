@@ -30,7 +30,7 @@ module?.exports = "
 
           <div class='team-member'>
             <h1>#{translate 'team.organizations.nceas.name'}</h1>
-            <img src='./images/team/sbclternet.jpg'>
+            <img src='./images/team/sbclter-logo.gif'>
             <p>#{translate 'team.organizations.nceas.description'}</p>
           </div>
         </div>
