@@ -33,6 +33,12 @@ analytics = new GoogleAnalytics
   account: 'UA-1224199-59'
   domain: 'floatingforests.org'
 
+addDirectNavLink = (name, url) ->
+  $(".readymade-site-links")
+    .append "<a href='#{url}' class='readymade-site-link'>#{name}</a>"
+
+addDirectNavLink translate('site.talkLink'), "http://talk.floatingforests.org"
+
 $(".readymade-call-to-action").html translate 'site.callToAction'
 
 $ -> require "./classify/events"
