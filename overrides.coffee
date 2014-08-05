@@ -2,6 +2,11 @@ translate = require "t7e"
 enUs = require './translations/en-us'
 translate.load enUs
 
+LanguageManager = require 'zooniverse/lib/language-manager'
+languageManager = new LanguageManager
+  translations:
+    en: label: 'English', strings: enUs
+
 Footer = require 'zooniverse/controllers/footer'
 SecondarySubNav = require './secondary-pages/sub-nav'
 ClassifyMenu = require "./classify/menu"
