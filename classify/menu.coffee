@@ -23,11 +23,14 @@ class ClassifyMenu
     @tab = @el.find(".tab")
     @locationBtns = @el.find(".location-btn")
     @favoritesTab = @el.find("#favorites-tab")
+    @scrollUp = @el.find('.scroll-up')
+    @fieldGuideTab = @el.find("#field-guide-tab")
 
     @tab.on "click", (e) => @onTabClick(e)
     @locationBtns.on 'click', (e) => @onChangeLocation(e)
     @favoritesTab.on 'click', => @updateFavorite()
     @el.on "new-subject", => @resetFavoriteTab()
+    @scrollUp.on 'click', => @scrollToTopNav()
 
     @activate @locationBtns.filter("#all-locations")
 
@@ -35,7 +38,7 @@ class ClassifyMenu
     tab = e.target
     return if @notOpenable(tab)
     @displayTabSection(tab)
-    @scrollToBottomOfSiteFooter()
+    if @openingFieldGuide(tab) then @scrollToFieldGuide() else @scrollToBottomOfSiteFooter()
 
   onChangeLocation: (e) ->
     location = e.target.id
@@ -67,6 +70,9 @@ class ClassifyMenu
 
   notOpenable: (tab) -> tab.id in ['tutorial-tab', 'favorites-tab']
 
+  openingFieldGuide: (tab) ->
+    tab.id is 'field-guide-tab' and @fieldGuideTab.hasClass('active')
+
   tabNum: (tab) -> @el.find(tab).index() + 1
 
   displayTabSection: (tab) ->
@@ -79,8 +85,14 @@ class ClassifyMenu
   correspondingTabTo: (section) ->
     @el.find(".tab:eq(#{section.index()})")
 
+  scrollToFieldGuide: ->
+    $("html, body").animate({ scrollTop:(@fieldGuideTab.offset().top - 100)}, 500)
+
   scrollToBottomOfSiteFooter: ->
     $("html, body").animate({ scrollTop:($("#footer-container").offset().top - window.innerHeight)}, 500)
+
+  scrollToTopNav: ->
+    $("html, body").animate({scrollTop:($(".readymade-classification-interface").offset().top)}, 600)
 
   activate: (el) ->
     el.addClass("active").siblings().removeClass("active")

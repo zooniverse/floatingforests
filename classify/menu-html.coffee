@@ -4,7 +4,7 @@ module?.exports =
   "<div id='classify-menu'>
     <div class='menu-tabs'>
       <div class='tab' id='tutorial-tab'><img src='./icons/tut.svg'>#{translate 'classifyMenu.tab.tutorial'}</div>
-      <div class='tab'><img src='./icons/guide.svg'>#{translate 'classifyMenu.tab.fieldGuide'}</div>
+      <div class='tab' id='field-guide-tab'><img src='./icons/guide.svg'>#{translate 'classifyMenu.tab.fieldGuide'}</div>
       <div class='tab'><img src='./icons/location.svg'>#{translate 'classifyMenu.tab.location'}</div>
       <div class='tab' id='favorites-tab'><img src='./icons/favorite.svg'>#{translate 'classifyMenu.tab.favorites'}</div>
     </div>
@@ -37,6 +37,7 @@ module?.exports =
           <p>#{translate 'classifyMenu.content.faulty'}</p>
         </div>
         <p>#{translate 'classifyMenu.content.badImages'}</p>
+        <div class='scroll-up'>&and;</div>
       </div>
       <div class='menu-section'>
         <button class='location-btn' id='all-locations'>#{translate 'classifyMenu.locations.all'}</button>

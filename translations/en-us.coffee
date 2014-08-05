@@ -35,7 +35,7 @@ module.exports =
       seafoam: "Seafoam"
       land: "Land"
       faulty: "Faulty Image"
-      summary: "Please annotate images by tracing an outline around the perimeter of any visible kelp beds. If you see any clouds please indicate by clicking the clouds button."
+      summary: "Please mark images by tracing an outline around the perimeter of any visible kelp beds. If you see any clouds please indicate by clicking the clouds button."
       badImages: "If you see an image that is all land or appears faulty, please click 'Next Image' without making any annotations and we will mark it for removal from the dataset. Seafoam does not need to be marked."
     locations:
       all: "All Locations"
