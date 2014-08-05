@@ -24,6 +24,19 @@ module?.exports =
         <div class='guide-item clouds'>
           <p>#{translate 'classifyMenu.content.clouds'}</p>
         </div>
+        <p>#{translate 'classifyMenu.content.summary'}</p>
+        <div class='guide-item seafoam'>
+          <p>#{translate 'classifyMenu.content.seafoam'}</p>
+        </div>
+
+        <div class='guide-item land'>
+          <p>#{translate 'classifyMenu.content.land'}</p>
+        </div>
+
+        <div class='guide-item faulty'>
+          <p>#{translate 'classifyMenu.content.faulty'}</p>
+        </div>
+        <p>#{translate 'classifyMenu.content.badImages'}</p>
       </div>
       <div class='menu-section'>
         <button class='location-btn' id='all-locations'>#{translate 'classifyMenu.locations.all'}</button>
