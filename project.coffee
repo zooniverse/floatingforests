@@ -4,7 +4,7 @@ translate = require "t7e"
 module.exports =
   id: 'kelp'
   subjectGroup: true
-  background: './images/kelp-forest-large.jpg'
+  background: './images/kelp-bg.jpg'
   title: translate 'site.title'
   summary: translate 'site.summary'
   description: translate 'site.description'
