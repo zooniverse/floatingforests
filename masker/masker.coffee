@@ -23,6 +23,7 @@ class Masker
     @mask()
 
   mask: ->
+    return unless @paths
     for { relPath, startingPoint } in @paths
       [startX, startY] = startingPoint
       @context.beginPath()
@@ -49,5 +50,7 @@ class Masker
       maskedPixels += 1
 
     maskedPixels / totalPixels
+
+  percent: -> @portion() * 100
 
 module.exports = Masker

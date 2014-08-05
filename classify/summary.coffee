@@ -1,18 +1,19 @@
 translate = require "t7e"
 User = require "zooniverse/models/user"
+Masker = require "../masker/masker"
 
 ClassifySummary =
-  roundTo: (dec, num) -> if num then parseFloat(num).toFixed(dec) else "-"
+  roundTo: (dec, num) -> if num? then parseFloat(num).toFixed(dec) else ""
 
-  addSummary: (kelpNum, subject) ->
+  addSummary: (percentCircled, subject) ->
     [lat, long] = subject.coords
 
     summaryData =
-      kelpNum: kelpNum
       lat: lat
       long: long
       image: subject.location.standard
       talkLink: subject.talkHref()
+      percentCircled: percentCircled
 
     @summary(summaryData)
       .fadeIn(300).appendTo(".readymade-subject-viewer-container")
@@ -20,14 +21,12 @@ ClassifySummary =
   userSetAGoal: ->
     User?.current?.preferences?.kelp?.goal_set is 'true'
 
-  sCheck: (int) -> if +int is 1 then '' else 's'
-
-  summary: ({kelpNum, image, lat, long, talkLink}) ->
+  summary: ({percentCircled, image, lat, long, talkLink}) ->
     $ "<div class='summary-overlay centered'>
          <div class='content'>
            <h1>#{translate 'classifyPage.summary.header'}</h1>
            <p>#{translate 'classifyPage.summary.youMarked'}</p>
-           <p class='bold-data' id='kelp-num'>#{kelpNum} kelp bed#{@sCheck(kelpNum)}</p>
+           <p class='bold-data' id='kelp-num'>#{@roundTo(2, percentCircled)}% of the image</p>
            <p>#{translate 'classifyPage.summary.locatedNear'}</p>
            <p class='bold-data'>#{@roundTo(3, lat)} N<br>#{@roundTo(3, long)} W</p>
           #{if @userSetAGoal() then @goalText() else ''}
