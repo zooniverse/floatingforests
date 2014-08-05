@@ -7,6 +7,7 @@ ClassifySummary = require "./summary"
 ClassifyMetadata = require "./metadata"
 ClassifyTransitioner = require "./transitioner"
 ClassifySubjectLoader = require "./subject-loader"
+Masker = require '../masker/masker'
 
 classifyPage = project.classifyPages[0]
 subjectViewer = classifyPage.subjectViewer
@@ -43,7 +44,11 @@ classifyPage.on classifyPage.LOAD_SUBJECT, (e, subject) ->
     ClassifyMetadata.load()
     ClassifySubjectLoader.handleFirstSubject()
 
-classifyPage.on classifyPage.SEND_CLASSIFICATION, ->
+classifyPage.on classifyPage.SEND_CLASSIFICATION, (e, classifier) ->
+  paths = classifier.classification.annotations[1].value
+  masker = new Masker { paths, width: 500, height: 500 }
+  console.log masker.portion()
+
   currentAppState =
     nextSubject: el.find(".right-image")
     oldSubject: el.find(".summary-overlay")
