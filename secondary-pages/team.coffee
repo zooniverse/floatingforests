@@ -82,6 +82,32 @@ module?.exports = "
 
         <div class='content sub-nav-team-developers'>
           <h1>Developers</h1>
+
+          <div class='team-member'>
+            <h1>#{translate 'team.developers.alex.name'}</h1>
+            <img src='./images/team/alex.jpg'>
+            <p>#{translate 'team.developers.alex.description'}</p>
+          </div>
+
+          <div class='team-member'>
+            <h1>#{translate 'team.developers.heath.name'}</h1>
+            <img src='./images/team/heath.jpg'>
+            <p>#{translate 'team.developers.heath.description'}</p>
+          </div>
+
+          <div class='team-member'>
+            <h1>#{translate 'team.developers.julie.name'}</h1>
+            <img src='./images/team/julie.jpg'>
+            <p>#{translate 'team.developers.julie.description'}</p>
+          </div>
+
+          <div class='team-member'>
+            <h1>#{translate 'team.developers.laura.name'}</h1>
+            <img src='./images/team/laura.jpg'>
+            <p>#{translate 'team.developers.laura.description'}</p>
+          </div>
+
+
         </div>
       </div>
 

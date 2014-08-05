@@ -1,6 +1,5 @@
 translate = require "t7e"
 User = require "zooniverse/models/user"
-Masker = require "../masker/masker"
 
 ClassifySummary =
   roundTo: (dec, num) -> if num? then parseFloat(num).toFixed(dec) else ""

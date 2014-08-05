@@ -29,6 +29,7 @@ module?.exports =
         <button class='location-btn' id='all-locations'>#{translate 'classifyMenu.locations.all'}</button>
         <button class='location-btn' id='california'>#{translate 'classifyMenu.locations.california'}</button>
         <button class='location-btn' id='tasmania'>#{translate 'classifyMenu.locations.tasmania'}</button>
+        <p>#{translate 'em', 'classifyMenu.locations.delayMessage'}</p>
       </div>
       <div class='menu-section'>
         <!--Favorites Menu Section-->

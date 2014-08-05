@@ -36,6 +36,7 @@ module.exports =
       all: "All Locations"
       california: "California"
       tasmania: "Tasmania"
+      delayMessage: "Location changes will take effect after the current queue of 5 images"
 
   tutorial:
     skip: "Skip"
@@ -108,7 +109,7 @@ module.exports =
     results:
       nav: "Results"
       header: "Results"
-      p1: "As we discover interesting things within the data, we will add"
+      p1: "As we discover interesting things within the data, we will update this section."
     getInvolved:
       header: "Get Involved"
       p1: "Join us in the hunt for Kelp. Are you ready?"
@@ -236,3 +237,26 @@ module.exports =
     developers:
       nav: "Developers"
 
+      alex:
+        name: "Alex Weiksnar"
+        description: """
+          Developer, Zooniverse
+        """
+
+      heath:
+        name: "Heath Van Singel"
+        description: """
+          Designer, Zooniverse
+        """
+
+      julie:
+        name: "Julie Feldt"
+        description: """
+          Zooniverse Educator, Zooniverse
+        """
+
+      laura:
+        name: "Laura Whyte"
+        description: """
+          Director of Citizen Science, Adler Planetarium, Zooniverse
+        """
