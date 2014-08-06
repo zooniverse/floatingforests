@@ -5,7 +5,7 @@ module?.exports =
     <div class='menu-tabs'>
       <div class='tab' id='tutorial-tab'><img src='./icons/tut.svg'>#{translate 'classifyMenu.tab.tutorial'}</div>
       <div class='tab' id='field-guide-tab'><img src='./icons/guide.svg'>#{translate 'classifyMenu.tab.fieldGuide'}</div>
-      <div class='tab'><img src='./icons/location.svg'>#{translate 'classifyMenu.tab.location'}</div>
+      <div class='tab' id='location-tab'><img src='./icons/location.svg'>#{translate 'classifyMenu.tab.location'}</div>
       <div class='tab' id='favorites-tab'><img src='./icons/favorite.svg'>#{translate 'classifyMenu.tab.favorites'}</div>
     </div>
 
@@ -25,8 +25,8 @@ module?.exports =
           <p>#{translate 'classifyMenu.content.clouds'}</p>
         </div>
         <p>#{translate 'classifyMenu.content.summary'}</p>
-        <div class='guide-item seafoam'>
-          <p>#{translate 'classifyMenu.content.seafoam'}</p>
+        <div class='guide-item waves'>
+          <p>#{translate 'classifyMenu.content.waves'}</p>
         </div>
 
         <div class='guide-item land'>
@@ -37,7 +37,7 @@ module?.exports =
           <p>#{translate 'classifyMenu.content.faulty'}</p>
         </div>
         <p>#{translate 'classifyMenu.content.badImages'}</p>
-        <div class='scroll-up'>&and;</div>
+        <div class='scroll-up'><img src='./icons/return-top.svg'/></div>
       </div>
       <div class='menu-section'>
         <button class='location-btn' id='all-locations'>#{translate 'classifyMenu.locations.all'}</button>
@@ -53,5 +53,9 @@ module?.exports =
     <div class='preload'>
       <img src='./images/kelp-before1.jpg'>
       <img src='./images/kelp-before2.jpg'>
+      <img src='./images/faulty-alt.png'>
+      <img src='./images/land-alt.jpg'>
+      <img src='./images/clouds-alt.png'>
+      <img src='./images/waves-alt.jpg'>      
     </div>
   </div>"

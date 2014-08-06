@@ -17,7 +17,7 @@ module?.exports = [
     content: translate "tutorial.step3.content"
   },
   {
-    image: './images/clouds-1.jpg'
+    image: './images/clouds.jpg'
     title: translate "tutorial.step4.header"
     content: translate "tutorial.step4.content"
   },

@@ -32,11 +32,11 @@ module.exports =
       fieldGuide: "Field Guide"
       kelp: "Kelp"
       clouds: "Clouds"
-      seafoam: "Seafoam"
+      waves: "Waves"
       land: "Land"
       faulty: "Faulty Image"
       summary: "Please mark images by tracing an outline around the perimeter of any visible kelp beds. If you see any clouds please indicate by clicking the clouds button."
-      badImages: "If you see an image that is all land or appears faulty, please click 'Next Image' without making any annotations and we will mark it for removal from the dataset. Seafoam does not need to be marked."
+      badImages: "If you see an image that is all land or appears faulty, please click 'Next Image' without making any marks and we will flag it for removal from the dataset. Waves do not need to be marked."
     locations:
       all: "All Locations"
       california: "California"
