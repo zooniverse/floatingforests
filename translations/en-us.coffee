@@ -121,7 +121,7 @@ module.exports =
       callToAction: "Start Hunting"
     connect:
       header: "Connect"
-      p1: "Follow the <a href=''>Floating Forests</a> Blog and <a href='https://twitter.com/floatingforests'>@floatingforests</a> to keep current with the latest results"
+      p1: "Follow the <a href='http://blog.floatingforests.org/'>Floating Forests</a> Blog and <a href='https://twitter.com/floatingforests'>@floatingforests</a> to keep current with the latest results"
 
   education:
     title: "Education"
