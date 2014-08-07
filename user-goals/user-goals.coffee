@@ -11,7 +11,7 @@ class UserGoals
 
   SUBMIT_BUTTON = "<button name='user-goal-submit'>Set Goal</button>"
 
-  SESSION_TIME = 1 # TODO: change to 30 min for production
+  SESSION_TIME = 30 #minutes
 
   # To generate IMAGE_FILES (from root in irb):
   # Dir.entries("public/images/old_kelp_maps").map {|e| e.gsub!(/\D/, "").to_i }.reject {|n| n == 0}
@@ -40,35 +40,35 @@ class UserGoals
     sociallyMotivated: "Kelp Hunters citizen scientists have contributed 20 classifications per session. Would you like to set a goal?"
 
   SPLIT =
-    A:
+    a:
       message: Messages.personallyMotivated
       input: Input.min
       feedback: Feedback.image
-    B:
+    b:
       message: Messages.personallyMotivated
       input: Input.min
       feedback: Feedback.message
-    C:
+    c:
       message: Messages.personallyMotivated
       input: Input.max
       feedback: Feedback.image
-    D:
+    d:
       message: Messages.personallyMotivated
       input: Input.max
       feedback: Feedback.message
-    E:
+    e:
       message: Messages.sociallyMotivated
       input: Input.min
       feedback: Feedback.image
-    F:
+    f:
       message: Messages.sociallyMotivated
       input: Input.min
       feedback: Feedback.message
-    G:
+    g:
       message: Messages.sociallyMotivated
       input: Input.max
       feedback: Feedback.image
-    H:
+    h:
       message: Messages.sociallyMotivated
       input: Input.max
       feedback: Feedback.message
@@ -144,6 +144,7 @@ class UserGoals
   updateStatus: ->
     if @completedSuccessfully() then @feedback() else @decrimentGoal()
     @increaseSessionExpiration()
+    @incrementUserClassifyCount()
     @incrementLastSessionCount() unless @sessionHasExpired()
 
   splitMessage: ->
@@ -198,5 +199,9 @@ class UserGoals
     time = new Date()
     time.setMinutes(time.getMinutes() + SESSION_TIME)
     User?.current?.setPreference "goal_end_date", time
+
+  incrementUserClassifyCount: ->
+    currentCount = +User.current?.preferences?.kelp?.classify_count
+    User?.current?.setPreference "classify_count", currentCount + 1
 
 module?.exports = UserGoals

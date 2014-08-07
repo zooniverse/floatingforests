@@ -1,6 +1,7 @@
 translate = require "t7e"
 Tutorial = require "../tutorial/tutorial"
 UserGoals = require "../user-goals/user-goals"
+userSplit = require "../user-goals/user-split"
 project = require "zooniverse-readymade/current-project"
 User = require "zooniverse/models/user"
 ClassifySummary = require "./summary"
@@ -8,7 +9,6 @@ ClassifyMetadata = require "./metadata"
 ClassifyTransitioner = require "./transitioner"
 ClassifySubjectLoader = require "./subject-loader"
 Masker = require '../masker/masker'
-
 classifyPage = project.classifyPages[0]
 subjectViewer = classifyPage.subjectViewer
 Subject = classifyPage.Subject
@@ -19,9 +19,9 @@ SUBJECT_HEIGHT = 484 #px
 
 el = $(".readymade-classify-page")
 
-incrementUserClassifyCount = ->
-  currentCount = +User?.current?.preferences?.kelp?.classify_count
-  User?.current?.setPreference "classify_count", currentCount + 1
+userGoals = null
+setUserGoals = =>
+  userGoals = new UserGoals userSplit() if userSplit()
 
 Subject.on "no-more", => el.html translate 'div', 'classifyPage.noMoreSubjects', id: 'no-more-subjects'
 Subject.on 'get-next', => el.find(".subject-loader").show()
@@ -30,9 +30,7 @@ Subject.on 'select', => el.find(".subject-loader").hide()
 tutorial = new Tutorial
 el.find("#tutorial-tab").on 'click', => tutorial.start()
 
-SPLIT_GROUP = location.search.substring(1).split("=")[1] # this will come from back-end
-userGoals = new UserGoals SPLIT_GROUP if SPLIT_GROUP    # ex. url: http://localhost:2005/index.html?split=G#/about
-
+User.on 'change', => setUserGoals()
 User.on 'change', => tutorial.showIfNewUser()
 User.on 'change', => userGoals?.showIfNeeded()
 User.fetch()
@@ -62,8 +60,6 @@ classifyPage.on classifyPage.SEND_CLASSIFICATION, (e, classifier) ->
   ClassifySummary.addSummary(percentCircled, subjectViewer.subject)
 
   classifyTransition.run(currentAppState)
-
-  incrementUserClassifyCount()
 
   userGoals?.promptOrUpdateCurrentGoal()
 

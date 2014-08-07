@@ -78,9 +78,9 @@ class Tutorial
     window.removeEventListener "click", @exitIfClickOutside
 
   showIfNewUser: ->
-    classifyCount = User.current?.preferences?.kelp?.classify_count
-    unless classifyCount
+    tutorialSeen = User.current?.preferences?.kelp?.tutorial_seen
+    unless tutorialSeen is "true"
       @start()
-      User.current?.setPreference "classify_count", 0
+      User.current?.setPreference "tutorial_seen", "true"
 
 module?.exports = Tutorial
