@@ -5,8 +5,8 @@ translate = require "t7e"
 class ClassifyMenu
   GROUPS =
     'all-locations': true
-    'california': "53ac8475edf877f0bc000002"
-    'tasmania': "536d226d3ae740fd20000003"
+    'california': "536d226d3ae740fd20000003"
+    'tasmania': "536d226d3ae740fd20000004"
 
   html = require "./menu-html"
 
