@@ -53,6 +53,7 @@ class Tutorial
     @el.fadeIn(250)
     @showSlide(1)
     window.addEventListener "click", @exitIfClickOutside
+    window.addEventListener "touchstart", @exitIfClickOutside
 
   exitIfClickOutside: (e) => @exit() if e.target.id is "tutorial"
 
@@ -76,6 +77,7 @@ class Tutorial
   exit: =>
     @el.fadeOut(250)
     window.removeEventListener "click", @exitIfClickOutside
+    window.removeEventListener "touchstart", @exitIfClickOutside
 
   showIfNewUser: ->
     tutorialSeen = User.current?.preferences?.kelp?.tutorial_seen
