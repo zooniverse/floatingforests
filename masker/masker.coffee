@@ -53,4 +53,6 @@ class Masker
 
   percent: -> @portion() * 100
 
+  portionArea: (totalArea) -> @portion() * totalArea
+
 module.exports = Masker

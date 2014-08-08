@@ -4,7 +4,7 @@ User = require "zooniverse/models/user"
 ClassifySummary =
   roundTo: (dec, num) -> if num? then parseFloat(num).toFixed(dec) else ""
 
-  addSummary: (percentCircled, subject) ->
+  addSummary: (areaCircled, subject) ->
     [lat, long] = subject.coords
 
     summaryData =
@@ -12,7 +12,7 @@ ClassifySummary =
       long: long
       image: subject.location.standard
       talkLink: subject.talkHref()
-      percentCircled: percentCircled
+      areaCircled: areaCircled
 
     @summary(summaryData)
       .fadeIn(300).appendTo(".readymade-subject-viewer-container")
@@ -20,12 +20,12 @@ ClassifySummary =
   userSetAGoal: ->
     User?.current?.preferences?.kelp?.goal_set is 'true'
 
-  summary: ({percentCircled, image, lat, long, talkLink}) ->
+  summary: ({areaCircled, image, lat, long, talkLink}) ->
     $ "<div class='summary-overlay centered'>
          <div class='content'>
            <h1>#{translate 'classifyPage.summary.header'}</h1>
            <p>#{translate 'classifyPage.summary.youMarked'}</p>
-           <p class='bold-data' id='kelp-num'>#{@roundTo(2, percentCircled)}% of the image</p>
+           <p class='bold-data' id='kelp-num'>#{@roundTo(2, areaCircled)} km&sup2 of the image</p>
            <p>#{translate 'classifyPage.summary.locatedNear'}</p>
            <p class='bold-data'>#{@roundTo(3, long)} N<br>#{@roundTo(3, lat)} W</p>
           #{if @userSetAGoal() then @goalText() else ''}

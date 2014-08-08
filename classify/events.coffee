@@ -16,6 +16,7 @@ tools = subjectViewer.markingSurface.tools
 
 SUBJECT_WIDTH = 532 #px
 SUBJECT_HEIGHT = 484 #px
+SUBJECT_AREA = 16.603 #sq km
 
 el = $(".readymade-classify-page")
 
@@ -48,7 +49,7 @@ classifyPage.on classifyPage.LOAD_SUBJECT, (e, subject) ->
 classifyPage.on classifyPage.SEND_CLASSIFICATION, (e, classifier) ->
   paths = classifier.classification.annotations[1].value
   masker = new Masker { paths, width: SUBJECT_WIDTH, height: SUBJECT_HEIGHT }
-  percentCircled = masker.percent()
+  areaCircled = masker.portionArea(SUBJECT_AREA)
 
   currentAppState =
     nextSubject: el.find(".right-image")
@@ -57,7 +58,7 @@ classifyPage.on classifyPage.SEND_CLASSIFICATION, (e, classifier) ->
     queuedImage: ClassifySubjectLoader.nextImage()
     nextSubjectOverlay: el.find(".right-image-overlay")
 
-  ClassifySummary.addSummary(percentCircled, subjectViewer.subject)
+  ClassifySummary.addSummary(areaCircled, subjectViewer.subject)
 
   classifyTransition.run(currentAppState)
 
