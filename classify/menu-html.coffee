@@ -56,6 +56,6 @@ module?.exports =
       <img src='./images/faulty-alt.png'>
       <img src='./images/land-alt.jpg'>
       <img src='./images/clouds-alt.png'>
-      <img src='./images/waves-alt.jpg'>      
+      <img src='./images/beaches.jpg'>
     </div>
   </div>"
