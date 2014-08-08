@@ -5,7 +5,7 @@ ClassifyMetadata =
 
   formattedTimestamp: (ts) ->
     date = new Date(ts)
-    "#{date.getMonth()}-#{date.getDate()}-#{date.getYear()}"
+    "#{date.getMonth()}-#{date.getDate()}-#{date.getFullYear()}"
 
   setSubject: (subject) -> @subject = subject
 
