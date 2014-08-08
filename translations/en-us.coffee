@@ -60,6 +60,9 @@ module.exports =
       header: "Identifying Clouds"
       content: """You may occasionally spot clouds obscuring the view of the coastline. When you see this, click the “Clouds Present” button below. Do mark any kelp you can see!"""
     step5:
+      header: "Faulty Images"
+      content: """If you see an image that is all land or appears faulty, please click “Next Image” without making any marks and we will flag it for removal from the dataset."""
+    step6:
       header: "Happy Hunting"
       content: """Thank you for your interest in Floating Forests! You can discuss the project with the science team and other volunteers by visiting Talk."""
 

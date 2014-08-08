@@ -22,8 +22,13 @@ module?.exports = [
     content: translate "tutorial.step4.content"
   },
   {
-    image: './images/tutorial-kelp.jpg'
+    image: './images/tutorial-land.jpg'
     title: translate "tutorial.step5.header"
     content: translate "tutorial.step5.content"
+  },
+  {
+    image: './images/tutorial-kelp.jpg'
+    title: translate 'tutorial.step6.header'
+    content: translate 'tutorial.step6.content'
   }
 ]
