@@ -27,12 +27,13 @@ ClassifySummary =
            <p>#{translate 'classifyPage.summary.youMarked'}</p>
            <p class='bold-data' id='kelp-num'>#{@roundTo(2, percentCircled)}% of the image</p>
            <p>#{translate 'classifyPage.summary.locatedNear'}</p>
-           <p class='bold-data'>#{@roundTo(3, lat)} N<br>#{@roundTo(3, long)} W</p>
+           <p class='bold-data'>#{@roundTo(3, long)} N<br>#{@roundTo(3, lat)} W</p>
           #{if @userSetAGoal() then @goalText() else ''}
            <a href='#{talkLink}'>#{translate 'classifyPage.summary.talk'}</a>
          </div>
          <img class='prev-image' src='#{image}'>
        </div>"
+    # TODO: switch lat/long positions when back-end data is corrected
 
   goalText: ->
     "<p>Goal Countdown:</p>
