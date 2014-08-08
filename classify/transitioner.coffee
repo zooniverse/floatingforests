@@ -2,16 +2,22 @@ ClassifyButtons = require "./buttons"
 ClassifyMetadata = require "./metadata"
 
 class ClassifyTransitioner
-  SUMMARY_DISPLAY_TIME = 500
+  SUMMARY_TIME = 500
+  MOBILE_SUMMARY_TIME = 2000
   TRANSITION_TIME = 1000 # match to css transition
 
   constructor: (@el) ->
     @buttons = new ClassifyButtons @el
 
+  mobile: -> window.innerWidth < 1070
+
+  summaryDisplayTime: ->
+    if @mobile() then MOBILE_SUMMARY_TIME else SUMMARY_TIME
+
   run: (state) ->
     @appendQueuedImage(state)
     @buttons.disableNextSubject()
-    setTimeout (=> @executeTransition(state)), SUMMARY_DISPLAY_TIME
+    setTimeout (=> @executeTransition(state)), @summaryDisplayTime()
 
   executeTransition: (state) ->
     @moveAllImagesLeft(state)
