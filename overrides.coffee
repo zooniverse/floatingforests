@@ -26,6 +26,8 @@ footer = new Footer
 classifyMenu = new ClassifyMenu
 
 project.header.el.append("<meta name='viewport' content='width=600, user-scalable=no'>")
+project.header.el.append("<link rel='shortcut icon' href='favicon.ico' type='image/x-icon'>'")
+
 footer.el.appendTo $("<div id='footer-container'></div>").insertAfter(".stack-of-pages")
 
 ClassifyMetadata.init()
