@@ -14,7 +14,7 @@
   "license": "ISC",
   "dependencies": {
     "marking-surface": "^0.5.3",
-    "zooniverse-readymade": "0.1.1",
+    "zooniverse-readymade-kelp": "0.1.1",
     "zooniverse": "^0.7.1",
     "publisssh": "^0.2.5",
     "t7e": "^0.3.1",
