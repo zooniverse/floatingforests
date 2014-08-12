@@ -28,6 +28,9 @@ classifyMenu = new ClassifyMenu
 project.header.el.append("<meta name='viewport' content='width=600, user-scalable=no'>
                           <link rel='shortcut icon' href='favicon.ico' type='image/x-icon'>")
 
+project.header.addNavLink "http://talk.floatingforests.org", translate('site.talkLink')
+project.header.addNavLink "http://blog.floatingforests.org", translate('site.blogLink')
+
 footer.el.appendTo $("<div id='footer-container'></div>").insertAfter(".stack-of-pages")
 
 ClassifyMetadata.init()
@@ -40,12 +43,6 @@ analytics = new GoogleAnalytics
   account: 'UA-1224199-59'
   domain: 'floatingforests.org'
 
-addDirectNavLink = (name, url) ->
-  $(".readymade-site-links")
-    .append "<a href='#{url}' class='readymade-site-link'>#{name}</a>"
-
-addDirectNavLink translate('site.talkLink'), "http://talk.floatingforests.org"
-addDirectNavLink translate('site.blogLink'), "http://blog.floatingforests.org/"
 
 $(".readymade-call-to-action").html translate 'site.callToAction'
 
