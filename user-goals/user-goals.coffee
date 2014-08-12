@@ -1,4 +1,5 @@
-User = require "zooniverse/models/user"
+project = require "zooniverse-readymade/current-project"
+{ User } = project.classifyPages[0]
 
 class UserGoals
   html =
