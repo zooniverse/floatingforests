@@ -20,9 +20,9 @@ SUBJECT_AREA = 16.603 #sq km
 
 el = $(".readymade-classify-page")
 
-incrementUserClassifyCount = ->
-  currentCount = +classifyPage.User.current?.preferences?.kelp?.classify_count
-  classifyPage.User.current?.setPreference "classify_count", currentCount + 1
+userGoals = null
+setUserGoals = =>
+  userGoals = new UserGoals userSplit() if userSplit()
 
 Subject.on "no-more", => el.html translate 'div', 'classifyPage.noMoreSubjects', id: 'no-more-subjects'
 Subject.on 'get-next', => el.find(".subject-loader").show()
