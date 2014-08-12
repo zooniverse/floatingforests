@@ -1,5 +1,6 @@
 translate = require "t7e"
-User = require "zooniverse/models/user"
+project = require "zooniverse-readymade/current-project"
+{ User } = project.classifyPages[0]
 slides = require "./tutorial-slides"
 
 class Tutorial

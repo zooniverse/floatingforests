@@ -3,7 +3,7 @@ Tutorial = require "../tutorial/tutorial"
 UserGoals = require "../user-goals/user-goals"
 userSplit = require "../user-goals/user-split"
 project = require "zooniverse-readymade/current-project"
-User = require "zooniverse/models/user"
+
 ClassifySummary = require "./summary"
 ClassifyMetadata = require "./metadata"
 ClassifyTransitioner = require "./transitioner"
@@ -31,12 +31,14 @@ Subject.on 'select', => el.find(".subject-loader").hide()
 tutorial = new Tutorial
 el.find("#tutorial-tab").on 'click', => tutorial.start()
 
-User.on 'change', => setUserGoals()
-User.on 'change', => tutorial.showIfNewUser()
-User.on 'change', => userGoals?.showIfNeeded()
-User.fetch()
+SPLIT_GROUP = location.search.substring(1).split("=")[1] # this will come from back-end
+userGoals = new UserGoals SPLIT_GROUP if SPLIT_GROUP    # ex. url: http://localhost:2005/index.html?split=G#/about
 
 classifyTransition = new ClassifyTransitioner el
+
+classifyPage.on classifyPage.USER_CHANGE, (e, user) ->
+  tutorial.showIfNewUser()
+  userGoals?.showIfNeeded()
 
 classifyPage.on classifyPage.LOAD_SUBJECT, (e, subject) ->
   classifyPage.classification.annotations.push {clouds: false} # clouds start as false
