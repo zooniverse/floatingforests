@@ -17,7 +17,7 @@ module?.exports = "
       <div class='left-column'>
         <div class='content sub-nav-team-organizations'>
           <div class='team-member'>
-<h1>#{translate 'h1', 'team.organizations.keen.name'}</h1>
+            #{translate 'h1', 'team.organizations.keen.name'}
             <img src='./images/team/keen.png'>
             #{translate 'p', 'team.organizations.keen.description'}
           </div>
