@@ -2,109 +2,107 @@ translate = require 't7e'
 
 module?.exports = "
   <div class='secondary-header'>
-    <h1>#{translate 'team.title'}</h1>
+    #{translate 'h1', 'team.title'}
   </div>
 
   <div class='secondary-bg'>
     <div class='secondary-content'>
       <nav class='sub-nav-team'>
-        <button name='organizations'>#{translate 'team.organizations.nav'}</button>
-        <button name='scientists'>#{translate 'team.scientists.nav'}</button>
-        <button name='developers'>#{translate 'team.developers.nav'}</button>
+        #{translate 'button', 'team.organizations.nav', name: 'organizations'}
+        #{translate 'button', 'team.scientists.nav', name: 'scientists'}
+        #{translate 'button', 'team.developers.nav', name: 'developers'}
       </nav>
     </div>
     <div class='secondary-content'>
       <div class='left-column'>
         <div class='content sub-nav-team-organizations'>
           <div class='team-member'>
-            <h1>#{translate 'team.organizations.keen.name'}</h1>
+<h1>#{translate 'h1', 'team.organizations.keen.name'}</h1>
             <img src='./images/team/keen.png'>
-            <p>#{translate 'team.organizations.keen.description'}</p>
+            #{translate 'p', 'team.organizations.keen.description'}
           </div>
 
           <div class='team-member'>
-            <h1>#{translate 'team.organizations.santaBarbara.name'}</h1>
+            #{translate 'h1', 'team.organizations.santaBarbara.name'}
             <img src='./images/team/sbclter-logo.gif'>
-            <p>#{translate 'team.organizations.santaBarbara.description'}</p>
+            #{translate 'p', 'team.organizations.santaBarbara.description'}
           </div>
 
           <div class='team-member'>
-            <h1>#{translate 'team.organizations.nceas.name'}</h1>
+            #{translate 'h1', 'team.organizations.nceas.name'}
             <img src='./images/team/nceas.png'>
-            <p>#{translate 'team.organizations.nceas.description'}</p>
+            #{translate 'p', 'team.organizations.nceas.description'}
           </div>
         </div>
 
         <div class='content sub-nav-team-scientists'>
 
           <div class='team-member'>
-            <h1>#{translate 'team.scientists.kyle.name'}</h1>
+            #{translate 'h1', 'team.scientists.kyle.name'}
             <img src='./images/team/kyle.jpg'>
-            <p>#{translate 'team.scientists.kyle.description'}</p>
+            #{translate 'p', 'team.scientists.kyle.description'}
           </div>
 
           <div class='team-member'>
-            <h1>#{translate 'team.scientists.jarrett.name'}</h1>
+            #{translate 'h1', 'team.scientists.jarrett.name'}
             <img src='./images/team/jarrett.jpg'>
-            <p>#{translate 'team.scientists.jarrett.description'}</p>
+            #{translate 'p', 'team.scientists.jarrett.description'}
           </div>
 
           <div class='team-member'>
-            <h1>#{translate 'team.scientists.alejandro.name'}</h1>
+            #{translate 'h1', 'team.scientists.alejandro.name'}
             <img src='./images/team/alejandro.jpg'>
-            <p>#{translate 'team.scientists.alejandro.description'}</p>
+            #{translate 'p', 'team.scientists.alejandro.description'}
           </div>
 
           <div class='team-member'>
-            <h1>#{translate 'team.scientists.andrew.name'}</h1>
+            #{translate 'h1', 'team.scientists.andrew.name'}
             <img src='./images/team/andrew.jpg'>
-            <p>#{translate 'team.scientists.andrew.description'}</p>
+            #{translate 'p', 'team.scientists.andrew.description'}
           </div>
 
           <div class='team-member'>
-            <h1>#{translate 'team.scientists.alison.name'}</h1>
+            #{translate 'h1', 'team.scientists.alison.name'}
             <img src='./images/team/alison.jpg'>
-            <p>#{translate 'team.scientists.alison.description'}</p>
+            #{translate 'p', 'team.scientists.alison.description'}
           </div>
 
           <div class='team-member'>
-            <h1>#{translate 'team.scientists.jorge.name'}</h1>
+            #{translate 'h1', 'team.scientists.jorge.name'}
             <img src='./images/team/jorge.jpg'>
-            <p>#{translate 'team.scientists.jorge.description'}</p>
+            #{translate 'p', 'team.scientists.jorge.description'}
           </div>
 
           <div class='team-member'>
-            <h1>#{translate 'team.scientists.tom.name'}</h1>
+            #{translate 'h1', 'team.scientists.tom.name'}
             <img src='./images/team/tom.jpg'>
-            <p>#{translate 'team.scientists.tom.description'}</p>
+            #{translate 'p', 'team.scientists.tom.description'}
           </div>
         </div>
 
         <div class='content sub-nav-team-developers'>
-          <h1>Developers</h1>
-
           <div class='team-member'>
-            <h1>#{translate 'team.developers.alex.name'}</h1>
+            #{translate 'h1', 'team.developers.alex.name'}
             <img src='./images/team/alex.jpg'>
-            <p>#{translate 'team.developers.alex.description'}</p>
+            #{translate 'p', 'team.developers.alex.description'}
           </div>
 
           <div class='team-member'>
-            <h1>#{translate 'team.developers.heath.name'}</h1>
+            #{translate 'h1', 'team.developers.heath.name'}
             <img src='./images/team/heath.jpg'>
-            <p>#{translate 'team.developers.heath.description'}</p>
+            #{translate 'p', 'team.developers.heath.description'}
           </div>
 
           <div class='team-member'>
-            <h1>#{translate 'team.developers.julie.name'}</h1>
+            #{translate 'h1', 'team.developers.julie.name'}
             <img src='./images/team/julie.jpg'>
-            <p>#{translate 'team.developers.julie.description'}</p>
+            #{translate 'p', 'team.developers.julie.description'}
           </div>
 
           <div class='team-member'>
-            <h1>#{translate 'team.developers.laura.name'}</h1>
+            #{translate 'h1', 'team.developers.laura.name'}
             <img src='./images/team/laura.jpg'>
-            <p>#{translate 'team.developers.laura.description'}</p>
+            #{translate 'p', 'team.developers.laura.description'}
           </div>
 
 
@@ -113,11 +111,11 @@ module?.exports = "
 
       <div class='right-column'>
         <div class='content'>
-          <h1>#{translate 'about.getInvolved.header'}</h1>
-          <p>#{translate 'about.getInvolved.p1'}</p>
-          <a href='#/classify'><button>#{translate 'about.getInvolved.callToAction'}</button></a>
-          <h1>#{translate 'about.connect.header'}</h1>
-          <p>#{translate 'about.connect.p1'}</p>
+          #{translate 'h1', 'about.getInvolved.header'}
+          #{translate 'p', 'about.getInvolved.p1'}
+          <a href='#/classify'>#{translate 'button', 'about.getInvolved.callToAction'}</a>
+          #{translate 'h1', 'about.connect.header'}
+          #{translate 'p', 'about.connect.p1'}
         </div>
       </div>
     </div>

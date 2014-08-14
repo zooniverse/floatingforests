@@ -28,7 +28,7 @@ class ClassifyTransitioner
     @moveLeftSubjectOffscreen(oldSubject)
     @moveSummaryLeft()
     @moveRightSubjectToCenter(nextSubject)
-    @displayQueuedImage(queuedImage)  # move this to other method that just handles the queued image
+    @displayQueuedImage(queuedImage)
 
   fadeOutOverlay: ({nextSubjectOverlay}) ->
     nextSubjectOverlay.addClass("invisible")

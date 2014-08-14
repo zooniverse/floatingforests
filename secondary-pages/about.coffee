@@ -2,55 +2,55 @@ translate = require 't7e'
 
 module?.exports = "
   <div class='secondary-header'>
-    <h1>#{translate 'about.title'}</h1>
+    #{translate 'h1', 'about.title'}
   </div>
 
   <div class='secondary-bg'>
     <div class='secondary-content'>
       <nav class='sub-nav-about'>
-        <button name='kelp'>#{translate 'about.overview.nav'}</button>
-        <button name='your-task'>#{translate 'about.task.nav'}</button>
-        <button name='goals'>#{translate 'about.goals.nav'}</button>
-        <button name='results'>#{translate 'about.results.nav'}</button>
+        #{translate 'button', 'about.overview.nav', name:'kelp'}
+        #{translate 'button', 'about.task.nav', name: 'your-task'}
+        #{translate 'button', 'about.goals.nav', name: 'goals'}
+        #{translate 'button', 'about.results.nav', name: 'results'}
       </nav>
     </div>
 
     <div class='secondary-content'>
       <div class='left-column'>
         <div class='content sub-nav-about-kelp'>
-          <h1>#{translate 'about.overview.header'}</h1>
-          <p>#{translate 'about.overview.p1'}</p>
-          <h1>#{translate 'about.overview.whyImportant'}</h1>
-          <p>#{translate 'about.overview.whyImportantP'}</p>
+          #{translate 'h1', 'about.overview.header'}
+          #{translate 'p', 'about.overview.p1'}
+          #{translate 'h1', 'about.overview.whyImportant'}
+          #{translate 'p', 'about.overview.whyImportantP'}
         </div>
 
         <div class='content sub-nav-about-your-task'>
-          <h1>#{translate 'about.task.header'}</h1>
-          <p>#{translate 'about.task.p1'}</p>
-          <h1>#{translate 'about.task.whyPublic'}</h1>
-          <p>#{translate 'about.task.whyPublicP'}</p>
-          <h1>#{translate 'about.task.whatElse'}</h1>
-          <p>#{translate 'about.task.whatElseP'}</p>
+          #{translate 'h1', 'about.task.header'}
+          #{translate 'p', 'about.task.p1'}
+          #{translate 'h1', 'about.task.whyPublic'}
+          #{translate 'p', 'about.task.whyPublicP'}
+          #{translate 'h1', 'about.task.whatElse'}
+          #{translate 'p', 'about.task.whatElseP'}
         </div>
 
         <div class='content sub-nav-about-goals'>
-          <h1>#{translate 'about.goals.whatLearn'}</h1>
-          <p>#{translate 'about.goals.whatLearnP'}</p>
+          #{translate 'h1', 'about.goals.whatLearn'}
+          #{translate 'p', 'about.goals.whatLearnP'}
         </div>
 
         <div class='content sub-nav-about-results'>
-          <h1>#{translate 'about.results.header'}</h1>
-          <p>#{translate 'about.results.p1'}</p>
+          #{translate 'h1', 'about.results.header'}
+          #{translate 'p', 'about.results.p1'}
         </div>
       </div>
 
       <div class='right-column'>
         <div class='content'>
-          <h1>#{translate 'about.getInvolved.header'}</h1>
-          <p>#{translate 'about.getInvolved.p1'}</p>
-          <a href='#/classify'><button>#{translate 'about.getInvolved.callToAction'}</button></a>
-          <h1>#{translate 'about.connect.header'}</h1>
-          <p>#{translate 'about.connect.p1'}</p>
+          #{translate 'h1', 'about.getInvolved.header'}
+          #{translate 'p', 'about.getInvolved.p1'}
+          <a href='#/classify'>#{translate 'button', 'about.getInvolved.callToAction'}</a>
+          #{translate 'h1', 'about.connect.header'}
+          #{translate 'p', 'about.connect.p1'}
         </div>
       </div>
     </div>
