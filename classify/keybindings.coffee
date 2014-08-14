@@ -8,7 +8,8 @@ ClassifyKeybindings =
 
   notSigningIn: -> !$(".zooniverse-dialog").hasClass("showing")
 
-  handleKeyPress: (key, buttons) -> 
+  handleKeyPress: (e, buttons) ->
+    key = e.which
     switch key
       when @keymap.c then buttons.clouds.click()
       when @keymap.n then buttons.nextSubject.click()
@@ -17,6 +18,6 @@ ClassifyKeybindings =
   init: (classifyButtons) ->
     $(document).on 'keydown', (e) =>
       if @classifyPageIsActive() and @notSigningIn()
-        @handleKeyPress(e.which, classifyButtons)
+        @handleKeyPress(e, classifyButtons)
 
 module?.exports = ClassifyKeybindings
