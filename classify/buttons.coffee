@@ -3,6 +3,7 @@ classifyPage = project.classifyPages[0]
 subjectViewer = classifyPage.subjectViewer
 tools = subjectViewer.markingSurface.tools
 translate = require 't7e'
+ClassifyKeybindings = require "./keybindings"
 
 class ClassifyButtons
   @init: ->
@@ -20,6 +21,8 @@ class ClassifyButtons
       classifyPage.classification?.annotations[0].clouds = @clouds.hasClass("present")
 
     @undo.on "click", (e) => tools[tools.length-1].destroy() if tools.length
+
+    ClassifyKeybindings.init(@)
 
   resetClouds: -> @clouds.removeClass("present")
 

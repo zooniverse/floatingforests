@@ -64,12 +64,3 @@ classifyPage.on classifyPage.SEND_CLASSIFICATION, (e, classifier) ->
 
   userGoals?.promptOrUpdateCurrentGoal()
 
-delKeyWasPressed = (keyCode) -> keyCode is 8
-
-classifyPageIsActive = -> location.hash is "#/classify"
-
-notSigningIn = -> !$(".zooniverse-dialog").hasClass("showing")
-
-$(document).on 'keydown', (e) =>
-  if delKeyWasPressed(e.which) and classifyPageIsActive() and notSigningIn()
-    e.preventDefault()
