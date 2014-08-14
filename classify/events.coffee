@@ -31,12 +31,10 @@ Subject.on 'select', => el.find(".subject-loader").hide()
 tutorial = new Tutorial
 el.find("#tutorial-tab").on 'click', => tutorial.start()
 
-SPLIT_GROUP = location.search.substring(1).split("=")[1] # this will come from back-end
-userGoals = new UserGoals SPLIT_GROUP if SPLIT_GROUP    # ex. url: http://localhost:2005/index.html?split=G#/about
-
 classifyTransition = new ClassifyTransitioner el
 
 classifyPage.on classifyPage.USER_CHANGE, (e, user) ->
+  setUserGoals()
   tutorial.showIfNewUser()
   userGoals?.showIfNeeded()
 

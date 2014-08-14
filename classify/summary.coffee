@@ -24,12 +24,14 @@ ClassifySummary =
   summary: ({areaCircled, image, lat, long, talkLink}) ->
     $ "<div class='summary-overlay centered'>
          <div class='content'>
-           <h1>#{translate 'classifyPage.summary.header'}</h1>
-           <p>#{translate 'classifyPage.summary.youMarked'}</p>
-           <p class='bold-data' id='kelp-num'>#{@roundTo(2, areaCircled)} km&sup2 of the image</p>
-           <p>#{translate 'classifyPage.summary.locatedNear'}</p>
-           <p class='bold-data'>#{@roundTo(3, long)} N<br>#{@roundTo(3, lat)} W</p>
-          #{if @userSetAGoal() then @goalText() else ''}
+           <div class='summary-content-top'>
+             <h1>#{translate 'classifyPage.summary.header'}</h1>
+             <p>#{translate 'classifyPage.summary.youMarked'}</p>
+             <p class='bold-data' id='kelp-num'>#{@roundTo(2, areaCircled)} km&sup2 of the image</p>
+             <p>#{translate 'classifyPage.summary.locatedNear'}</p>
+             <p class='bold-data'>#{@roundTo(3, long)} N<br>#{@roundTo(3, lat)} W</p>
+            #{if @userSetAGoal() then @goalText() else ''}
+           </div>
            <a href='#{talkLink}'>#{translate 'classifyPage.summary.talk'}</a>
          </div>
          <img class='prev-image' src='#{image}'>
