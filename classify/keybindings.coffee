@@ -1,3 +1,5 @@
+ClassifyButtons = require "./buttons"
+
 ClassifyKeybindings =
   keymap:
     c: 67
@@ -8,16 +10,18 @@ ClassifyKeybindings =
 
   notSigningIn: -> !$(".zooniverse-dialog").hasClass("showing")
 
-  handleKeyPress: (e, buttons) ->
+  handleKeyPress: (e) ->
     key = e.which
     switch key
-      when @keymap.c then buttons.clouds.click()
-      when @keymap.n then buttons.nextSubject.click()
+      when @keymap.c then @buttons.clouds.click()
+      when @keymap.n then @buttons.nextSubject.click()
       when @keymap.del then e.preventDefault()
 
-  init: (classifyButtons) ->
+  init: ->
+    @buttons = ClassifyButtons
+
     $(document).on 'keydown', (e) =>
       if @classifyPageIsActive() and @notSigningIn()
-        @handleKeyPress(e, classifyButtons)
+        @handleKeyPress(e)
 
 module?.exports = ClassifyKeybindings

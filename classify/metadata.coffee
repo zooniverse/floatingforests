@@ -18,6 +18,7 @@ ClassifyMetadata =
     $("#subject-coords")
       .html "<a target='_tab' href='#{@googleMapsLink(long, lat)}'>#{@roundTo(3, long)} N, #{@roundTo(3, lat)}</a>, #{@formattedTimestamp(timestamp)}"
     # TODO: lat / long are reversed here ~ coming in backwards from server
+
   init: ->
     $(".readymade-classification-interface")
       .prepend "<div id='location-data'><h2>#{translate 'site.location'}</h2><p id='subject-coords'></p></div>"

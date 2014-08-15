@@ -5,7 +5,7 @@ project = require "zooniverse-readymade/current-project"
 ClassifySummary =
   roundTo: (dec, num) -> if num? then parseFloat(num).toFixed(dec) else ""
 
-  addSummary: (areaCircled, subject) ->
+  display: (areaCircled, subject) ->
     [lat, long] = subject.coords
 
     summaryData =

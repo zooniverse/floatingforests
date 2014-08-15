@@ -3,15 +3,12 @@ classifyPage = project.classifyPages[0]
 subjectViewer = classifyPage.subjectViewer
 tools = subjectViewer.markingSurface.tools
 translate = require 't7e'
-ClassifyKeybindings = require "./keybindings"
 
-class ClassifyButtons
-  @init: ->
-    $(".decision-tree-confirmation")
-      .prepend "<div class='side-btn'><button id='clouds-present'></button></div>"
-      .append "<div class='side-btn'><button id='undo'></button></div>"
+ClassifyButtons =
+  init: ->
+    @el = classifyPage.el
+    @appendDecisionTreeButtons()
 
-  constructor: (@el) ->
     @clouds = @el.find("button#clouds-present")
     @undo = @el.find("button#undo")
     @nextSubject = @el.find("button[name='decision-tree-confirm-task']").html translate 'classifyPage.next'
@@ -22,7 +19,10 @@ class ClassifyButtons
 
     @undo.on "click", (e) => tools[tools.length-1].destroy() if tools.length
 
-    ClassifyKeybindings.init(@)
+  appendDecisionTreeButtons: ->
+    @el.find(".decision-tree-confirmation")
+      .prepend "<div class='side-btn'><button id='clouds-present'></button></div>"
+      .append "<div class='side-btn'><button id='undo'></button></div>"
 
   resetClouds: -> @clouds.removeClass("present")
 

@@ -6,8 +6,9 @@ class ClassifyTransitioner
   MOBILE_SUMMARY_TIME = 2000
   TRANSITION_TIME = 1000 # match to css transition
 
-  constructor: (@el) ->
-    @buttons = new ClassifyButtons @el
+  constructor: ->
+    @el = $(".readymade-classify-page")
+    @buttons = ClassifyButtons
 
   mobile: -> window.innerWidth < 1070
 
