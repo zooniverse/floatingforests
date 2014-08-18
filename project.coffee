@@ -5,9 +5,9 @@ module.exports =
   id: 'kelp'
   subjectGroup: true
   background: './images/kelp-bg.jpg'
-  title: translate 'site.title'
-  summary: translate 'site.summary'
-  description: translate 'site.description'
+  title: translate 'span', 'site.title'
+  summary: translate 'span', 'site.summary'
+  description: translate 'span', 'site.description'
 
   pages: [
     {'About': require "./secondary-pages/about"},
