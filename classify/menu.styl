@@ -21,9 +21,12 @@
       user-select none
       cursor pointer
       transition font-size .5s
+      z-index 100
       img
         vertical-align sub
         margin-right 15px
+        pointer-events none
+      span
         pointer-events none
       &:hover
         background-color darken(AQUA, 3)
@@ -75,6 +78,8 @@
         letter-spacing 2px
         background-color #1e7779
         transition background-color .1s
+        span
+          pointer-events none
         &:hover
           background-color darken(#1e7779, 2)
         &.active, &:active

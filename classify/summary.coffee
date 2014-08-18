@@ -25,14 +25,14 @@ ClassifySummary =
     $ "<div class='summary-overlay centered'>
          <div class='content'>
            <div class='summary-content-top'>
-             <h1>#{translate 'classifyPage.summary.header'}</h1>
-             <p>#{translate 'classifyPage.summary.youMarked'}</p>
+             #{translate 'h1', 'classifyPage.summary.header'}
+             #{translate 'p', 'classifyPage.summary.youMarked'}
              <p class='bold-data' id='kelp-num'>#{@roundTo(2, areaCircled)} km&sup2 of the image</p>
-             <p>#{translate 'classifyPage.summary.locatedNear'}</p>
+             #{translate 'p', 'classifyPage.summary.locatedNear'}
              <p class='bold-data'>#{@roundTo(3, long)} N<br>#{@roundTo(3, lat)} W</p>
             #{if @userSetAGoal() then @goalText() else ''}
            </div>
-           <a href='#{talkLink}'>#{translate 'classifyPage.summary.talk'}</a>
+           <a href='#{talkLink}'>#{translate 'span', 'classifyPage.summary.talk'}</a>
          </div>
          <img class='prev-image' src='#{image}'>
        </div>"

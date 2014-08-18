@@ -11,7 +11,7 @@ ClassifyButtons =
 
     @clouds = @el.find("button#clouds-present")
     @undo = @el.find("button#undo")
-    @nextSubject = @el.find("button[name='decision-tree-confirm-task']").html translate 'classifyPage.next'
+    @nextSubject = @el.find("button[name='decision-tree-confirm-task']").html translate('span', 'classifyPage.next')
 
     @clouds.on "click", (e) =>
       @clouds.toggleClass("present")

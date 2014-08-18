@@ -10,9 +10,9 @@ class ClassifyMenu
 
   html = require "./menu-html"
 
-  FAVORITE_TEXT  = "<img src='./icons/favorite.svg'>#{translate 'classifyMenu.tab.favorites'}"
+  FAVORITE_TEXT  = "<img src='./icons/favorite.svg'>#{translate 'span', 'classifyMenu.tab.favorites'}"
 
-  FAVORITED_TEXT = "#{translate 'classifyMenu.tab.favorited'}"
+  FAVORITED_TEXT = translate('span', 'classifyMenu.tab.favorited')
 
   create: -> $(".readymade-classify-page").append(html)
 
@@ -63,7 +63,7 @@ class ClassifyMenu
     classifyPage.Subject.group = GROUPS[locationKey]
 
   activateFavoriteTab: ->
-    @favoritesTab.text(FAVORITED_TEXT).addClass("favorited")
+    @favoritesTab.html(FAVORITED_TEXT).addClass("favorited")
 
   deactivateFavoriteTab: ->
     @favoritesTab.html(FAVORITE_TEXT).removeClass("favorited")

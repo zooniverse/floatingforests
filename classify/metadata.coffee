@@ -21,6 +21,6 @@ ClassifyMetadata =
 
   init: ->
     $(".readymade-classification-interface")
-      .prepend "<div id='location-data'><h2>#{translate 'site.location'}</h2><p id='subject-coords'></p></div>"
+      .prepend "<div id='location-data'>#{translate 'h2', 'site.location'}<p id='subject-coords'></p></div>"
 
 module?.exports = ClassifyMetadata

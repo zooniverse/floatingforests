@@ -3,10 +3,22 @@ translate = require 't7e'
 module?.exports =
   "<div id='classify-menu'>
     <div class='menu-tabs'>
-      <div class='tab' id='tutorial-tab'><img src='./icons/tut.svg'>#{translate 'classifyMenu.tab.tutorial'}</div>
-      <div class='tab' id='field-guide-tab'><img src='./icons/guide.svg'>#{translate 'classifyMenu.tab.fieldGuide'}</div>
-      <div class='tab' id='location-tab'><img src='./icons/location.svg'>#{translate 'classifyMenu.tab.location'}</div>
-      <div class='tab' id='favorites-tab'><img src='./icons/favorite.svg'>#{translate 'classifyMenu.tab.favorites'}</div>
+      <div class='tab' id='tutorial-tab'>
+        <img src='./icons/tut.svg'>
+        #{translate 'span', 'classifyMenu.tab.tutorial'}
+      </div>
+      <div class='tab' id='field-guide-tab'>
+        <img src='./icons/guide.svg'>
+        #{translate 'span', 'classifyMenu.tab.fieldGuide'}
+      </div>
+      <div class='tab' id='location-tab'>
+        <img src='./icons/location.svg'>
+        #{translate 'span', 'classifyMenu.tab.location'}
+      </div>
+      <div class='tab' id='favorites-tab'>
+        <img src='./icons/favorite.svg'>
+        #{translate 'span', 'classifyMenu.tab.favorites'}
+      </div>
     </div>
 
     <div class='menu-content'>
@@ -16,33 +28,39 @@ module?.exports =
       <div class='menu-section' id='field-guide'>
         <h1>#{translate 'classifyMenu.content.fieldGuide'}</h1>
         <div class='guide-item kelp'>
-          <p>#{translate 'classifyMenu.content.kelp'}</p>
+          #{translate 'p', 'classifyMenu.content.kelp'}
         </div>
         <div class='guide-item kelp-alt'>
-          <p>#{translate 'classifyMenu.content.kelp'}</p>
+          #{translate 'p', 'classifyMenu.content.kelp'}
         </div>
         <div class='guide-item clouds'>
-          <p>#{translate 'classifyMenu.content.clouds'}</p>
+          #{translate 'p', 'classifyMenu.content.clouds'}
         </div>
-        <p>#{translate 'classifyMenu.content.summary'}</p>
+          #{translate 'p', 'classifyMenu.content.summary'}
         <div class='guide-item waves'>
-          <p>#{translate 'classifyMenu.content.waves'}</p>
+          #{translate 'p', 'classifyMenu.content.waves'}
         </div>
 
         <div class='guide-item land'>
-          <p>#{translate 'classifyMenu.content.land'}</p>
+          #{translate 'p', 'classifyMenu.content.land'}
         </div>
 
         <div class='guide-item faulty'>
-          <p>#{translate 'classifyMenu.content.faulty'}</p>
+          #{translate 'p', 'classifyMenu.content.faulty'}
         </div>
-        <p>#{translate 'classifyMenu.content.badImages'}</p>
+          #{translate 'p', 'classifyMenu.content.badImages'}
         <div class='scroll-up'><img src='./icons/return-top.svg'/></div>
       </div>
       <div class='menu-section'>
-        <button class='location-btn' id='all-locations'>#{translate 'classifyMenu.locations.all'}</button>
-        <button class='location-btn' id='california'>#{translate 'classifyMenu.locations.california'}</button>
-        <button class='location-btn' id='tasmania'>#{translate 'classifyMenu.locations.tasmania'}</button>
+        <button class='location-btn' id='all-locations'>
+          #{translate 'span', 'classifyMenu.locations.all'}
+        </button>
+        <button class='location-btn' id='california'>
+          #{translate 'span', 'classifyMenu.locations.california'}
+        </button>
+        <button class='location-btn' id='tasmania'>
+          #{translate 'span', 'classifyMenu.locations.tasmania'}
+        </button>
         <p>#{translate 'em', 'classifyMenu.locations.delayMessage'}</p>
       </div>
       <div class='menu-section'>
