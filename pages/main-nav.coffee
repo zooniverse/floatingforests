@@ -4,7 +4,7 @@ translate = require "t7e"
 
 MainNav =
   translateReadymadeLinks: (pages...) ->
-    # translate existing readymade links matching #{page}Link in translations file
+    # translate existing readymade links matching site.#{page}Link in translations file
 
     links = $(".readymade-site-links")
 
