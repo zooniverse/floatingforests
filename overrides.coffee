@@ -26,8 +26,14 @@ footer = new Footer
 project.header.el.append("<meta name='viewport' content='width=600, user-scalable=no'>
                           <link rel='shortcut icon' href='favicon.ico' type='image/x-icon'>")
 
-
 footer.el.appendTo $("<div id='footer-container'></div>").insertAfter(".stack-of-pages")
+
+creditElement = document.createElement 'div'
+creditElement.className = 'image-credit'
+creditElement.innerHTML = """
+  Background image &copy; Clinton Bauder, <a href="http://metridium.com/">metridium.com</a>
+"""
+$('#footer-container').append creditElement
 
 ProfileOverrides.init()
 
