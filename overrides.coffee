@@ -8,7 +8,8 @@ languageManager = new LanguageManager
     en: label: 'English', strings: enUs
 
 Footer = require 'zooniverse/controllers/footer'
-SecondarySubNav = require './secondary-pages/sub-nav'
+MainNav = require './pages/main-nav'
+SecondarySubNav = require './pages/sub-nav'
 project = require "zooniverse-readymade/current-project"
 
 ProfileOverrides = require "./zooniverse/profile"
@@ -17,13 +18,14 @@ AboutNav = new SecondarySubNav "about"
 EducationNav = new SecondarySubNav "education"
 TeamNav = new SecondarySubNav "team"
 
+MainNav.addNavLinks()
+MainNav.translateReadymadeLinks('classify', 'profile', 'about', 'education', 'team')
+
 footer = new Footer
 
 project.header.el.append("<meta name='viewport' content='width=600, user-scalable=no'>
                           <link rel='shortcut icon' href='favicon.ico' type='image/x-icon'>")
 
-project.header.addNavLink "http://talk.floatingforests.org", translate('site.talkLink')
-project.header.addNavLink "http://blog.floatingforests.org", translate('site.blogLink')
 
 footer.el.appendTo $("<div id='footer-container'></div>").insertAfter(".stack-of-pages")
 
@@ -37,3 +39,4 @@ analytics = new GoogleAnalytics
 $(".readymade-call-to-action").html translate 'site.callToAction'
 
 ClassifyEvents = require "./classify/events"
+

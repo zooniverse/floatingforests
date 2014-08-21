@@ -7,6 +7,11 @@ module.exports =
     location: "All Locations"
     talkLink: "Discuss"
     blogLink: "Blog"
+    classifyLink: "Classify"
+    profileLink: "Profile"
+    aboutLink: "About"
+    educationLink: "Education"
+    teamLink: "Team"
 
   classifyPage:
     next: "Next Image"

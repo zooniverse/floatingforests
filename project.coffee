@@ -10,9 +10,9 @@ module.exports =
   description: translate 'site.description'
 
   pages: [
-    {'About': require "./secondary-pages/about"},
-    {"Education": require "./secondary-pages/education"},
-    {"Team": require "./secondary-pages/team"}
+    {'About': require "./pages/about"},
+    {"Education": require "./pages/education"},
+    {"Team": require "./pages/team"}
   ]
 
   tasks:
