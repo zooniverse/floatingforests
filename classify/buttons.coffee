@@ -21,8 +21,8 @@ ClassifyButtons =
 
   appendDecisionTreeButtons: ->
     @el.find(".decision-tree-confirmation")
-      .prepend "<div class='side-btn'><button id='clouds-present'></button></div>"
-      .append "<div class='side-btn'><button id='undo'></button></div>"
+      .prepend "<div class='side-btn'><button id='clouds-present'>#{ translate 'div.text', 'classifyPage.hasClouds' }</button></div>"
+      .append "<div class='side-btn'><button id='undo'>#{ translate 'div.text', 'classifyPage.undoAction' }</button></div>"
 
   resetClouds: -> @clouds.removeClass("present")
 

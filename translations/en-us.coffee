@@ -14,6 +14,8 @@ module.exports =
     teamLink: "Team"
 
   classifyPage:
+    hasClouds: "Clouds?"
+    undoAction: "Undo"
     next: "Next Image"
     summary:
       header: "Nice Work!"
