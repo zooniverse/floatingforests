@@ -7,6 +7,10 @@ languageManager = new LanguageManager
   translations:
     en: label: 'English', strings: enUs
 
+languageManager.on 'change-language', (e, code, strings) ->
+  translate.load strings
+  translate.refresh()
+
 Footer = require 'zooniverse/controllers/footer'
 MainNav = require './pages/main-nav'
 SecondarySubNav = require './pages/sub-nav'
