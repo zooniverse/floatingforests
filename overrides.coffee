@@ -35,9 +35,7 @@ footer.el.appendTo $("<div id='footer-container'></div>").insertAfter(".stack-of
 
 creditElement = document.createElement 'div'
 creditElement.className = 'image-credit'
-creditElement.innerHTML = """
-  Background image &copy; Clinton Bauder, <a href="http://metridium.com/">metridium.com</a>
-"""
+creditElement.innerHTML = translate 'span', 'site.backgroundImageCredit'
 $('#footer-container').append creditElement
 
 ProfileOverrides.init()
@@ -50,4 +48,3 @@ analytics = new GoogleAnalytics
 $(".readymade-call-to-action").html translate 'site.callToAction'
 
 ClassifyEvents = require "./classify/events"
-

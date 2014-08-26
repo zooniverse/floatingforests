@@ -12,6 +12,9 @@ module.exports =
     aboutLink: "About"
     educationLink: "Education"
     teamLink: "Team"
+    backgroundImageCredit: """
+      Background image &copy; Clinton Bauder, <a href="http://metridium.com/">metridium.com</a>
+    """
 
   classifyPage:
     hasClouds: "Clouds?"

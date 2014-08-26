@@ -7,11 +7,14 @@ class Tutorial
   html = """
     <div id='tutorial'>
       <div class='tutorial-slide'>
-        <button id='close'><span id='skip'>#{translate 'tutorial.skip'}</span><img id='tut-x-icon' src='./icons/x-icon.svg'></button>
+        <button id='close'>
+          #{ translate 'span', 'tutorial.skip', id: 'skip' }
+          <img id='tut-x-icon' src='./icons/x-icon.svg'>
+        </button>
 
         <div id='slides-container'></div>
 
-        <button id='next'>#{translate 'tutorial.next'}</button>
+        #{ translate 'button', 'tutorial.next', id: 'next' }
         <div class='dots'></div>
       </div>
     </div>

@@ -26,7 +26,7 @@ module?.exports =
         <!-- Tutorial Menu section -->
       </div>
       <div class='menu-section' id='field-guide'>
-        <h1>#{translate 'classifyMenu.content.fieldGuide'}</h1>
+        #{ translate 'h1', 'classifyMenu.content.fieldGuide' }
         <div class='guide-item kelp'>
           #{translate 'p', 'classifyMenu.content.kelp'}
         </div>
