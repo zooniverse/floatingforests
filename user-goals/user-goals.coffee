@@ -184,11 +184,18 @@ class UserGoals
       @goal = goalSlider.val()
       @el.find("#slider-val").text(@goal + " Classification#{@sCheck(@goal)}")
 
+  recordGoalHistory: ->
+    history = User.current?.preferences?.kelp?.goal_history || {}
+    history["#{new Date()}"] = @goal
+    User?.current?.setPreference "goal_history", history
+
   setUserGoal: =>
     @content.html("<h1 class='user-goal-set'>Goal set for #{@goal} Classification#{@sCheck(@goal)}</h1>")
 
     User?.current?.setPreference "goal_set", "true"
     User?.current?.setPreference "goal", @goal
+    @recordGoalHistory()
+
     @setLastSessionCount(0)
 
     setTimeout =>
