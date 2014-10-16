@@ -5,7 +5,7 @@ module.exports =
     description: "We are trying to understand how forests of kelp grow and change over time. We need your help to find these forests in pictures from space!"
     callToAction: "Get Started"
     location: "All Locations"
-    talkLink: "Discuss"
+    talkLink: "Talk"
     blogLink: "Blog"
     classifyLink: "Classify"
     profileLink: "Profile"
