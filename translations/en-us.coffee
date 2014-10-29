@@ -16,6 +16,11 @@ module.exports =
       Background image &copy; Clinton Bauder, <a href="http://metridium.com/">metridium.com</a>
     """
 
+  home:
+    classifications: "Classifications"
+    complete: "Images Complete"
+    users: "Total Users"
+
   classifyPage:
     hasClouds: "Clouds?"
     undoAction: "Undo"

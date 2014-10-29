@@ -15,6 +15,7 @@ languageManager.on 'change-language', (e, code, strings) ->
 Footer = require 'zooniverse/controllers/footer'
 MainNav = require './pages/main-nav'
 SecondarySubNav = require './pages/sub-nav'
+HomeStats = require './pages/home-stats'
 project = require "zooniverse-readymade/current-project"
 
 ProfileOverrides = require "./zooniverse/profile"
@@ -48,3 +49,5 @@ analytics = new GoogleAnalytics
 $(".readymade-call-to-action").html translate 'site.callToAction'
 
 ClassifyEvents = require "./classify/events"
+
+HomeStats.init()
