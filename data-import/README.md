@@ -25,3 +25,10 @@ Put any scenes you want to process into the data-files directory.
 `ruby create_manifest.rb --debug`
 
 Debug creates an additional overlay image which shows what slices were used. Both dump subject images into the data-products directory.
+
+Sample Data
+---
+
+- Input: http://zooniverse-demo.s3.amazonaws.com/kelp-data/data-files.zip
+- Output: http://zooniverse-demo.s3.amazonaws.com/kelp-data/data-products.zip
+
