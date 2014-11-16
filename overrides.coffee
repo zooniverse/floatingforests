@@ -6,6 +6,7 @@ LanguageManager = require 'zooniverse/lib/language-manager'
 languageManager = new LanguageManager
   translations:
     en: label: 'English', strings: enUs
+    es: label: 'Español', strings: './translations/es.json'
     pl: label: 'Polski', strings: './translations/pl.json'
 
 languageManager.on 'change-language', (e, code, strings) ->
