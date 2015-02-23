@@ -32,7 +32,14 @@ class ClassifyMenu
     @el.on "new-subject", => @resetFavoriteTab()
     @scrollUp.on 'click', => @scrollToTopNav()
 
-    @activate @locationBtns.filter("#all-locations")
+    # @activate @locationBtns.filter("#all-locations")
+
+    # TEMPORARY LOCATION LOCK TO CALIFORIA, IN LIEU OF LINE ABOVE
+    @el.find('#all-locations, #tasmania').hide()
+    @selectGroup('california')
+    californiaBtn = @el.find('#california')
+    @activate californiaBtn
+    setTimeout => $("#location-data h2").text(californiaBtn.text())
 
   onTabClick: (e) ->
     tab = e.target
