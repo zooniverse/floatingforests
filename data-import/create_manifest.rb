@@ -5,6 +5,8 @@ require 'date'
 
 debug = ARGV[0] == '--debug'
 client = PG.connect(dbname: "kelp_world")
+s3_subfolder = "tasmania"
+group_name = s3_subfolder
 
 no_rows  = 20
 no_colls = 20
@@ -26,7 +28,7 @@ other_channels = {r:5 , g:4 , b:3}
 Dir.glob("data-files/*").each_with_index do |raw_scene, index|
   begin
     file_name = File.basename(raw_scene)
-    base_name = File.basename(raw_scene, ".tar.gz")
+    base_name = File.basename(raw_scene, ".tar.bz")
 
     `mkdir -p temp/#{base_name}`
     `tar -xzvf #{raw_scene} -C temp/#{base_name}`
@@ -130,6 +132,7 @@ Dir.glob("data-files/*").each_with_index do |raw_scene, index|
       end
 
       output_file = "./data-products/#{base_name}/subject_#{target[0]}_#{target[1]}.jpg"
+      s3_file = "http://zooniverse-data.s3.amazonaws.com/project_data/kelp/#{s3_subfolder}/#{base_name}/subject_#{target[0]}_#{target[1]}.jpg"
 
       `convert ./temp/#{base_name}/coast_#{target[0]}_#{target[1]}_r.png ./temp/#{base_name}/coast_#{target[0]}_#{target[1]}_g.png ./temp/#{base_name}/coast_#{target[0]}_#{target[1]}_b.png -set colorspace RGB -combine -set colorspace sRGB #{output_file}`
 
@@ -144,17 +147,22 @@ Dir.glob("data-files/*").each_with_index do |raw_scene, index|
         ur = [full_ll[0] + (full_ur[0] - full_ll[0]) * (r + 1) / no_rows, full_ll[1] + (full_ur[1] -full_ll[1]) * (c + 1) / no_colls]
 
         manifest << {
-          timestamp: image_time,
-          row_no: r,
-          col_no: c,
-          center: [(ll[0] + ur[0]) * 0.5, (ll[1] + ur[1]) * 0.5],
-          lower_left: ll,
-          upper_right: ur,
-          base_file: base_name,
-          no_rows: no_rows,
-          no_colls: no_colls,
-          filename: output_file,
-          orig_file_name: file_name
+          type: "subject",
+          location: s3_file,
+          coords: [(ll[0] + ur[0]) * 0.5, (ll[1] + ur[1]) * 0.5],
+          group_name: group_name,
+          metadata: {
+            timestamp: image_time,
+            row_no: r,
+            col_no: c,
+            lower_left: ll,
+            upper_right: ur,
+            base_file: base_name,
+            no_rows: no_rows,
+            no_colls: no_colls,
+            file_name: output_file,
+            orig_file_name: file_name
+          }
         }
       end
     end

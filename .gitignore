@@ -3,3 +3,6 @@
 npm-debug.log
 /data-import/data-files/*
 /data-import/data-products/*
+/import-pipeline/api-details.rb
+/import-pipeline/temp
+/import-pipeline/Tasmania
