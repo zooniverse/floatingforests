@@ -1,6 +1,7 @@
 require 'chunky_png'
 require 'csv'
 
+# Add neighbours function to Chunky to find similar, connected regions
 class ChunkyPNG::Image
 	def neighbors(x,y)
 	  [[x, y-1], [x+1, y], [x, y+1], [x-1, y]].select do |xy|
@@ -9,6 +10,7 @@ class ChunkyPNG::Image
 	end
 end
 
+# Traverse the pixels and keep going if they are the same
 def label_recursively(image, areas, label, x, y, depth=0)
   image[x,y] = label
   (areas[label] ||= []) << [x,y]
@@ -21,29 +23,21 @@ def label_recursively(image, areas, label, x, y, depth=0)
   end
 end
 
-def kelpPixel(pixel, types)
+# Function to check if pixel matches the definition of a given type (e.g. Is this pixel cloud, kelp?)
+def pixel_is_type(pixel,type)
   if pixel
     g_r = ChunkyPNG::Color.g(pixel)-ChunkyPNG::Color.r(pixel)
     b_g = ChunkyPNG::Color.b(pixel)-ChunkyPNG::Color.g(pixel)
     b_r = ChunkyPNG::Color.b(pixel)-ChunkyPNG::Color.r(pixel)
-    return true if ( g_r<=types[:kelp][:g_r] && b_g<=types[:kelp][:b_g] && b_r<=types[:kelp][:b_r] )
+    return true if ( g_r.between?(@types[type][:g_r][0],@types[type][:g_r][1]) && b_g.between?(@types[type][:b_g][0],@types[type][:b_g][1]) && b_r.between?(@types[type][:b_r][0],@types[type][:b_r][1]) )
   else
     return false
   end
 end
 
-def waterPixel(pixel, types, center)
-  if pixel
-    g_r = ChunkyPNG::Color.g(pixel)-ChunkyPNG::Color.r(pixel)
-    b_g = ChunkyPNG::Color.b(pixel)-ChunkyPNG::Color.g(pixel)
-    b_r = ChunkyPNG::Color.b(pixel)-ChunkyPNG::Color.r(pixel)
-    return true if ( g_r<=types[:water][:g_r] && b_g<=types[:water][:b_g] && b_r<=types[:water][:b_r] ) # && (ChunkyPNG::Color.g(pixel)-ChunkyPNG::Color.g(center))>=5
-  else
-    return false
-  end
-end
-
-def waterBorder(image, x, y, types)
+# Determine if the x,y region in image is bordered by water
+# Returns the fractions of water pixels surounding the area
+def waterBorder(image, x, y)
   
   @border = 10
   @temp = image.dup
@@ -56,8 +50,8 @@ def waterBorder(image, x, y, types)
   ((y.min)..(y.max)).each do |y1|
     ((x.min-@border)..(x.min)).each do |x1|
       pixel = @temp[x1,y1] unless x1<=0
-      water = waterPixel(pixel, types, @midPixel)
-      kelp = kelpPixel(pixel, types)
+      water = pixel_is_type(pixel, :water)
+      kelp = pixel_is_type(pixel,:kelp)
       if water==true
         @water_pixels+=1
       else
@@ -69,8 +63,8 @@ def waterBorder(image, x, y, types)
   ((y.min)..(y.max)).each do |y1|
     ((x.max)..(x.max+@border)).each do |x1|
       pixel = @temp[x1,y1] unless x1>=image.width
-      water = waterPixel(pixel, types, @midPixel)
-      kelp = kelpPixel(pixel, types)
+      water = pixel_is_type(pixel, :water)
+      kelp = pixel_is_type(pixel,:kelp)
       if water==true
         @water_pixels+=1
       else
@@ -82,8 +76,8 @@ def waterBorder(image, x, y, types)
   ((x.min)..(x.max)).each do |x1|
     ((y.min-@border)..(y.min)).each do |y1|
       pixel = @temp[x1,y1] unless y1<=0
-      water = waterPixel(pixel, types, @midPixel)
-      kelp = kelpPixel(pixel, types)
+      water = pixel_is_type(pixel, :water)
+      kelp = pixel_is_type(pixel,:kelp)
       if water==true
         @water_pixels+=1
       else
@@ -95,8 +89,8 @@ def waterBorder(image, x, y, types)
   ((x.min)..(x.max)).each do |x1|
     ((y.max)..(y.max+@border)).each do |y1|
       pixel = @temp[x1,y1] unless y1>=image.height
-      water = waterPixel(pixel, types, @midPixel)
-      kelp = kelpPixel(pixel, types)
+      water = pixel_is_type(pixel, :water)
+      kelp = pixel_is_type(pixel,:kelp)
       if water==true
         @water_pixels+=1
       else
@@ -109,13 +103,21 @@ def waterBorder(image, x, y, types)
 
 end
 
+# Define Kelp, Water and Cloud colours
+@types = {
+  :water => { :g_r=>[-5,5], :b_g=>[-5,5], :b_r=>[5,50], :col=>[0,100,255] },
+  :kelp  => { :g_r=>[5,50], :b_g=>[-40,2], :b_r=>[5,40], :col=>[0,255,0] },
+  :cloud => { :g_r=>[-10,10], :b_g=>[-10,10], :b_r=>[-10,10], :col=>[255,255,255] }
+}
+
+# Initialise what will become the CSV fles
 file_list = [["file","kelp","cloud","water"]]
 kelp_list = [["image", "x_min", "x_max", "y_min", "y_max"]]
 
+# Go through all the JPGs in the directory
 Dir.glob('*.jpg').each do |image_file|
   zoo_id = File.basename(image_file,".*")
   kelp_found, cloud_found, water_found = false, false, false
-  # zoo_id="subject_9_13"
 
   # Get image files and make a working image
   val = `convert #{zoo_id}.jpg #{zoo_id}.png`
@@ -123,20 +125,15 @@ Dir.glob('*.jpg').each do |image_file|
   puts "Inspecting #{zoo_id}"
   rectangles = {}
 
-  types = {
-    :water => { :r=>[35,70], :g=>[0,60], :b=>[50,150], :g_r=>10, :b_g=>10, :b_r=>25, :col=>[0,100,255] },
-    :kelp  => { :r=>[0,55],  :g=>[60,255], :b=>[60,90], :g_r=>100, :b_g=>10, :b_r=>40, :col=>[0,255,0] },
-    :cloud => { :r=>[180,255], :g=>[180,255], :b=>[180,255], :g_r=>10, :b_g=>10, :b_r=>10, :col=>[255,255,255] }
-  }
-
-  types.each do |k,v|
+  # Cycle through the types and record their existence in the rectangles array
+  @types.each do |k,v|
 
     working_image = image.dup
     rectangles[k] = []
 
     # Create mask
     working_image.pixels.map! do |pixel|
-      match = true if ( ChunkyPNG::Color.g(pixel).between?(v[:g][0],v[:g][1]) && ChunkyPNG::Color.r(pixel).between?(v[:r][0],v[:r][1]) && ChunkyPNG::Color.b(pixel).between?(v[:b][0],v[:b][1]) )
+      match = pixel_is_type(pixel, k)
       match ? -1 : 0
     end
 
@@ -153,12 +150,11 @@ Dir.glob('*.jpg').each do |image_file|
     # Go through regions and record them in the rectangles list
     areas.values.each do |area|
       x, y = area.map{ |xy| xy[0] }, area.map{ |xy| xy[1] }
-      w_k_fraction = waterBorder(image,x,y,types) if k==:kelp
-      if (k==:kelp && w_k_fraction>0.2)
-        rectangles[k] << [x.min, y.min, x.max, y.max]
-        kelp_found=true
+      w_k_fraction = waterBorder(image,x,y) if k==:kelp
+      if (k==:kelp && w_k_fraction>0.25)
+        rectangles[k] << [x.min, y.min, x.max, y.max] if (x.max-x.min)*(y.max-y.min)>=100
+        kelp_found=true if (x.max-x.min)*(y.max-y.min)>=100
       else
-        # rectangles[k] << [x.min, y.min, x.max, y.max] if ( (k==:water || k==:clouds) && (x.max-x.min)*(y.max-y.min)>=400)
         rectangles[k] << [x.min, y.min, x.max, y.max] if ( k==:clouds && (x.max-x.min)*(y.max-y.min)>=400)
         cloud_found=true if ( k==:clouds && (x.max-x.min)*(y.max-y.min)>=400)
         water_found=true if ( k==:water && (x.max-x.min)*(y.max-y.min)>=400)
@@ -173,24 +169,24 @@ Dir.glob('*.jpg').each do |image_file|
   if rectangles[:kelp].size>0
     rectangles.each do |k,list|
       list.each do |r|
-        image.rect(r[0], r[1], r[2], r[3], ChunkyPNG::Color.rgb(types[k][:col][0],types[k][:col][1],types[k][:col][2]))
+        image.rect(r[0], r[1], r[2], r[3], ChunkyPNG::Color.rgb(@types[k][:col][0],@types[k][:col][1],@types[k][:col][2]))
         kelp_list << [zoo_id, r[0], r[2], r[1], r[3]]
       end
     end
     image.save("#{zoo_id}_kelped.png")
   end
 
-  # Sort out files
+  # Sort out files, clean up temp PNGs
   `convert #{zoo_id}_kelped.png #{zoo_id}_kelped.jpg`
   `rm #{zoo_id}.png`
   `rm #{zoo_id}_kelped.png` if rectangles[:kelp].size>0
 
 end
 
+# Write out the CSV files
 CSV.open("file_results.csv", "w") do |csv|
   file_list.each{|l| csv<<l}
 end
-
 CSV.open("kelp_results.csv", "w") do |csv|
   kelp_list.each{|l| csv<<l}
 end
