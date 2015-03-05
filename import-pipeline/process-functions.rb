@@ -132,6 +132,9 @@ def process_data(sub, s3_subfolder)
           channels = other_channels
         end
 
+        ####
+        ## This is where the colirs get checked and combined - maybe redness is here?
+        ####
         channels.each_pair do |c, b|
           `convert ./temp/#{base_name}/#{base_name}_B#{b}.TIF -quiet -crop #{image_chunk_width}x#{image_chunk_height}+#{image_chunk_width * (target[0])}+#{image_chunk_height * ((no_colls - target[1] - 1))} -resize 532x484 ./temp/#{base_name}/coast_#{target[0]}_#{target[1]}_#{c}.png`
         end
