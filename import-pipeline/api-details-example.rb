@@ -1,2 +1,2 @@
-@usgs_password="username"
+@usgs_username="username"
 @usgs_password="password"
