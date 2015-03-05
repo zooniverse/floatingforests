@@ -29,7 +29,13 @@ def pixel_is_type(pixel,type)
     g_r = ChunkyPNG::Color.g(pixel)-ChunkyPNG::Color.r(pixel)
     b_g = ChunkyPNG::Color.b(pixel)-ChunkyPNG::Color.g(pixel)
     b_r = ChunkyPNG::Color.b(pixel)-ChunkyPNG::Color.r(pixel)
-    return true if ( g_r.between?(@types[type][:g_r][0],@types[type][:g_r][1]) && b_g.between?(@types[type][:b_g][0],@types[type][:b_g][1]) && b_r.between?(@types[type][:b_r][0],@types[type][:b_r][1]) )
+    if ( g_r.between?(@types[type][:g_r][0],@types[type][:g_r][1]) && b_g.between?(@types[type][:b_g][0],@types[type][:b_g][1]) && b_r.between?(@types[type][:b_r][0],@types[type][:b_r][1]) )
+      if type==:cloud
+        return true if ChunkyPNG::Color.r(pixel)>100 && ChunkyPNG::Color.g(pixel)>100 && ChunkyPNG::Color.b(pixel)>100
+      else
+        return true
+      end
+    end
   else
     return false
   end
@@ -42,64 +48,37 @@ def waterBorder(image, x, y)
   @border = 10
   @temp = image.dup
   @water_pixels = 0
-  @kelp_pixels = 0
   @other_pixels = 0
-
-  @midPixel = pixel = @temp[((x.max-x.min)/2),((y.max-y.min)/2)]
 
   ((y.min)..(y.max)).each do |y1|
     ((x.min-@border)..(x.min)).each do |x1|
       pixel = @temp[x1,y1] unless x1<=0
-      water = pixel_is_type(pixel, :water)
-      kelp = pixel_is_type(pixel,:kelp)
-      if water==true
-        @water_pixels+=1
-      else
-        kelp==true ? @kelp_pixels+=1 : @other_pixels+=1
-      end
+      @water_pixels+=1 if pixel_is_type(pixel, :water)
     end
   end
 
   ((y.min)..(y.max)).each do |y1|
     ((x.max)..(x.max+@border)).each do |x1|
       pixel = @temp[x1,y1] unless x1>=image.width
-      water = pixel_is_type(pixel, :water)
-      kelp = pixel_is_type(pixel,:kelp)
-      if water==true
-        @water_pixels+=1
-      else
-        kelp==true ? @kelp_pixels+=1 : @other_pixels+=1
-      end
+      @water_pixels+=1 if pixel_is_type(pixel, :water)
     end
   end
 
   ((x.min)..(x.max)).each do |x1|
     ((y.min-@border)..(y.min)).each do |y1|
       pixel = @temp[x1,y1] unless y1<=0
-      water = pixel_is_type(pixel, :water)
-      kelp = pixel_is_type(pixel,:kelp)
-      if water==true
-        @water_pixels+=1
-      else
-        kelp==true ? @kelp_pixels+=1 : @other_pixels+=1
-      end
+      @water_pixels+=1 if pixel_is_type(pixel, :water)
     end
   end
 
   ((x.min)..(x.max)).each do |x1|
     ((y.max)..(y.max+@border)).each do |y1|
       pixel = @temp[x1,y1] unless y1>=image.height
-      water = pixel_is_type(pixel, :water)
-      kelp = pixel_is_type(pixel,:kelp)
-      if water==true
-        @water_pixels+=1
-      else
-        kelp==true ? @kelp_pixels+=1 : @other_pixels+=1
-      end
+      @water_pixels+=1 if pixel_is_type(pixel, :water)
     end
   end
 
-  water_or_kelp_fraction = (@water_pixels.to_f+@kelp_pixels.to_f)/(@water_pixels+@other_pixels+@kelp_pixels).to_f
+  water_or_kelp_fraction = @water_pixels.to_f/(@water_pixels+@other_pixels).to_f
 
 end
 
@@ -151,7 +130,7 @@ Dir.glob('*.jpg').each do |image_file|
     areas.values.each do |area|
       x, y = area.map{ |xy| xy[0] }, area.map{ |xy| xy[1] }
       w_k_fraction = waterBorder(image,x,y) if k==:kelp
-      if (k==:kelp && w_k_fraction>0.25)
+      if (k==:kelp && w_k_fraction>0.20)
         rectangles[k] << [x.min, y.min, x.max, y.max] if (x.max-x.min)*(y.max-y.min)>=100
         kelp_found=true if (x.max-x.min)*(y.max-y.min)>=100
       else
