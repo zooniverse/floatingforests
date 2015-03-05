@@ -190,7 +190,7 @@ def download_scene(scene_id,dataset,sub)
 			return
 		else
 			puts "#{File.basename(URI(files[0]).path)} downloading..."
-			value = `wget -O #{sub}/#{File.basename(URI(files[0]).path)} '#{files[0]}' &`
+			value = `wget -O #{sub}/#{File.basename(URI(files[0]).path)} '#{files[0]}'`
 			return
 		end
 	else
