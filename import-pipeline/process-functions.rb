@@ -133,7 +133,7 @@ def process_data(sub, s3_subfolder)
         end
 
         ####
-        ## This is where the colirs get checked and combined - maybe redness is here?
+        ## This is where the colours get checked and combined - maybe redness is here?
         ####
         channels.each_pair do |c, b|
           `convert ./temp/#{base_name}/#{base_name}_B#{b}.TIF -quiet -crop #{image_chunk_width}x#{image_chunk_height}+#{image_chunk_width * (target[0])}+#{image_chunk_height * ((no_colls - target[1] - 1))} -resize 532x484 ./temp/#{base_name}/coast_#{target[0]}_#{target[1]}_#{c}.png`
@@ -144,24 +144,43 @@ def process_data(sub, s3_subfolder)
 
         `convert ./temp/#{base_name}/coast_#{target[0]}_#{target[1]}_r.png ./temp/#{base_name}/coast_#{target[0]}_#{target[1]}_g.png ./temp/#{base_name}/coast_#{target[0]}_#{target[1]}_b.png -set colorspace RGB -combine -set colorspace sRGB #{output_file}`
         
-        # Check for dominant colour. If it is white then assume cloud and don't include it for the manifest
-        begin
-          dominant_colour = `convert #{output_file} -scale 100x100 -dither None -format %c histogram:info: | sort | tail -n1 | sed -e 's/.*\(#[0-9A-F]\+\).*/\1/'`
-          dom_r, dom_g, dom_b = dominant_colour[13..15].to_i, dominant_colour[17..19].to_i, dominant_colour[21..23].to_i
-          if dom_r>200 && dom_g>200 && dom_b>200
-            white=true
-          else
-            white=false
-          end
-        rescue
-          puts "Couldn't read dominant colour"
+        blank = File.size(output_file) < 1024 * 6
+        
+        #don't bother calculating pixel values on blank images
+        if !blank
+            # Check for dominant colour. If it is white then assume cloud and don't include it for the manifest
+            #begin
+            #  dominant_colour = `convert #{output_file} -scale 100x100 -dither None -format %c histogram:info: | sort -g | tail -n1 | sed -e 's/.*\(#[0-9A-F]\+\).*/\1/'`
+            #  dom_r, dom_g, dom_b = dominant_colour[13..15].to_i, dominant_colour[17..19].to_i, dominant_colour[21..23].to_i
+            #  white = dom_r>150 && dom_g>150 && dom_b>150
+            #rescue
+            #  puts "Couldn't read dominant colour"
+            #end
+            
+            # Check for water pixels using the red band.  If it has less than 5% non-blank water pixels, don't include it for the manifest
+            begin
+              #Water is vaule 1-25 in the red band.  Select and sum.
+              size = 100 * 100
+              red_hist = `convert ./temp/#{base_name}/coast_#{target[0]}_#{target[1]}_r.png -scale 100x100 -dither None -depth 8 -format %c histogram:info:`  
+              water_pixels = `echo "#{red_hist}" | grep -E ",\s+([1-9]|([1-2][0-9])),\s" | cut -d: -f1 | awk '{s+=$1}END{print s}'`
+              blank_pixels = `echo "#{red_hist}" | grep -E ",\s+0,\s"  | cut -d: -f1 | awk '{s+=$1}END{print s}'`
+              #calculate percent of matching non-blank pixels
+              water = (water_pixels.to_f / (size - blank_pixels.to_f)) > 0.05
+            rescue
+              puts "Couldn't read water data"
+            end
         end
 
-        blank = File.size(output_file) < 1024 * 6
-        if blank || white==true
-          puts "Mostly clouded image #{output_file} - skipping" if white==true
-          `mv #{output_file} ./#{sub}/data-products/#{base_name}/clouded/subject_#{target[0]}_#{target[1]}.jpg` if white==true
-          `rm #{output_file}` if white==false
+        
+        if blank 
+          `rm #{output_file}`
+        elsif !water
+          puts "No water in image #{output_file} - skipping"
+          `mv #{output_file} ./#{sub}/data-products/#{base_name}/land/subject_#{target[0]}_#{target[1]}.jpg`
+        #elsif white 
+        #  puts "Mostly clouded image #{output_file} - skipping"
+        #  `mv #{output_file} ./#{sub}/data-products/#{base_name}/clouded/subject_#{target[0]}_#{target[1]}.jpg`
+        
         else
           r = target[0]
           c = target[1]
