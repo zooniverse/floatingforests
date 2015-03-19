@@ -36,9 +36,27 @@ def process_data(sub, s3_subfolder)
       `mkdir -p temp/#{base_name}`
       puts "\n##########\nExtracting data from #{file_name}"
       `tar -xzvf #{raw_scene} -C temp/#{base_name}`
+      
+      if base_name[0..2] == "LC8"
+        channels = lc8_channels
+      else
+        channels = other_channels
+      end
 
       if @debug
         canvas = Magick::Image::read("temp/#{base_name}/#{base_name}_B4.TIF").first
+      end
+      
+      puts "./temp/#{base_name}/#{base_name}_B#{channels[:r]}.TIF"
+      puts "./temp/#{base_name}/#{base_name}_B#{channels[:g]}.TIF"
+      puts "./temp/#{base_name}/#{base_name}_B#{channels[:b]}.TIF"
+      
+      if base_name[0..2] == "LC8"
+        channels.each_pair do |c, b|
+          `convert ./temp/#{base_name}/#{base_name}_B#{b}.TIF -level 7%,50%,1.5 -depth 8 ./temp/#{base_name}/#{base_name}_B#{b}_level.TIF`
+          `rm ./temp/#{base_name}/#{base_name}_B#{b}.TIF`
+          `mv ./temp/#{base_name}/#{base_name}_B#{b}_level.TIF ./temp/#{base_name}/#{base_name}_B#{b}.TIF`
+        end
       end
 
       meta_data = IO.read("temp/#{base_name}/#{base_name}_MTL.txt").split("\n")
@@ -121,16 +139,11 @@ def process_data(sub, s3_subfolder)
       end
 
       `mkdir -p ./#{sub}/data-products/#{base_name}`
-      `mkdir -p ./#{sub}/data-products/#{base_name}/clouded`
+      #`mkdir -p ./#{sub}/data-products/#{base_name}/clouded`
+      `mkdir -p ./#{sub}/data-products/#{base_name}/land`
 
       target_squares.uniq.each do |target|
         next if target[0] < 0 or target[1] < 0
-
-        if base_name[0..2] == "LC8"
-          channels = lc8_channels
-        else
-          channels = other_channels
-        end
 
         ####
         ## This is where the colours get checked and combined - maybe redness is here?
