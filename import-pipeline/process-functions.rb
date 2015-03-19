@@ -47,13 +47,9 @@ def process_data(sub, s3_subfolder)
         canvas = Magick::Image::read("temp/#{base_name}/#{base_name}_B4.TIF").first
       end
       
-      puts "./temp/#{base_name}/#{base_name}_B#{channels[:r]}.TIF"
-      puts "./temp/#{base_name}/#{base_name}_B#{channels[:g]}.TIF"
-      puts "./temp/#{base_name}/#{base_name}_B#{channels[:b]}.TIF"
-      
       if base_name[0..2] == "LC8"
         channels.each_pair do |c, b|
-          `convert ./temp/#{base_name}/#{base_name}_B#{b}.TIF -level 7%,50%,1.5 -depth 8 ./temp/#{base_name}/#{base_name}_B#{b}_level.TIF`
+          `convert ./temp/#{base_name}/#{base_name}_B#{b}.TIF -quiet -level 7%,50%,1.5 -depth 8 ./temp/#{base_name}/#{base_name}_B#{b}_level.TIF`
           `rm ./temp/#{base_name}/#{base_name}_B#{b}.TIF`
           `mv ./temp/#{base_name}/#{base_name}_B#{b}_level.TIF ./temp/#{base_name}/#{base_name}_B#{b}.TIF`
         end
@@ -139,7 +135,6 @@ def process_data(sub, s3_subfolder)
       end
 
       `mkdir -p ./#{sub}/data-products/#{base_name}`
-      #`mkdir -p ./#{sub}/data-products/#{base_name}/clouded`
       `mkdir -p ./#{sub}/data-products/#{base_name}/land`
 
       target_squares.uniq.each do |target|
@@ -161,27 +156,18 @@ def process_data(sub, s3_subfolder)
         
         #don't bother calculating pixel values on blank images
         if !blank
-            # Check for dominant colour. If it is white then assume cloud and don't include it for the manifest
-            #begin
-            #  dominant_colour = `convert #{output_file} -scale 100x100 -dither None -format %c histogram:info: | sort -g | tail -n1 | sed -e 's/.*\(#[0-9A-F]\+\).*/\1/'`
-            #  dom_r, dom_g, dom_b = dominant_colour[13..15].to_i, dominant_colour[17..19].to_i, dominant_colour[21..23].to_i
-            #  white = dom_r>150 && dom_g>150 && dom_b>150
-            #rescue
-            #  puts "Couldn't read dominant colour"
-            #end
-            
-            # Check for water pixels using the red band.  If it has less than 5% non-blank water pixels, don't include it for the manifest
-            begin
-              #Water is vaule 1-25 in the red band.  Select and sum.
-              size = 100 * 100
-              red_hist = `convert ./temp/#{base_name}/coast_#{target[0]}_#{target[1]}_r.png -scale 100x100 -dither None -depth 8 -format %c histogram:info:`  
-              water_pixels = `echo "#{red_hist}" | grep -E ",\s+([1-9]|([1-2][0-9])),\s" | cut -d: -f1 | awk '{s+=$1}END{print s}'`
-              blank_pixels = `echo "#{red_hist}" | grep -E ",\s+0,\s"  | cut -d: -f1 | awk '{s+=$1}END{print s}'`
-              #calculate percent of matching non-blank pixels
-              water = (water_pixels.to_f / (size - blank_pixels.to_f)) > 0.05
-            rescue
-              puts "Couldn't read water data"
-            end
+          # Check for water pixels using the red band.  If it has less than 5% non-blank water pixels, don't include it for the manifest
+          begin
+            #Water is vaule 1-25 in the red band.  Select and sum.
+            size = 100 * 100
+            red_hist = `convert ./temp/#{base_name}/coast_#{target[0]}_#{target[1]}_r.png -scale 100x100 -dither None -depth 8 -format %c histogram:info:`  
+            water_pixels = `echo "#{red_hist}" | grep -E ",\s+([1-9]|([1-2][0-9])),\s" | cut -d: -f1 | awk '{s+=$1}END{print s}'`
+            blank_pixels = `echo "#{red_hist}" | grep -E ",\s+0,\s"  | cut -d: -f1 | awk '{s+=$1}END{print s}'`
+            #calculate percent of matching non-blank pixels
+            water = (water_pixels.to_f / (size - blank_pixels.to_f)) > 0.05
+          rescue
+            puts "Couldn't read water data"
+          end
         end
 
         
@@ -190,9 +176,6 @@ def process_data(sub, s3_subfolder)
         elsif !water
           puts "No water in image #{output_file} - skipping"
           `mv #{output_file} ./#{sub}/data-products/#{base_name}/land/subject_#{target[0]}_#{target[1]}.jpg`
-        #elsif white 
-        #  puts "Mostly clouded image #{output_file} - skipping"
-        #  `mv #{output_file} ./#{sub}/data-products/#{base_name}/clouded/subject_#{target[0]}_#{target[1]}.jpg`
         
         else
           r = target[0]
