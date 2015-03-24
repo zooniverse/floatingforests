@@ -25,6 +25,8 @@ def process_data(sub, s3_subfolder)
   target_squares = []
 
   manifest = []
+  rejected_manifest = []
+  
   lc8_channels = {r:6 , g:5 , b:4}
   other_channels = {r:5 , g:4 , b:3}
 
@@ -134,8 +136,9 @@ def process_data(sub, s3_subfolder)
         end
       end
 
+      #each rejection category gets it's own sub folder, in case there are more in the future.
       `mkdir -p ./#{sub}/data-products/#{base_name}`
-      `mkdir -p ./#{sub}/data-products/#{base_name}/land`
+      `mkdir -p ./#{sub}/rejected-data-products/#{base_name}/nowater`
 
       target_squares.uniq.each do |target|
         next if target[0] < 0 or target[1] < 0
@@ -170,38 +173,48 @@ def process_data(sub, s3_subfolder)
           end
         end
 
+
+        #collect metadata
+        r = target[0]
+        c = target[1]
+
+        ll = [full_ll[0] + (full_ur[0] - full_ll[0]) * r / no_rows, full_ll[1] + (full_ur[1] - full_ll[1]) * c / no_colls]
+        ur = [full_ll[0] + (full_ur[0] - full_ll[0]) * (r + 1) / no_rows, full_ll[1] + (full_ur[1] -full_ll[1]) * (c + 1) / no_colls]
+        
+        subject_metadata = {
+          type: "subject",
+          location: s3_file,
+          coords: [(ll[0] + ur[0]) * 0.5, (ll[1] + ur[1]) * 0.5],
+          group_name: group_name,
+          metadata: {
+            timestamp: image_time,
+            row_no: r,
+            col_no: c,
+            lower_left: ll,
+            upper_right: ur,
+            base_file: base_name,
+            no_rows: no_rows,
+            no_colls: no_colls,
+            file_name: output_file,
+            orig_file_name: file_name
+          }
+        }
         
         if blank 
           `rm #{output_file}`
         elsif !water
           puts "No water in image #{output_file} - skipping"
-          `mv #{output_file} ./#{sub}/data-products/#{base_name}/land/subject_#{target[0]}_#{target[1]}.jpg`
+          `mv #{output_file} ./#{sub}/rejected-data-products/#{base_name}/nowater/subject_#{target[0]}_#{target[1]}.jpg`
+          subject_metadata[:metadata][:file_name] = "./#{sub}/rejected-data-products/#{base_name}/nowater/subject_#{target[0]}_#{target[1]}.jpg"
+          
+          ##
+          # subject_metadata[:location] points to the file on the AWS server, it should probably be blank for the rejected images if they are not uploaded.
+          ##
+          
+          rejected_manifest << subject_metadata
         
         else
-          r = target[0]
-          c = target[1]
-
-          ll = [full_ll[0] + (full_ur[0] - full_ll[0]) * r / no_rows, full_ll[1] + (full_ur[1] - full_ll[1]) * c / no_colls]
-          ur = [full_ll[0] + (full_ur[0] - full_ll[0]) * (r + 1) / no_rows, full_ll[1] + (full_ur[1] -full_ll[1]) * (c + 1) / no_colls]
-
-          manifest << {
-            type: "subject",
-            location: s3_file,
-            coords: [(ll[0] + ur[0]) * 0.5, (ll[1] + ur[1]) * 0.5],
-            group_name: group_name,
-            metadata: {
-              timestamp: image_time,
-              row_no: r,
-              col_no: c,
-              lower_left: ll,
-              upper_right: ur,
-              base_file: base_name,
-              no_rows: no_rows,
-              no_colls: no_colls,
-              file_name: output_file,
-              orig_file_name: file_name
-            }
-          }
+          manifest << subject_metadata
         end
       end
 
@@ -217,5 +230,6 @@ def process_data(sub, s3_subfolder)
   end
 
   File.open("./#{sub}/data-products/manifest.json", "w"){|f| f.puts(JSON.pretty_generate(manifest))}
+  File.open("./#{sub}/rejected-data-products/rejected_manifest.json", "w"){|f| f.puts(JSON.pretty_generate(rejected_manifest))}
 
 end
