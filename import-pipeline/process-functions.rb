@@ -49,6 +49,8 @@ def process_data(sub, s3_subfolder)
         canvas = Magick::Image::read("temp/#{base_name}/#{base_name}_B4.TIF").first
       end
       
+      
+      # Enhance contrast on the Landsat 8 images.  If this starts outputting images with weird colours, it can be modified to combine the bands, enhance contrast, and then split them again.  It's expensive to do that, and in testing all the images came out normal processing them separately.  
       if base_name[0..2] == "LC8"
         channels.each_pair do |c, b|
           `convert ./temp/#{base_name}/#{base_name}_B#{b}.TIF -quiet -level 7%,50%,1.5 -depth 8 ./temp/#{base_name}/#{base_name}_B#{b}_level.TIF`
@@ -136,9 +138,10 @@ def process_data(sub, s3_subfolder)
         end
       end
 
-      #each rejection category gets it's own sub folder, in case there are more in the future.
+      # Each rejection category gets it's own sub folder, in case there are more in the future.
       `mkdir -p ./#{sub}/data-products/#{base_name}`
       `mkdir -p ./#{sub}/rejected-data-products/#{base_name}/nowater`
+      `mkdir -p ./#{sub}/rejected-data-products/#{base_name}/cloud`
 
       target_squares.uniq.each do |target|
         next if target[0] < 0 or target[1] < 0
@@ -157,59 +160,85 @@ def process_data(sub, s3_subfolder)
         
         blank = File.size(output_file) < 1024 * 6
         
-        #don't bother calculating pixel values on blank images
+        # Don't bother calculating pixel values on blank images
         if !blank
-          # Check for water pixels using the red band.  If it has less than 5% non-blank water pixels, don't include it for the manifest
+          # blank pixels are used in all cuts, calculate them once
+          red_hist = `convert ./temp/#{base_name}/coast_#{target[0]}_#{target[1]}_r.png -scale 100x100 -dither None -depth 8 -format %c histogram:info:`  
+          blank_pixels = `echo "#{red_hist}" | grep -E ",\s+0,\s"  | cut -d: -f1 | awk '{s+=$1}END{print s}'`
+          
+          # Check for water pixels using the red band.  If less than 5% non-blank water pixels, put in rejected manifest.
           begin
             #Water is vaule 1-25 in the red band.  Select and sum.
             size = 100 * 100
-            red_hist = `convert ./temp/#{base_name}/coast_#{target[0]}_#{target[1]}_r.png -scale 100x100 -dither None -depth 8 -format %c histogram:info:`  
             water_pixels = `echo "#{red_hist}" | grep -E ",\s+([1-9]|([1-2][0-9])),\s" | cut -d: -f1 | awk '{s+=$1}END{print s}'`
-            blank_pixels = `echo "#{red_hist}" | grep -E ",\s+0,\s"  | cut -d: -f1 | awk '{s+=$1}END{print s}'`
             #calculate percent of matching non-blank pixels
-            water = (water_pixels.to_f / (size - blank_pixels.to_f)) > 0.05
+            water_percent = water_pixels.to_f / (size - blank_pixels.to_f)
+            
+            water = water_percent > 0.05
           rescue
             puts "Couldn't read water data"
           end
-        end
+          
+         # Check for cloud pixels using rgb bands.  If greater than 75% cloud, put in rejected manifest.
+          begin
+            # Cold clouds are dark in the IR band used for red, so use a lower r threshold to catch these as clouds.
+            r_range = "(([1-2][0-9][0-9])|([8-9][0-9]))" # > 80
+            gb_range = "((2[0-9][0-9])|(1[2-9][0-9]))" # > 120
+            size = 100 * 100
+            cloud_pixels = `convert #{output_file} -scale 100x100 -dither None -depth 8 -format %c histogram:info: | grep -E "#{r_range},#{gb_range},#{gb_range}" | cut -d: -f1 | awk '{s+=$1}END{print s}'`  
+            cloud_percent = cloud_pixels.to_f / (size - blank_pixels.to_f)
+            cloud = cloud_percent > 0.75
+          rescue
+            puts "Couldn't read dominant colour"
+          end
+          
+          #collect metadata for non-blank images
+          r = target[0]
+          c = target[1]
 
-
-        #collect metadata
-        r = target[0]
-        c = target[1]
-
-        ll = [full_ll[0] + (full_ur[0] - full_ll[0]) * r / no_rows, full_ll[1] + (full_ur[1] - full_ll[1]) * c / no_colls]
-        ur = [full_ll[0] + (full_ur[0] - full_ll[0]) * (r + 1) / no_rows, full_ll[1] + (full_ur[1] -full_ll[1]) * (c + 1) / no_colls]
+          ll = [full_ll[0] + (full_ur[0] - full_ll[0]) * r / no_rows, full_ll[1] + (full_ur[1] - full_ll[1]) * c / no_colls]
+          ur = [full_ll[0] + (full_ur[0] - full_ll[0]) * (r + 1) / no_rows, full_ll[1] + (full_ur[1] -full_ll[1]) * (c + 1) / no_colls]
         
-        subject_metadata = {
-          type: "subject",
-          location: s3_file,
-          coords: [(ll[0] + ur[0]) * 0.5, (ll[1] + ur[1]) * 0.5],
-          group_name: group_name,
-          metadata: {
-            timestamp: image_time,
-            row_no: r,
-            col_no: c,
-            lower_left: ll,
-            upper_right: ur,
-            base_file: base_name,
-            no_rows: no_rows,
-            no_colls: no_colls,
-            file_name: output_file,
-            orig_file_name: file_name
+          subject_metadata = {
+            type: "subject",
+            location: s3_file,
+            coords: [(ll[0] + ur[0]) * 0.5, (ll[1] + ur[1]) * 0.5],
+            group_name: group_name,
+            metadata: {
+              timestamp: image_time,
+              row_no: r,
+              col_no: c,
+              lower_left: ll,
+              upper_right: ur,
+              base_file: base_name,
+              no_rows: no_rows,
+              no_colls: no_colls,
+              file_name: output_file,
+              orig_file_name: file_name,
+              rejection: {
+                water_percent: water_percent,
+                cloud_percent: cloud_percent
+              }
+            }
           }
-        }
+          
+        end
         
         if blank 
           `rm #{output_file}`
-        elsif !water
-          puts "No water in image #{output_file} - skipping"
+        elsif cloud
+          puts "Clouded image image w: #{water_percent}% c: #{cloud_percent}% #{output_file} - skipping"
+          `mv #{output_file} ./#{sub}/rejected-data-products/#{base_name}/cloud/subject_#{target[0]}_#{target[1]}.jpg`
+          subject_metadata[:metadata][:file_name] = "./#{sub}/rejected-data-products/#{base_name}/cloud/subject_#{target[0]}_#{target[1]}.jpg"
+          subject_metadata[:metadata][:reject_reason] = "cloud"
+          
+          rejected_manifest << subject_metadata
+          
+        elsif !water && !cloud
+          puts "No water in image w: #{water_percent}% c: #{cloud_percent}% #{output_file} - skipping"
           `mv #{output_file} ./#{sub}/rejected-data-products/#{base_name}/nowater/subject_#{target[0]}_#{target[1]}.jpg`
           subject_metadata[:metadata][:file_name] = "./#{sub}/rejected-data-products/#{base_name}/nowater/subject_#{target[0]}_#{target[1]}.jpg"
-          
-          ##
-          # subject_metadata[:location] points to the file on the AWS server, it should probably be blank for the rejected images if they are not uploaded.
-          ##
+          subject_metadata[:metadata][:reject_reason] = "nowater"
           
           rejected_manifest << subject_metadata
         
