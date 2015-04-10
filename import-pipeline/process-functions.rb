@@ -29,6 +29,7 @@ def process_data(sub, s3_subfolder)
   
   lc8_channels = {r:6 , g:5 , b:4}
   other_channels = {r:5 , g:4 , b:3}
+  
 
   Dir.glob("#{sub}/*").each_with_index do |raw_scene, index|
     begin
@@ -49,6 +50,9 @@ def process_data(sub, s3_subfolder)
         canvas = Magick::Image::read("temp/#{base_name}/#{base_name}_B4.TIF").first
       end
       
+      meta_data = IO.read("temp/#{base_name}/#{base_name}_MTL.txt").split("\n")
+      
+      earthsun_distance = IO.read("earthsun_distance.csv").split("\n")
       
       # Enhance contrast on the Landsat 8 images.  If this starts outputting images with weird colours, it can be modified to combine the bands, enhance contrast, and then split them again.  It's expensive to do that, and in testing all the images came out normal processing them separately.  
       if base_name[0..2] == "LC8"
@@ -57,9 +61,13 @@ def process_data(sub, s3_subfolder)
           `rm ./temp/#{base_name}/#{base_name}_B#{b}.TIF`
           `mv ./temp/#{base_name}/#{base_name}_B#{b}_level.TIF ./temp/#{base_name}/#{base_name}_B#{b}.TIF`
         end
+        
+      #Recalibrate Landsat 4/5/7 images with sun angle/irradiance data.  Fixes red and dark images.
+      else
+        sun_elevation = meta_data.select{|a| a.include?("SUN_ELEVATION")}.first.split("=").last.strip.to_f
+        d = earthsun_distance.select{|a| a.include?("#{base_name[13..15]},")}.first.split(",").last.strip.to_f
+        `python3 color_calibration.py #{base_name} #{sun_elevation} #{d}`
       end
-
-      meta_data = IO.read("temp/#{base_name}/#{base_name}_MTL.txt").split("\n")
 
       lat_long = meta_data.select{|a| a.include?("CORNER_UR_L") || a.include?("CORNER_LL_L")}.inject({}){|r,l| kv = l.split("=").collect{|l| l.strip}; r[kv[0]] = kv[1].to_f; r}
       date = meta_data.select{|a| a.include?("DATE_ACQUIRED")}.first.split("=").last.strip
@@ -226,15 +234,15 @@ def process_data(sub, s3_subfolder)
         
         if blank 
           `rm #{output_file}`
-        elsif cloud
-          puts "Clouded image image w: #{water_percent}% c: #{cloud_percent}% #{output_file} - skipping"
+        elsif cloud or (!water && cloud_percent > 0.25)
+          puts "Clouded image w: #{water_percent}% c: #{cloud_percent}% #{output_file} - skipping"
           `mv #{output_file} ./#{sub}/rejected-data-products/#{base_name}/cloud/subject_#{target[0]}_#{target[1]}.jpg`
           subject_metadata[:metadata][:file_name] = "./#{sub}/rejected-data-products/#{base_name}/cloud/subject_#{target[0]}_#{target[1]}.jpg"
           subject_metadata[:metadata][:reject_reason] = "cloud"
           
           rejected_manifest << subject_metadata
           
-        elsif !water && !cloud
+        elsif !water
           puts "No water in image w: #{water_percent}% c: #{cloud_percent}% #{output_file} - skipping"
           `mv #{output_file} ./#{sub}/rejected-data-products/#{base_name}/nowater/subject_#{target[0]}_#{target[1]}.jpg`
           subject_metadata[:metadata][:file_name] = "./#{sub}/rejected-data-products/#{base_name}/nowater/subject_#{target[0]}_#{target[1]}.jpg"
