@@ -174,10 +174,11 @@ def process_data(sub, s3_subfolder)
             blank_pixels = `echo "#{red_hist}" | grep -E "gray.0" | cut -d: -f1 | awk '{s+=$1}END{print s}'`
             size = 100 * 100
             
-            # Check for water pixels using the red band.  If less than 5% non-blank water pixels, put in rejected manifest.
+            # Check for water pixels using rgb bands.  If less than 5% non-blank water pixels, put in rejected manifest.
             begin
-              #Water is vaule 1-35 in the red band.  Select and sum.
-              water_pixels = `echo "#{red_hist}" | grep -E "gray.([1-9]|([1-2][0-9])|(3[0-5]))," | cut -d: -f1 | awk '{s+=$1}END{print s}'`
+              r_water = "([1-9]|([1-2][0-9])|(3[0-5]))" # 1-25
+              gb_water = "([1-9]|([1-4][0-9]))" # 1-49
+              water_pixels = `convert #{output_file} -scale 100x100 -dither None -depth 8 -format %c histogram:info: | grep -E "#{r_water},#{gb_water},#{gb_water}" | cut -d: -f1 | awk '{s+=$1}END{print s}'`
 
               #calculate percent of matching non-blank pixels            
               water_percent = water_pixels.to_f / (size - blank_pixels.to_f)
@@ -186,7 +187,7 @@ def process_data(sub, s3_subfolder)
               puts "Couldn't read water data"
             end
             
-           # Check for cloud pixels using rgb bands.  If greater than 75% cloud, put in rejected manifest.
+           # Check for cloud pixels using rgb bands.  If greater than 75% cloud, or no water and greater than 20% cloud, put in rejected manifest.
             begin
               # Cold clouds are dark in the IR band used for red, so use a lower r threshold to catch these as clouds.
               r_range = "(([1-2][0-9][0-9])|([8-9][0-9]))" # >= 80
@@ -261,13 +262,13 @@ def process_data(sub, s3_subfolder)
           canvas.write("./#{sub}/data-products/#{base_name}/overlay.png")
         end
 
-
         `rm -rf temp`
       end
+      
       rescue Exception => e
         puts e.message
-      end
     end
+  end
 
   File.open("./#{sub}/data-products/manifest.json", "w"){|f| f.puts(JSON.pretty_generate(manifest))}
   File.open("./#{sub}/rejected-data-products/rejected_manifest.json", "w"){|f| f.puts(JSON.pretty_generate(rejected_manifest))}
