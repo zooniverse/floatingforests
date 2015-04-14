@@ -91,12 +91,12 @@ def time_search(startDate=(Date.today.to_date-2).strftime('%b %d %Y'),endDate=Da
 
 end
 
-def geo_search(lat,lng,startDate="Jan 1 1970",endDate=DateTime.now.strftime('%b %d %Y'),size=0.1)
+def geo_search(bbox,startDate="Jan 1 1970",endDate=DateTime.now.strftime('%b %d %Y'))
 	
-	north=lat+size/2.0
-	south=lat-size/2.0
-	east=lng+size/2.0
-	west=lng-size/2.0
+  north = bbox["north"]
+	south = bbox["south"]
+  east = bbox["east"]
+  west = bbox["west"]
 
 	# LANDSAT 8
 	response_8 = @client.call(:search, message: {

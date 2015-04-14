@@ -16,24 +16,31 @@ require_relative 'api-details.rb'
 	# "Ross" => { "latitude" => -81.5000, "longitude" => -175.0000},
 	# "Serengeti" => { "latitude" => -2.3328, "longitude" => 34.5667}
 	# "Tangier-Island" => { "latitude" => 37.8258, "longitude" => -75.9922}
-	"Tasmania" => { "latitude" => -42.0000, "longitude" => 146.5000 }
+	"Tasmania" => { 'north' => -40.4, 'east' => 148.5, 'south' => -43.6, 'west' => 144.5 } #Mainland Tasmania
+  
 }
 
 @places.each do |sub, v|
+	puts "Locating #{sub} #{v["north"]}, #{v["west"]} to #{v["south"]}, #{v["east"]}"
+  
+  ###
+  # This block looks like test code to reduce the selected items to a single landsat footprint?
+  
+	#items = geo_search(v,"Jan 1 2001","Feb 26 2002")
 
-	puts "Locating #{sub} at #{v["latitude"]}, #{v["longitude"]}"
-	items = geo_search(v["latitude"],v["longitude"],"Jan 1 2000","Feb 26 2015",2.5)
+	#path_freq = items.map{|i| path(i) }.inject(Hash.new(0)) { |h,v| h[v] += 1; h }
+	#row_freq = items.map{|i| row(i) }.inject(Hash.new(0)) { |h,v| h[v] += 1; h }
+	#p_best = items.map{|i| path(i) }.max_by { |v| path_freq[v] }
+	#r_best = items.map{|i| row(i) }.max_by { |v| row_freq[v] }
 
-	path_freq = items.map{|i| path(i) }.inject(Hash.new(0)) { |h,v| h[v] += 1; h }
-	row_freq = items.map{|i| row(i) }.inject(Hash.new(0)) { |h,v| h[v] += 1; h }
-	p_best = items.map{|i| path(i) }.max_by { |v| path_freq[v] }
-	r_best = items.map{|i| row(i) }.max_by { |v| row_freq[v] }
-
-	new_items = items.select{|i| path(i)==p_best && row(i)==r_best }
-
+	#new_items = items.select{|i| path(i)==p_best && row(i)==r_best }
+  ###
+  
+  new_items = geo_search(v)
+  
 	scenes = new_items.map{|i| i[:entity_id]}
 	dates = new_items.map{|i| i[:acquisition_date]}
-	datasets = new_items.map{|i| i[:data_access_url][i[:data_access_url].index("?dataset_name=")+14..i[:data_access_url].index("&ordered")-1] }
+  datasets = new_items.map{|i| i[:data_access_url][i[:data_access_url].index("?dataset_name=")+14..i[:data_access_url].index("&ordered")-1] }
 
 	# Create subfolder if it doesn't exist
 	value = `mkdir -p #{sub}`
