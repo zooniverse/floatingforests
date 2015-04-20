@@ -183,7 +183,7 @@ def download_scene(scene_id,dataset,sub)
 	response = HTTParty.get(url)
 	files = response.parsed_response["data"]
 	# Check that file have been returned
-	if files[0]
+	if !files.nil? and files[0]
 		# Check if files have already been downloaded
 		if File.exist?("#{sub}/#{File.basename(URI(files[0]).path)}")
 			puts "#{File.basename(URI(files[0]).path)} already downloaded"
