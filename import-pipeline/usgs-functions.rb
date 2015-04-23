@@ -191,7 +191,11 @@ def download_scene(scene_id,dataset,sub,process_q)
       return
     else
       puts "#{File.basename(URI(files[0]).path)} downloading..."
-      value = `wget -o /dev/null -O #{sub}/#{File.basename(URI(files[0]).path)} '#{files[0]}'`
+      status = system("wget -o /dev/null -O #{sub}/#{File.basename(URI(files[0]).path)} '#{files[0]}'")
+      if not status
+        puts "Error: Could not download #{scene_id}."
+        exit 1
+      end
       process_q.push "#{sub}/#{File.basename(URI(files[0]).path)}"
       return
     end
