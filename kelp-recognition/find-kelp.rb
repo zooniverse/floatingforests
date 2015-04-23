@@ -44,7 +44,7 @@ end
 # Determine if the x,y region in image is bordered by water
 # Returns the fractions of water pixels surounding the area
 def waterBorder(image, x, y)
-  
+
   @border = 10
   @temp = image.dup
   @water_pixels = 0
