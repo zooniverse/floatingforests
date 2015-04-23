@@ -8,7 +8,7 @@ def connect(u,p)
   @client = Savon.client(
     :wsdl => "https://earthexplorer.usgs.gov/inventory/soap?wsdl",
     :open_timeout => 30,
-    :read_timeout => 30,
+    :read_timeout => 300,
   )
 
   response = @client.call(:login, message: {
