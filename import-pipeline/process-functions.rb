@@ -3,13 +3,20 @@ require 'json'
 require 'pg'
 require 'RMagick'
 require 'thread'
+require 'yaml'
 
 @debug = ARGV[0] == '--debug'
 
 def process_data(sub, s3_subfolder, process_q)
   group_name = s3_subfolder
 
-  client = PG.connect(dbname: "kelp_world")
+  if File.exist?('db.yml')
+    db_config = YAML.load(File.read('db.yml'))
+  else
+    db_config = { dbname: "kelp_world" }
+  end
+
+  client = PG.connect(db_config)
 
   no_rows  = 20
   no_colls = 20
