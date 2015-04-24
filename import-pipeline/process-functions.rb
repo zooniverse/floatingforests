@@ -265,6 +265,7 @@ def process_data(sub, s3_subfolder, process_q)
                 no_colls: no_colls,
                 file_name: output_file,
                 orig_file_name: file_name,
+                sun_angle: sun_elevation,
                 rejection: {
                   water_percent: water_percent,
                   cloud_percent: cloud_percent
