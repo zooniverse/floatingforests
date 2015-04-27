@@ -22,6 +22,7 @@ require_relative 'api-details.rb'
 }
 
 process_q = Queue.new
+download_q = Queue.new
 
 @places.each do |sub, v|
   puts "Locating #{sub} #{v["north"]}, #{v["west"]} to #{v["south"]}, #{v["east"]}"
@@ -42,7 +43,6 @@ process_q = Queue.new
   new_items = geo_search(v)
 
   scenes = new_items.map{|i| i[:entity_id]}
-  dates = new_items.map{|i| i[:acquisition_date]}
   datasets = new_items.map{|i| i[:data_access_url][i[:data_access_url].index("?dataset_name=")+14..i[:data_access_url].index("&ordered")-1] }
 
   # Create subfolder if it doesn't exist
@@ -56,13 +56,23 @@ process_q = Queue.new
   end
 
   # Save data to subfolder
-  puts "\n##########\nSaving all the #{sub} tiles to the #{sub} folder"
+  puts "Saving all the #{sub} tiles to the #{sub} folder"
   value = `mkdir -p #{sub}`
   scenes.each_with_index do |scene_id, i|
-    url = download_scene(scene_id, datasets[i], sub, process_q)
+    download_q.push [scene_id, datasets[i]]
   end
 
-  process_thread.join
+  download_thread = Thread.new do
+    while args = download_q.pop
+      download_scene(args[0], args[1], sub, process_q, download_q)
+    end
+  end
 
+  until download_thread.join(0.2) and process_thread.join(0.2)
+    print " Downloading #{download_q.size} files; processing #{process_q.size}\r"
+    STDOUT.flush
+  end
+
+  puts "\nDone!"
 end
 

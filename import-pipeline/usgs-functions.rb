@@ -178,7 +178,7 @@ def request_scene(scene_id,dataset)
   return geoTIFF_file[0][:url] ||= "Not available"
 end
 
-def download_scene(scene_id,dataset,sub,process_q)
+def download_scene(scene_id,dataset,sub,process_q,download_q)
   url = URI.encode('https://earthexplorer.usgs.gov/inventory/json/download?jsonRequest={"datasetName":"'+dataset+'","products":["STANDARD"],"entityIds":["'+scene_id+'"],"apiKey":"'+@api_key+'","node":"EE"}')
   response = HTTParty.get(url)
   files = response.parsed_response["data"]
@@ -193,8 +193,9 @@ def download_scene(scene_id,dataset,sub,process_q)
       puts "#{File.basename(URI(files[0]).path)} downloading..."
       status = system("wget -o /dev/null -O #{sub}/#{File.basename(URI(files[0]).path)} '#{files[0]}'")
       if not status
-        puts "Error: Could not download #{scene_id}."
-        exit 1
+        puts "Error: Could not download #{scene_id}. Queuing for retry."
+        download_q.push [scene_id, dataset]
+        sleep 30
       end
       process_q.push "#{sub}/#{File.basename(URI(files[0]).path)}"
       return
