@@ -62,13 +62,21 @@ download_q = Queue.new
     download_q.push [scene_id, datasets[i]]
   end
 
+  download_q.push nil
+
   download_thread = Thread.new do
     while args = download_q.pop
       download_scene(args[0], args[1], sub, process_q, download_q)
     end
   end
 
+  process_q_sent_nil = false
+
   until download_thread.join(0.2) and process_thread.join(0.2)
+    if not process_q_sent_nil and download_q.size == 0
+      process_q.push nil
+      process_q_sent_nil = true
+    end
     print " Downloading #{download_q.size} files; processing #{process_q.size}\r"
     STDOUT.flush
   end

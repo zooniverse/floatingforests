@@ -191,10 +191,8 @@ def download_scene(scene_id,dataset,sub,process_q,download_q)
       return
     else
       puts "#{File.basename(URI(files[0]).path)} downloading..."
-      status = system("wget -o /dev/null -O #{sub}/#{File.basename(URI(files[0]).path)} '#{files[0]}'")
-      if not status
+      until system("wget -o /dev/null -O #{sub}/#{File.basename(URI(files[0]).path)} '#{files[0]}'")
         puts "Error: Could not download #{scene_id}. Queuing for retry."
-        download_q.push [scene_id, dataset]
         sleep 30
       end
       process_q.push "#{sub}/#{File.basename(URI(files[0]).path)}"
