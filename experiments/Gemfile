@@ -1,3 +1,5 @@
 source 'https://rubygems.org'
 
-gem 'mongodb'
+gem 'mongo', '1.9.2'
+gem 'bson', '1.9.2'
+gem 'bson_ext', '1.9.2'

@@ -7,3 +7,5 @@ npm-debug.log
 /import-pipeline/temp
 /import-pipeline/Tasmania
 db.yml
+
+/experiments/*.csv*

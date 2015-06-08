@@ -45,4 +45,3 @@ File.open("anchoring_experiment.csv", "w") do |f|
       f.puts [ user_id, classification_count, user_goals, user_goals_split, no_sessions, user_goal_on_last_session, classifications_on_last_session, max_sessions.times.collect{|t| (sessions[user_id][t] || {classification_count: 0})[:classification_count] }  ].flatten.join(", ")
   end
 end
-binding.pry
