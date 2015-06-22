@@ -256,6 +256,11 @@ module.exports =
           Tom Bell is Ph.D. candidate in the Marine Science program at the University of California, Santa Barbara. Tom was born in Southern California, but has spent much time researching how photosynthetic organisms respond to their environment in Baja California, Mexico and French Polynesia. 
           Currently, his research is focused on using remotely sensed images to study how giant kelp changes through time and space and how we can better understand this beautiful and important foundation species.
         """
+      briana:
+        name: "Briana Harder"
+        description: """
+          Briana Harder is blurring the lines between citizen scientist and scientist. A native of Calgary, Alberta, and currently based out of Los Angeles, she has been involved with the Zooniverse since 2010 as a citizen scientist, participating in projects ranging from heliophysics to nematode biology. Briana has always taken an active role in the community, now she's taking a step onto the other side, writing image processing algorithms to filter and improve the quality of the images on Floating Forests, diving into the world of Landsat imagery and kelp.
+        """
 
     developers:
       nav: "Developers"

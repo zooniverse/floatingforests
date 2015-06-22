@@ -78,6 +78,12 @@ module?.exports = "
             <img src='./images/team/tom.jpg'>
             #{translate 'p', 'team.scientists.tom.description'}
           </div>
+
+          <div class='team-member'>
+            #{translate 'h1', 'team.scientists.briana.name'}
+            <img src='./images/team/briana.jpg'>
+            #{translate 'p', 'team.scientists.briana.description'}
+          </div>
         </div>
 
         <div class='content sub-nav-team-developers'>
