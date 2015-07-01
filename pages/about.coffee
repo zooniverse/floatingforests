@@ -11,7 +11,7 @@ module?.exports = "
         #{translate 'button', 'about.overview.nav', name:'kelp'}
         #{translate 'button', 'about.task.nav', name: 'your-task'}
         #{translate 'button', 'about.goals.nav', name: 'goals'}
-        #{translate 'button', 'about.results.nav', name: 'results'}
+        #{translate 'a', 'about.results.nav', href:'http://blog.floatingforests.org'}
       </nav>
     </div>
 
