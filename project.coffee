@@ -1,8 +1,16 @@
 FreeDrawTool = require "./free-draw-tool"
 translate = require "t7e"
 
+[apiHost, apiProxyPath] = if window.location.hostname is 'www.floatingforests.org'
+  ['http://www.floatingforests.org', '/_ouroboros_api/proxy']
+else
+  [null, null]
+
 module.exports =
   id: 'kelp'
+  apiHost: apiHost
+  apiProxyPath: apiProxyPath
+
   subjectGroup: true
   background: './images/kelp-bg.jpg'
   title: translate 'span', 'site.title'
