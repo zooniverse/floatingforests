@@ -13,7 +13,7 @@ MainNav =
         .html translate('span', "site.#{page}Link")
 
   addNavLinks: ->
-    project.header.addNavLink "http://talk.floatingforests.org", translate('span', 'site.talkLink')
+    project.header.addNavLink "https://talk.floatingforests.org", translate('span', 'site.talkLink')
     project.header.addNavLink "http://blog.floatingforests.org", translate('span', 'site.blogLink')
 
 module?.exports = MainNav

@@ -14,7 +14,7 @@
   "license": "ISC",
   "dependencies": {
     "marking-surface": "^0.5.3",
-    "publisssh": "^1.1.0",
+    "publisssh": "0.2.6",
     "t7e": "^0.3.1",
     "translator-seed": "~0.1.2",
     "zooniverse": "^0.7.1",
