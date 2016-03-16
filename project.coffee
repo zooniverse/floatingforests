@@ -2,7 +2,7 @@ FreeDrawTool = require "./free-draw-tool"
 translate = require "t7e"
 
 [apiHost, apiProxyPath] = if window.location.hostname is 'www.floatingforests.org'
-  ['http://www.floatingforests.org', '/_ouroboros_api/proxy']
+  ['https://www.floatingforests.org', '/_ouroboros_api/proxy']
 else
   [null, null]
 
