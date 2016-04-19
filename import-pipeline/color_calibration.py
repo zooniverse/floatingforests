@@ -40,7 +40,7 @@ def process_scene(sceneID, sun_elevation, d):
         bias = get_value_from_file(metadata, "RADIANCE_ADD_BAND_{}".format(band))
         sun_zenith_angle = math.cos(math.radians(90 - sun_elevation))
 
-        #convert calibrated numbers back to radiance, 
+        #convert calibrated numbers back to radiance,
         radiance = im * gain + bias
         reflectance = math.pi * d * radiance / (solar_irradiance * sun_zenith_angle)
 
@@ -52,8 +52,6 @@ def process_scene(sceneID, sun_elevation, d):
         final = 255 * reflectance**(1/gamma)
         bands[band] = final
 
-        os.remove(filename)
-
     #merge and scale bands to 0-255 together to maintain color balance
 
     img = np.zeros((im.shape[0], im.shape[1], 3), dtype=np.float)
@@ -63,9 +61,9 @@ def process_scene(sceneID, sun_elevation, d):
 
     img = skimage.exposure.rescale_intensity(img)
 
-    skimage.io.imsave(os.path.join('temp', sceneID, "{sceneID}_B5.TIF".format(sceneID=sceneID)), img[:, :, 0])
-    skimage.io.imsave(os.path.join('temp', sceneID, "{sceneID}_B4.TIF".format(sceneID=sceneID)), img[:, :, 1])
-    skimage.io.imsave(os.path.join('temp', sceneID, "{sceneID}_B3.TIF".format(sceneID=sceneID)), img[:, :, 2])
+    skimage.io.imsave(os.path.join('temp', sceneID, "{sceneID}_B5_calibrated.TIF".format(sceneID=sceneID)), img[:, :, 0])
+    skimage.io.imsave(os.path.join('temp', sceneID, "{sceneID}_B4_calibrated.TIF".format(sceneID=sceneID)), img[:, :, 1])
+    skimage.io.imsave(os.path.join('temp', sceneID, "{sceneID}_B3_calibrated.TIF".format(sceneID=sceneID)), img[:, :, 2])
 
 
 if __name__ == "__main__":

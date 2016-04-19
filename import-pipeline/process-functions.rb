@@ -1,11 +1,16 @@
 require 'date'
 require 'json'
 require 'pg'
-require 'RMagick'
+require 'rmagick'
 require 'thread'
 require 'yaml'
+require_relative 'geotiff.rb'
 
 @debug = ARGV[0] == '--debug'
+
+def scene_is_landsat8(filename)
+  return filename[0..2] == "LC8"
+end
 
 def process_data(sub, s3_subfolder, process_q)
   group_name = s3_subfolder
@@ -47,10 +52,16 @@ def process_data(sub, s3_subfolder, process_q)
       puts "Extracting data from #{file_name}"
       `tar -xzvf #{raw_scene} -C temp/#{base_name}`
 
-      if base_name[0..2] == "LC8"
+      if scene_is_landsat8(base_name)
         channels = lc8_channels
       else
         channels = other_channels
+      end
+
+      # Exract UTM data from source files
+      src_files = {}
+      channels.each_value do |v|
+        src_files[v] = "./temp/#{base_name}/#{base_name}_B#{v}.TIF"
       end
 
       # Extract meta data
@@ -65,9 +76,6 @@ def process_data(sub, s3_subfolder, process_q)
       full_ll = [lat_long["CORNER_LL_LON_PRODUCT"], lat_long["CORNER_LL_LAT_PRODUCT"]]
       full_ur = [lat_long["CORNER_UR_LON_PRODUCT"], lat_long["CORNER_UR_LAT_PRODUCT"]]
 
-      lon_inc = (full_ll[0] - full_ur[0]) / no_rows
-      lat_inc = (full_ll[1] - full_ur[1]) / no_colls
-
       # Check that Landsat scene contains any coastline before processing further
       if client.exec("select count(*) as ls from coast where ST_Intersects(ST_SetSRID(ST_MakeBox2D(ST_Point(#{full_ll.join(", ")}), ST_Point(#{full_ur.join(", ")})),4326), geom) ").first["ls"].to_i > 0
 
@@ -77,11 +85,9 @@ def process_data(sub, s3_subfolder, process_q)
         end
 
         # Enhance contrast on the Landsat 8 images.
-        if base_name[0..2] == "LC8"
+        if scene_is_landsat8(base_name)
           channels.each_pair do |c, b|
             `convert ./temp/#{base_name}/#{base_name}_B#{b}.TIF -quiet -level 7%,50%,1.5 -depth 8 ./temp/#{base_name}/#{base_name}_B#{b}_level.TIF`
-            `rm ./temp/#{base_name}/#{base_name}_B#{b}.TIF`
-            `mv ./temp/#{base_name}/#{base_name}_B#{b}_level.TIF ./temp/#{base_name}/#{base_name}_B#{b}.TIF`
           end
 
         #Recalibrate Landsat 4/5/7 images with sun angle/irradiance data.  Fixes red and dark images.
@@ -89,20 +95,40 @@ def process_data(sub, s3_subfolder, process_q)
           earthsun_distance = IO.read("earthsun_distance.csv").split("\n")
           sun_elevation = meta_data.select{|a| a.include?("SUN_ELEVATION")}.first.split("=").last.strip.to_f
           d = earthsun_distance.select{|a| a.include?("#{base_name[13..15]},")}.first.split(",").last.strip.to_f
-          `python3 color_calibration.py #{base_name} #{sun_elevation} #{d}`
+          `python color_calibration.py #{base_name} #{sun_elevation} #{d}`
         end
 
 
         puts "Processing #{base_name} data into coastal tiles..."
+        tile_data = {}
         no_rows.times do |r|
           no_colls.times do |c|
-            lon_center = (r + 0.5) * lon_inc + full_ll[0]
-            lat_center = (c + 0.5) * lat_inc + full_ll[1]
 
-            # lower left and upper right
-            ll =  [full_ll[0] + (full_ur[0] - full_ll[0]) * r / no_rows, full_ll[1] + (full_ur[1] - full_ll[1]) * c / no_colls]
-            ur =  [full_ll[0] + (full_ur[0] - full_ll[0]) * (r + 1) / no_rows, full_ll[1] + (full_ur[1] -full_ll[1]) * (c + 1) / no_colls]
+            # Calculate UTM coords, using the first channel image to extract the coords
+            tile_key = "#{r}_#{c}"
+            src_file = "./temp/#{base_name}/#{base_name}_B#{channels.values[0]}.TIF"
+            pcx = ((image_width * (c+1)/no_colls) + (image_width * c/no_colls)) / 2
+            pcy = ((image_height * (r+1)/no_rows) + (image_height * r/no_rows)) / 2
+            px0 = image_width * c/no_colls
+            px1 = image_width * (c+1)/no_colls
+            py0 = image_height * r/no_rows
+            py1 = image_height * (r+1)/no_rows
+            tile_data[tile_key] = {
+              scene: base_name,
+              center_utm: get_pixel_coords(src_file, 'utm', pcx, pcy),
+              ll_utm: get_pixel_coords(src_file, 'utm', px0, py1),
+              ur_utm: get_pixel_coords(src_file, 'utm', px1, py0),
+              center_latlng: get_pixel_coords(src_file, 'latlng', pcx, pcy),
+              ll_latlng: get_pixel_coords(src_file, 'latlng', px0, py1),
+              ur_latlng: get_pixel_coords(src_file, 'latlng', px1, py0),
+              utm_zone: get_utm_zone(src_file),
+              datum: get_datum(src_file)
+            }
 
+            # lower left and upper right for sql test
+            ll = tile_data[tile_key][:ll_latlng]
+            ur = tile_data[tile_key][:ur_latlng]
+            # check aginst coastline
             coastline_intersection = client.exec("select count(*) as ls from coast where ST_Intersects(ST_SetSRID(ST_MakeBox2D(ST_Point(#{ll.join(", ")}), ST_Point(#{ur.join(", ")})),4326), geom) ").first["ls"].to_i > 0
 
             # does the row/col slice intersect a coastline?
@@ -162,21 +188,31 @@ def process_data(sub, s3_subfolder, process_q)
         # Create FF tiles from Landsat scene
         channels_q = Queue.new
         combine_q = Queue.new
+
         target_squares.uniq.each do |target|
           next if target[0] < 0 or target[1] < 0
 
           output_file = "./#{sub}/data-products/#{base_name}/subject_#{target[0]}_#{target[1]}.jpg"
           channels.each_pair do |c, b|
-            channels_q.push "convert ./temp/#{base_name}/#{base_name}_B#{b}.TIF -quiet -crop #{image_chunk_width}x#{image_chunk_height}+#{image_chunk_width * (target[0])}+#{image_chunk_height * ((no_colls - target[1] - 1))} -resize 532x484 ./temp/#{base_name}/coast_#{target[0]}_#{target[1]}_#{c}.png"
+            channels_q.push({ "channel" => b, "channel_key" => c, "target" => target })
           end
 
           combine_q.push "convert ./temp/#{base_name}/coast_#{target[0]}_#{target[1]}_r.png ./temp/#{base_name}/coast_#{target[0]}_#{target[1]}_g.png ./temp/#{base_name}/coast_#{target[0]}_#{target[1]}_b.png -set colorspace RGB -combine -set colorspace sRGB #{output_file}"
         end
 
-        workers = (0...4).map do
+        workers = (0...2).map do
           Thread.new do
             begin
-              while cmd = channels_q.pop(true)
+              while opts = channels_q.pop(true)
+                b = opts["channel"]
+                c = opts["channel_key"]
+                target = opts["target"]
+                if scene_is_landsat8(base_name)
+                  in_file = "./temp/#{base_name}/#{base_name}_B#{b}_level.TIF"
+                else
+                  in_file = "./temp/#{base_name}/#{base_name}_B#{b}_calibrated.TIF"
+                end
+                cmd = "convert #{in_file} -quiet -crop #{image_chunk_width}x#{image_chunk_height}+#{image_chunk_width * (target[0])}+#{image_chunk_height * ((no_colls - target[1] - 1))} -resize 532x484 ./temp/#{base_name}/coast_#{target[0]}_#{target[1]}_#{c}.png"
                 `#{cmd}`
               end
             rescue ThreadError
@@ -186,7 +222,7 @@ def process_data(sub, s3_subfolder, process_q)
 
         workers.map(&:join)
 
-        workers = (0...4).map do
+        workers = (0...2).map do
           Thread.new do
             begin
               while cmd = combine_q.pop(true)
@@ -204,7 +240,6 @@ def process_data(sub, s3_subfolder, process_q)
 
           output_file = "./#{sub}/data-products/#{base_name}/subject_#{target[0]}_#{target[1]}.jpg"
           s3_file = "http://zooniverse-data.s3.amazonaws.com/project_data/kelp/#{s3_subfolder}/#{base_name}/subject_#{target[0]}_#{target[1]}.jpg"
-
 
           blank = File.size(output_file) < 1024 * 6
 
@@ -246,20 +281,20 @@ def process_data(sub, s3_subfolder, process_q)
             r = target[0]
             c = target[1]
 
-            ll = [full_ll[0] + (full_ur[0] - full_ll[0]) * r / no_rows, full_ll[1] + (full_ur[1] - full_ll[1]) * c / no_colls]
-            ur = [full_ll[0] + (full_ur[0] - full_ll[0]) * (r + 1) / no_rows, full_ll[1] + (full_ur[1] -full_ll[1]) * (c + 1) / no_colls]
-
+            tile_key = "#{target[0]}_#{target[1]}"
             subject_metadata = {
               type: "subject",
               location: s3_file,
-              coords: [(ll[0] + ur[0]) * 0.5, (ll[1] + ur[1]) * 0.5],
+              coords: tile_data[tile_key][:center_utm],
               group_name: group_name,
+              utm_zone: tile_data[tile_key][:utm_zone],
+              datum: tile_data[tile_key][:datum],
               metadata: {
                 timestamp: image_time,
                 row_no: r,
                 col_no: c,
-                lower_left: ll,
-                upper_right: ur,
+                lower_left: tile_data[tile_key][:ll_utm],
+                upper_right: tile_data[tile_key][:ur_utm],
                 base_file: base_name,
                 no_rows: no_rows,
                 no_colls: no_colls,
