@@ -24,6 +24,9 @@ require_relative 'api-details.rb'
 process_q = Queue.new
 download_q = Queue.new
 
+@data_directory = ENV.fetch('DATA_DIR', Dir.getwd())
+Dir.chdir(@data_directory)
+
 @places.each do |sub, v|
   puts "Locating #{sub} #{v["north"]}, #{v["west"]} to #{v["south"]}, #{v["east"]}"
 
