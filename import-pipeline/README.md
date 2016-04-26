@@ -36,6 +36,11 @@ It will create subdirectories for the created data and directories within each l
 
 It will then process the downloaded data and create a Zooniverse manifest.json file, ready for upload to S3.
 
+Example Docker usage:
+
+```
+docker run -it --rm -v /data/:/data/ -e "DATA_DIR=/data/" -v $PWD/config/api-details.rb:/src/api-details.rb zooniverse/kelp-import-pipeline ruby get-data.rb
+```
 
 Future Improvements
 ---
