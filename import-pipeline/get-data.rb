@@ -17,7 +17,8 @@ require_relative 'api-details.rb'
   # "Ross" => { "latitude" => -81.5000, "longitude" => -175.0000},
   # "Serengeti" => { "latitude" => -2.3328, "longitude" => 34.5667}
   # "Tangier-Island" => { "latitude" => 37.8258, "longitude" => -75.9922}
-  "Tasmania" => { 'north' => -40.4, 'east' => 148.5, 'south' => -43.6, 'west' => 144.5 } #Mainland Tasmania
+  #"Tasmania" => { 'north' => -40.4, 'east' => 148.5, 'south' => -43.6, 'west' => 144.5 } #Mainland Tasmania
+  "Test" => { 'north' => 37.003, 'east' => -121.264, 'south' => 35.0789, 'west' => -123.822 }
 
 }
 
@@ -63,7 +64,9 @@ Dir.chdir(DATA_DIRECTORY)
   puts "Saving all the #{sub} tiles to the #{sub} folder"
   value = `mkdir -p #{sub}`
   scenes.each_with_index do |scene_id, i|
-    download_q.push [scene_id, datasets[i]]
+    if scene_id == 'LE70440351999204EDC01'
+      download_q.push [scene_id, datasets[i]]
+    end
   end
 
   download_q.push nil
