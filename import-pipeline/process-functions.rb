@@ -1,7 +1,7 @@
 require 'date'
 require 'json'
 require 'pg'
-require 'rmagick'
+require 'RMagick'
 require 'thread'
 require 'yaml'
 require_relative 'geotiff.rb'
