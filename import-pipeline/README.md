@@ -39,7 +39,7 @@ It will then process the downloaded data and create a Zooniverse manifest.json f
 Example Docker usage:
 
 ```
-docker run -it --rm -v /data/:/data/ -e "DATA_DIR=/data/" -v $PWD/config/api-details.rb:/src/api-details.rb zooniverse/kelp-import-pipeline ruby get-data.rb
+docker run -it --rm -v /data/:/data/ -e "DATA_DIR=/data/" -v $PWD/config/api-details.rb:/src/api-details.rb -v $PWD/config/db.yml:/src/db.yml -e "DB_CONFIG=/src/db.yml" zooniverse/kelp-import-pipeline ruby get-data.rb
 ```
 
 Future Improvements
