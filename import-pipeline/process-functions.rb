@@ -15,8 +15,10 @@ end
 def process_data(sub, s3_subfolder, process_q)
   group_name = s3_subfolder
 
-  if File.exist?('db.yml')
-    db_config = YAML.load(File.read('db.yml'))
+  db_config_file = ENV.fetch('DB_CONFIG', 'db.yml')
+
+  if File.exist?(db_config_file)
+    db_config = YAML.load(File.read(db_config_file))
   else
     db_config = { dbname: "kelp_world" }
   end
