@@ -184,20 +184,12 @@ def download_scene(scene_id,dataset,sub,process_q,download_q)
   files = response.parsed_response["data"]
   # Check that file have been returned
   if !files.nil? and files[0]
-    # Check if files have already been downloaded
-    if File.exist?("#{sub}/#{File.basename(URI(files[0]).path)}")
-      puts "#{File.basename(URI(files[0]).path)} already downloaded"
-      process_q.push "#{sub}/#{File.basename(URI(files[0]).path)}"
-      return
-    else
-      puts "#{File.basename(URI(files[0]).path)} downloading..."
-      until system("wget -o /dev/null -O #{sub}/#{File.basename(URI(files[0]).path)} '#{files[0]}'")
-        puts "Error: Could not download #{scene_id}. Queuing for retry."
-        sleep 30
-      end
-      process_q.push "#{sub}/#{File.basename(URI(files[0]).path)}"
-      return
+    puts "#{File.basename(URI(files[0]).path)} downloading..."
+    until system("wget -c -o /dev/null -O #{sub}/#{File.basename(URI(files[0]).path)} '#{files[0]}'")
+      puts "Error: Could not download #{scene_id}. Queuing for retry."
+      sleep 30
     end
+    process_q.push "#{sub}/#{File.basename(URI(files[0]).path)}"
   else
     puts "Error: "+response.parsed_response["error"]
   end
