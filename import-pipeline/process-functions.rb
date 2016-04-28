@@ -15,7 +15,7 @@ end
 def process_data(sub, s3_subfolder, process_q)
   group_name = s3_subfolder
 
-  db_config_file = ENV.fetch('DB_CONFIG', 'db.yml')
+  db_config_file = File.join(SRC_DIRECTORY, 'db.yml')
 
   if File.exist?(db_config_file)
     db_config = YAML.load(File.read(db_config_file))
@@ -94,10 +94,10 @@ def process_data(sub, s3_subfolder, process_q)
 
         #Recalibrate Landsat 4/5/7 images with sun angle/irradiance data.  Fixes red and dark images.
         else
-          earthsun_distance = IO.read("earthsun_distance.csv").split("\n")
+          earthsun_distance = IO.read(File.join(SRC_DIRECTORY, "earthsun_distance.csv")).split("\n")
           sun_elevation = meta_data.select{|a| a.include?("SUN_ELEVATION")}.first.split("=").last.strip.to_f
           d = earthsun_distance.select{|a| a.include?("#{base_name[13..15]},")}.first.split(",").last.strip.to_f
-          `python color_calibration.py #{base_name} #{sun_elevation} #{d}`
+          `python #{File.join(SRC_DIRECTORY, "color_calibration.py")} #{base_name} #{sun_elevation} #{d}`
         end
 
 
