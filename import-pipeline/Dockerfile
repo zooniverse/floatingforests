@@ -4,6 +4,7 @@ RUN apt-get update && \
     apt-get install -y \
         python \
         python-gdal \
+        python-skimage \
         libpq-dev \
         libpq5 \
         libmagickwand-dev \
