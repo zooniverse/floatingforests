@@ -137,7 +137,7 @@ LEFT_OFFSET_ADJUST = 50
     &.active
       opacity 1
       background-color transparent
-    &:nth-child(1) // hide home link
+    &[href='#home'] // hide home link
       display none
     &:active
       color LIME_GREEN
@@ -161,6 +161,11 @@ LEFT_OFFSET_ADJUST = 50
         .decision-tree-task
           display block !important // prevent decision tree from blinking in between subjects
 
+    .readymade-classification-interface
+      display: table
+      table-layout: fixed
+      width: 100%
+
     .readymade-subject-viewer-container
       width 100%
       padding 0
@@ -178,6 +183,10 @@ LEFT_OFFSET_ADJUST = 50
       .readymade-subject-viewer
         width unit(SUBJECT_WIDTH, 'px')
         margin 0 auto
+        
+        .drawing-controls
+          display: none
+
       .left-image, .right-image
         position absolute
         top 0px
