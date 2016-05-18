@@ -17,11 +17,19 @@ module.exports =
   summary: translate 'span', 'site.summary'
   description: translate 'span', 'site.description'
 
-  pages: [
-    {'About': require "./pages/about"},
-    {"Education": require "./pages/education"},
-    {"Team": require "./pages/team"}
-  ]
+  pages: [{
+      key: 'about'
+      title: 'About'
+      content: require "./pages/about"
+    },{
+      key: 'education'
+      title: "Education"
+      content: require "./pages/education"
+    },{
+      key: 'team'
+      title: "Team"
+      content: require "./pages/team"
+    }]
 
   tasks:
     pickOne:
